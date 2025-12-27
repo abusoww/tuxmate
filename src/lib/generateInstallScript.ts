@@ -338,9 +338,10 @@ function generateArchScript(packages: { app: AppData; pkg: string }[]): string {
         'brave-bin', 'librewolf-bin', 'vesktop-bin', 'vscodium-bin', 'bun-bin',
         'postman-bin', 'heroic-games-launcher-bin', 'protonup-qt-bin', 'onlyoffice-bin',
         'logseq-desktop-bin', 'joplin-appimage', 'localsend-bin', 'zen-browser-bin',
+        'helium-browser-bin',
         // Known AUR packages without suffix
         'google-chrome', 'sublime-text-4', 'spotify', 'stremio', 'dropbox',
-        'slack-desktop', 'zoom', 'proton-vpn-gtk-app', 'bitwarden'
+        'slack-desktop', 'zoom', 'proton-vpn-gtk-app', 'bitwarden', 'uv'
     ]);
 
     const aurPackages = packages.filter(p => knownAurPackages.has(p.pkg));
