@@ -112,14 +112,17 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 - [x] 150+ applications across 15 categories
 - [x] Smart script generation with error handling
 - [x] AUR helper integration (yay) for Arch
-- [x] RPM Fusion auto-enable for Fedora
 - [x] Keyboard navigation (Vim keys + Arrows)
 - [x] Dark / Light theme toggle
 - [x] Copy command & Download script
 - [x] Package availability indicators
 
 ### Planned
+- [ ] Custom domain
 - [ ] Search & filter applications
+- [ ] Winget support (Windows)
+- [ ] Homebrew support (macOS)
+- [ ] Dockerfile for containerized deployment
 - [ ] Save custom presets / profiles
 - [ ] Share configurations via URL
 - [ ] More distros (Gentoo, Void, Alpine)

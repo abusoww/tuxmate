@@ -6,6 +6,7 @@ import { Check, Copy, ChevronDown, ChevronRight, X, Download, HelpCircle, Github
 import { useLinuxInit } from '@/hooks/useLinuxInit';
 import { distros, categories, getAppsByCategory, type DistroId, type AppData, type Category } from '@/lib/data';
 import { generateInstallScript } from '@/lib/generateInstallScript';
+import { analytics } from '@/lib/analytics';
 import gsap from 'gsap';
 
 // Theme hook removed (using global hook)
@@ -220,7 +221,12 @@ function HowItWorks() {
         <>
             <button
                 ref={triggerRef}
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={() => {
+                    const wasOpen = isOpen;
+                    setIsOpen(!isOpen);
+                    if (!wasOpen) analytics.helpOpened();
+                    else analytics.helpClosed();
+                }}
                 className={`flex items-center gap-1.5 text-sm transition-all duration-200 hover:scale-105 ${isOpen ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'}`}
             >
                 <HelpCircle className="w-4 h-4" />
@@ -241,6 +247,7 @@ function GitHubLink({ href = "https://github.com/abusoww/tuxmate" }: { href?: st
             rel="noopener noreferrer"
             className="group flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all duration-300"
             title="View on GitHub"
+            onClick={() => analytics.githubClicked()}
         >
             <Github className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" />
             <span className="hidden sm:inline relative">
@@ -259,6 +266,7 @@ function ContributeLink({ href = "https://github.com/abusoww/tuxmate/blob/main/C
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-all duration-300"
+            onClick={() => analytics.contributeClicked()}
         >
             <Heart className="w-4 h-4 transition-all duration-300 group-hover:text-rose-400 group-hover:scale-110" />
             <span className="hidden sm:inline relative">
@@ -389,7 +397,7 @@ function DistroSelector({ selectedDistro, onSelect }: { selectedDistro: DistroId
                     {distros.map((distro, i) => (
                         <button
                             key={distro.id}
-                            onClick={() => { onSelect(distro.id); setIsOpen(false); }}
+                            onClick={() => { onSelect(distro.id); setIsOpen(false); analytics.distroSelected(distro.name); }}
                             className={`group w-full flex items-center gap-3 py-2.5 px-3 rounded-xl border-none cursor-pointer text-left transition-all duration-200 ${selectedDistro === distro.id
                                 ? 'bg-[var(--accent)]/10'
                                 : 'bg-transparent hover:bg-[var(--bg-hover)] hover:scale-[1.02]'
@@ -467,7 +475,20 @@ function AppItem({
         ${isFocused ? 'bg-[var(--bg-focus)]' : ''}
         ${!isAvailable ? 'opacity-40 grayscale-[30%]' : 'hover:bg-[var(--bg-hover)] cursor-pointer'}`}
             style={{ transition: 'background-color 0.15s, color 0.5s' }}
-            onClick={(e) => { e.stopPropagation(); onFocus?.(); if (isAvailable) onToggle(); }}
+            onClick={(e) => {
+                e.stopPropagation();
+                onFocus?.();
+                if (isAvailable) {
+                    const willBeSelected = !isSelected;
+                    onToggle();
+                    const distroName = distros.find(d => d.id === selectedDistro)?.name || selectedDistro;
+                    if (willBeSelected) {
+                        analytics.appSelected(app.name, app.category, distroName);
+                    } else {
+                        analytics.appDeselected(app.name, app.category, distroName);
+                    }
+                }
+            }}
             onMouseEnter={(e) => {
                 if (isAvailable) onTooltipEnter(app.description, e);
             }}
@@ -596,7 +617,15 @@ function CategorySection({
                 category={category}
                 isExpanded={isExpanded}
                 isFocused={isCategoryFocused}
-                onToggle={onToggleExpanded}
+                onToggle={() => {
+                    const willExpand = !isExpanded;
+                    onToggleExpanded();
+                    if (willExpand) {
+                        analytics.categoryExpanded(category);
+                    } else {
+                        analytics.categoryCollapsed(category);
+                    }
+                }}
                 selectedCount={selectedInCategory}
                 onFocus={onCategoryFocus}
             />
@@ -641,6 +670,8 @@ function CommandFooter({
         await navigator.clipboard.writeText(command);
         setCopied(true);
         setShowCopyTooltip(true);
+        const distroName = distros.find(d => d.id === selectedDistro)?.name || selectedDistro;
+        analytics.commandCopied(distroName, selectedCount);
         setTimeout(() => {
             setCopied(false);
             setShowCopyTooltip(false);
@@ -660,6 +691,8 @@ function CommandFooter({
         a.download = `tuxmate-${selectedDistro}.sh`;
         a.click();
         URL.revokeObjectURL(url);
+        const distroName = distros.find(d => d.id === selectedDistro)?.name || selectedDistro;
+        analytics.scriptDownloaded(distroName, selectedCount);
     };
 
     const showAurBar = selectedDistro === 'arch' && hasAurPackages;

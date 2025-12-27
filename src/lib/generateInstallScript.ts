@@ -797,7 +797,7 @@ export function generateInstallScript(options: ScriptOptions): string {
         case 'arch': return generateArchScript(packages);
         case 'fedora': return generateFedoraScript(packages);
         case 'opensuse': return generateOpenSUSEScript(packages);
-        case 'nixos': return generateNixOSScript(packages);
+        case 'nix': return generateNixOSScript(packages);
         case 'flatpak': return generateFlatpakScript(packages);
         case 'snap': return generateSnapScript(packages);
         default: return '#!/bin/bash\necho "Unsupported distribution"\nexit 1';
@@ -816,7 +816,7 @@ export function generateSimpleCommand(selectedAppIds: Set<string>, distroId: Dis
         case 'arch': return `yay -S --needed --noconfirm ${pkgList}`;
         case 'fedora': return `sudo dnf install -y ${pkgList}`;
         case 'opensuse': return `sudo zypper install -y ${pkgList}`;
-        case 'nixos': return `nix-env -iA ${packages.map(p => `nixpkgs.${p.pkg}`).join(' ')}`;
+        case 'nix': return `nix-env -iA ${packages.map(p => `nixpkgs.${p.pkg}`).join(' ')}`;
         case 'flatpak': return `flatpak install flathub -y ${pkgList}`;
         case 'snap':
             if (packages.length === 1) return `sudo snap install ${pkgList}`;

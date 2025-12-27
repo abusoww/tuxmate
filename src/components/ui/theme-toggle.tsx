@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "@/hooks/use-theme"
+import { analytics } from "@/lib/analytics"
 
 interface ThemeToggleProps {
     className?: string
@@ -25,7 +26,10 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
                 "bg-[var(--bg-secondary)] border border-[var(--border-primary)]",
                 className
             )}
-            onClick={toggle}
+            onClick={() => {
+                toggle();
+                analytics.themeChanged(isDark ? 'light' : 'dark');
+            }}
             role="button"
             tabIndex={0}
         >
