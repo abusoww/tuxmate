@@ -1,280 +1,2697 @@
 // Types
-export type DistroId = 'ubuntu' | 'debian' | 'arch' | 'fedora' | 'opensuse' | 'nix' | 'flatpak' | 'snap';
+export type DistroId =
+  | "ubuntu"
+  | "debian"
+  | "arch"
+  | "fedora"
+  | "opensuse"
+  | "nix"
+  | "flatpak"
+  | "snap";
 
 export type Category =
-    | 'Web Browsers'
-    | 'Communication'
-    | 'Dev: Languages'
-    | 'Dev: Editors'
-    | 'Dev: Tools'
-    | 'Terminal'
-    | 'CLI Tools'
-    | 'Media'
-    | 'Creative'
-    | 'Gaming'
-    | 'Office'
-    | 'VPN & Network'
-    | 'Security'
-    | 'File Sharing'
-    | 'System';
+  | "Web Browsers"
+  | "Communication"
+  | "Dev: Languages"
+  | "Dev: Editors"
+  | "Dev: Tools"
+  | "Terminal"
+  | "CLI Tools"
+  | "Media"
+  | "Creative"
+  | "Gaming"
+  | "Office"
+  | "VPN & Network"
+  | "Security"
+  | "File Sharing"
+  | "System";
 
 export interface Distro {
-    id: DistroId;
-    name: string;
-    iconUrl: string;
-    color: string;
-    installPrefix: string;
+  id: DistroId;
+  name: string;
+  iconUrl: string;
+  color: string;
+  installPrefix: string;
 }
 
 export interface AppData {
-    id: string;
-    name: string;
-    description: string;
-    category: Category;
-    iconUrl: string;
-    targets: Partial<Record<DistroId, string>>;
-    /** Markdown content shown when app unavailable. Same message for all distros. */
-    unavailableReason?: string;
+  id: string;
+  name: string;
+  description: string;
+  category: Category;
+  iconUrl: string;
+  targets: Partial<Record<DistroId, string>>;
+  /** Markdown content shown when app unavailable. Same message for all distros. */
+  unavailableReason?: string;
 }
 
 // Icon helpers using Iconify API for comprehensive icon coverage
 // Adding ?color=hex to colorize monochrome icons
 const icon = (set: string, name: string, color?: string) =>
-    `https://api.iconify.design/${set}/${name}.svg${color ? `?color=${encodeURIComponent(color)}` : ''}`;
-const si = (name: string, color?: string) => icon('simple-icons', name, color);  // Simple Icons (brands)
-const lo = (name: string) => icon('logos', name);         // Logos (already colorful)
-const dev = (name: string) => icon('devicon', name);      // Devicon (dev tools)
-const sk = (name: string) => icon('skill-icons', name);   // Skill Icons (colorful)
-const vs = (name: string) => icon('vscode-icons', name);  // VS Code Icons (colorful file types)
-const mdi = (name: string, color?: string) => icon('mdi', name, color); // Material Design Icons
-const def = si('linux', '#FCC624');                       // Default fallback (Tux yellow)
+  `https://api.iconify.design/${set}/${name}.svg${color ? `?color=${encodeURIComponent(color)}` : ""}`;
+const si = (name: string, color?: string) => icon("simple-icons", name, color); // Simple Icons (brands)
+const lo = (name: string) => icon("logos", name); // Logos (already colorful)
+const dev = (name: string) => icon("devicon", name); // Devicon (dev tools)
+const sk = (name: string) => icon("skill-icons", name); // Skill Icons (colorful)
+const vs = (name: string) => icon("vscode-icons", name); // VS Code Icons (colorful file types)
+const mdi = (name: string, color?: string) => icon("mdi", name, color); // Material Design Icons
+const def = si("linux", "#FCC624"); // Default fallback (Tux yellow)
 
 export const distros: Distro[] = [
-    { id: 'ubuntu', name: 'Ubuntu', iconUrl: si('ubuntu', '#E95420'), color: '#E95420', installPrefix: 'sudo apt install -y' },
-    { id: 'debian', name: 'Debian', iconUrl: si('debian', '#A81D33'), color: '#A81D33', installPrefix: 'sudo apt install -y' },
-    { id: 'arch', name: 'Arch', iconUrl: si('archlinux', '#1793D1'), color: '#1793D1', installPrefix: 'sudo pacman -S --needed --noconfirm' },
-    { id: 'fedora', name: 'Fedora', iconUrl: si('fedora', '#51A2DA'), color: '#51A2DA', installPrefix: 'sudo dnf install -y' },
-    { id: 'opensuse', name: 'OpenSUSE', iconUrl: si('opensuse', '#73BA25'), color: '#73BA25', installPrefix: 'sudo zypper install -y' },
-    { id: 'nix', name: 'Nix', iconUrl: si('nixos', '#5277C3'), color: '#5277C3', installPrefix: 'nix-env -iA nixpkgs.' },
-    { id: 'flatpak', name: 'Flatpak', iconUrl: si('flatpak', '#4A90D9'), color: '#4A90D9', installPrefix: 'flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && flatpak install flathub -y' },
-    { id: 'snap', name: 'Snap', iconUrl: si('snapcraft', '#82BEA0'), color: '#82BEA0', installPrefix: 'sudo snap install' },
+  {
+    id: "ubuntu",
+    name: "Ubuntu",
+    iconUrl: si("ubuntu", "#E95420"),
+    color: "#E95420",
+    installPrefix: "sudo apt install -y",
+  },
+  {
+    id: "debian",
+    name: "Debian",
+    iconUrl: si("debian", "#A81D33"),
+    color: "#A81D33",
+    installPrefix: "sudo apt install -y",
+  },
+  {
+    id: "arch",
+    name: "Arch",
+    iconUrl: si("archlinux", "#1793D1"),
+    color: "#1793D1",
+    installPrefix: "sudo pacman -S --needed --noconfirm",
+  },
+  {
+    id: "fedora",
+    name: "Fedora",
+    iconUrl: si("fedora", "#51A2DA"),
+    color: "#51A2DA",
+    installPrefix: "sudo dnf install -y",
+  },
+  {
+    id: "opensuse",
+    name: "OpenSUSE",
+    iconUrl: si("opensuse", "#73BA25"),
+    color: "#73BA25",
+    installPrefix: "sudo zypper install -y",
+  },
+  {
+    id: "nix",
+    name: "Nix",
+    iconUrl: si("nixos", "#5277C3"),
+    color: "#5277C3",
+    installPrefix: "nix-env -iA nixpkgs.",
+  },
+  {
+    id: "flatpak",
+    name: "Flatpak",
+    iconUrl: si("flatpak", "#4A90D9"),
+    color: "#4A90D9",
+    installPrefix:
+      "flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && flatpak install flathub -y",
+  },
+  {
+    id: "snap",
+    name: "Snap",
+    iconUrl: si("snapcraft", "#82BEA0"),
+    color: "#82BEA0",
+    installPrefix: "sudo snap install",
+  },
 ];
 
 export const apps: AppData[] = [
-    // WEB BROWSERS
-    { id: 'firefox', name: 'Firefox', description: 'Privacy browser by Mozilla', category: 'Web Browsers', iconUrl: si('firefox', '#FF7139'), targets: { ubuntu: 'firefox', debian: 'firefox-esr', arch: 'firefox', fedora: 'firefox', opensuse: 'MozillaFirefox', nix: 'firefox', flatpak: 'org.mozilla.firefox', snap: 'firefox' } },
-    { id: 'chromium', name: 'Chromium', description: 'Open-source Chrome', category: 'Web Browsers', iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/28/Chromium_Logo.svg', targets: { ubuntu: 'chromium-browser', debian: 'chromium', arch: 'chromium', fedora: 'chromium', opensuse: 'chromium', nix: 'chromium', flatpak: 'org.chromium.Chromium', snap: 'chromium' } },
-    { id: 'brave', name: 'Brave', description: 'Privacy browser with ad blocker', category: 'Web Browsers', iconUrl: si('brave', '#FB542B'), targets: { arch: 'brave-bin', opensuse: 'brave-browser', nix: 'brave', flatpak: 'com.brave.Browser', snap: 'brave' }, unavailableReason: 'Not in official repos. Use Flatpak/Snap or follow instructions at [brave.com/linux](https://brave.com/linux/).' },
-    { id: 'librewolf', name: 'LibreWolf', description: 'Privacy-hardened Firefox', category: 'Web Browsers', iconUrl: si('firefoxbrowser', '#0588D1'), targets: { arch: 'librewolf-bin', opensuse: 'librewolf', nix: 'librewolf', flatpak: 'io.gitlab.librewolf-community' }, unavailableReason: 'Not available in official repos. Use [Flatpak](https://flathub.org/en/apps/io.gitlab.librewolf-community) or follow instructions at [librewolf.net/installation](https://librewolf.net/installation/).' },
-    { id: 'tor', name: 'Tor Browser', description: 'Anonymous browsing', category: 'Web Browsers', iconUrl: si('torbrowser', '#7D4698'), targets: { ubuntu: 'torbrowser-launcher', debian: 'torbrowser-launcher', arch: 'torbrowser-launcher', fedora: 'torbrowser-launcher', opensuse: 'torbrowser-launcher', nix: 'tor-browser-bundle-bin', flatpak: 'org.torproject.torbrowser-launcher' }, unavailableReason: 'Not available as Snap. Download from [torproject.org](https://www.torproject.org/download/).' },
-    { id: 'chrome', name: 'Google Chrome', description: 'Popular web browser', category: 'Web Browsers', iconUrl: lo('chrome'), targets: { ubuntu: 'google-chrome-stable', debian: 'google-chrome-stable', arch: 'google-chrome', fedora: 'google-chrome-stable', opensuse: 'google-chrome-stable', nix: 'google-chrome', flatpak: 'com.google.Chrome' }, unavailableReason: 'Not available as Snap. Download from [google.com/chrome](https://www.google.com/chrome/) or use Flatpak.' },
-    { id: 'zen', name: 'Zen Browser', description: 'Privacy-focused Firefox fork', category: 'Web Browsers', iconUrl: si('zenbrowser', '#FF7139'), targets: { arch: 'zen-browser-bin', flatpak: 'app.zen_browser.zen' }, unavailableReason: 'Not in most official repos. Use [Flatpak](https://flathub.org/apps/app.zen_browser.zen) or download from [zen-browser.app](https://zen-browser.app).' },
-    { id: 'helium', name: 'Helium', description: 'Privacy ungoogled-chromium', category: 'Web Browsers', iconUrl: si('googlechrome', '#00D4FF'), targets: { arch: 'helium-browser-bin' }, unavailableReason: 'Only available as AppImage or via AUR. Download from [helium.computer](https://helium.computer/).' },
-    { id: 'vivaldi', name: 'Vivaldi', description: 'Power user browser', category: 'Web Browsers', iconUrl: si('vivaldi', '#EF3939'), targets: { arch: 'vivaldi', nix: 'vivaldi', flatpak: 'com.vivaldi.Vivaldi', snap: 'vivaldi' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/com.vivaldi.Vivaldi)/[Snap](https://snapcraft.io/vivaldi) or download from [vivaldi.com](https://vivaldi.com/download/).' },
+  // WEB BROWSERS
+  {
+    id: "firefox",
+    name: "Firefox",
+    description: "Privacy browser by Mozilla",
+    category: "Web Browsers",
+    iconUrl: si("firefox", "#FF7139"),
+    targets: {
+      ubuntu: "firefox",
+      debian: "firefox-esr",
+      arch: "firefox",
+      fedora: "firefox",
+      opensuse: "MozillaFirefox",
+      nix: "firefox",
+      flatpak: "org.mozilla.firefox",
+      snap: "firefox",
+    },
+  },
+  {
+    id: "chromium",
+    name: "Chromium",
+    description: "Open-source Chrome",
+    category: "Web Browsers",
+    iconUrl:
+      "https://upload.wikimedia.org/wikipedia/commons/2/28/Chromium_Logo.svg",
+    targets: {
+      ubuntu: "chromium-browser",
+      debian: "chromium",
+      arch: "chromium",
+      fedora: "chromium",
+      opensuse: "chromium",
+      nix: "chromium",
+      flatpak: "org.chromium.Chromium",
+      snap: "chromium",
+    },
+  },
+  {
+    id: "brave",
+    name: "Brave",
+    description: "Privacy browser with ad blocker",
+    category: "Web Browsers",
+    iconUrl: si("brave", "#FB542B"),
+    targets: {
+      arch: "brave-bin",
+      opensuse: "brave-browser",
+      nix: "brave",
+      flatpak: "com.brave.Browser",
+      snap: "brave",
+    },
+    unavailableReason:
+      "Not in official repos. Use Flatpak/Snap or follow instructions at [brave.com/linux](https://brave.com/linux/).",
+  },
+  {
+    id: "librewolf",
+    name: "LibreWolf",
+    description: "Privacy-hardened Firefox",
+    category: "Web Browsers",
+    iconUrl: si("firefoxbrowser", "#0588D1"),
+    targets: {
+      arch: "librewolf-bin",
+      opensuse: "librewolf",
+      nix: "librewolf",
+      flatpak: "io.gitlab.librewolf-community",
+    },
+    unavailableReason:
+      "Not available in official repos. Use [Flatpak](https://flathub.org/en/apps/io.gitlab.librewolf-community) or follow instructions at [librewolf.net/installation](https://librewolf.net/installation/).",
+  },
+  {
+    id: "tor",
+    name: "Tor Browser",
+    description: "Anonymous browsing",
+    category: "Web Browsers",
+    iconUrl: si("torbrowser", "#7D4698"),
+    targets: {
+      ubuntu: "torbrowser-launcher",
+      debian: "torbrowser-launcher",
+      arch: "torbrowser-launcher",
+      fedora: "torbrowser-launcher",
+      opensuse: "torbrowser-launcher",
+      nix: "tor-browser-bundle-bin",
+      flatpak: "org.torproject.torbrowser-launcher",
+    },
+    unavailableReason:
+      "Not available as Snap. Download from [torproject.org](https://www.torproject.org/download/).",
+  },
+  {
+    id: "chrome",
+    name: "Google Chrome",
+    description: "Popular web browser",
+    category: "Web Browsers",
+    iconUrl: lo("chrome"),
+    targets: {
+      ubuntu: "google-chrome-stable",
+      debian: "google-chrome-stable",
+      arch: "google-chrome",
+      fedora: "google-chrome-stable",
+      opensuse: "google-chrome-stable",
+      nix: "google-chrome",
+      flatpak: "com.google.Chrome",
+    },
+    unavailableReason:
+      "Not available as Snap. Download from [google.com/chrome](https://www.google.com/chrome/) or use Flatpak.",
+  },
+  {
+    id: "zen",
+    name: "Zen Browser",
+    description: "Privacy-focused Firefox fork",
+    category: "Web Browsers",
+    iconUrl: si("zenbrowser", "#FF7139"),
+    targets: { arch: "zen-browser-bin", flatpak: "app.zen_browser.zen" },
+    unavailableReason:
+      "Not in most official repos. Use [Flatpak](https://flathub.org/apps/app.zen_browser.zen) or download from [zen-browser.app](https://zen-browser.app).",
+  },
+  {
+    id: "helium",
+    name: "Helium",
+    description: "Privacy ungoogled-chromium",
+    category: "Web Browsers",
+    iconUrl: si("googlechrome", "#00D4FF"),
+    targets: { arch: "helium-browser-bin" },
+    unavailableReason:
+      "Only available as AppImage or via AUR. Download from [helium.computer](https://helium.computer/).",
+  },
+  {
+    id: "vivaldi",
+    name: "Vivaldi",
+    description: "Power user browser",
+    category: "Web Browsers",
+    iconUrl: si("vivaldi", "#EF3939"),
+    targets: {
+      arch: "vivaldi",
+      nix: "vivaldi",
+      flatpak: "com.vivaldi.Vivaldi",
+      snap: "vivaldi",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/com.vivaldi.Vivaldi)/[Snap](https://snapcraft.io/vivaldi) or download from [vivaldi.com](https://vivaldi.com/download/).",
+  },
 
-    // COMMUNICATION
-    { id: 'discord', name: 'Discord', description: 'Voice and text chat', category: 'Communication', iconUrl: si('discord', '#5865F2'), targets: { arch: 'discord', opensuse: 'discord', nix: 'discord', flatpak: 'com.discordapp.Discord', snap: 'discord' }, unavailableReason: 'Not in official repos. Install via [Flatpak](https://flathub.org/en/apps/com.discordapp.Discord) or download from [discord.com/download](https://discord.com/download).' },
-    { id: 'vesktop', name: 'Vesktop', description: 'Discord with Vencord', category: 'Communication', iconUrl: si('discord', '#5865F2'), targets: { arch: 'vesktop-bin', nix: 'vesktop', flatpak: 'dev.vencord.Vesktop' }, unavailableReason: 'Not available in official repos. Check it on [Flatpak](https://flathub.org/en/apps/dev.vencord.Vesktop) or Download from [vesktop.dev/install/linux](https://vesktop.dev/install/linux/).' },
-    { id: 'telegram', name: 'Telegram', description: 'Cloud messaging', category: 'Communication', iconUrl: si('telegram', '#26A5E4'), targets: { ubuntu: 'telegram-desktop', debian: 'telegram-desktop', arch: 'telegram-desktop', fedora: 'telegram-desktop', opensuse: 'telegram-desktop', nix: 'telegram-desktop', flatpak: 'org.telegram.desktop', snap: 'telegram-desktop' } },
-    { id: 'signal', name: 'Signal', description: 'Encrypted messaging', category: 'Communication', iconUrl: si('signal', '#3A76F0'), targets: { arch: 'signal-desktop', opensuse: 'signal-desktop', nix: 'signal-desktop', flatpak: 'org.signal.Signal', snap: 'signal-desktop' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/org.signal.Signal)/[Snap](https://snapcraft.io/signal-desktop) or follow instructions at [signal.org/download/linux](https://signal.org/download/linux/).' },
-    { id: 'slack', name: 'Slack', description: 'Team collaboration', category: 'Communication', iconUrl: si('slack', '#4A154B'), targets: { arch: 'slack-desktop', nix: 'slack', flatpak: 'com.slack.Slack', snap: 'slack' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.slack.Slack)/[Snap](https://snapcraft.io/slack) or download from [slack.com/downloads/linux](https://slack.com/downloads/linux).' },
-    { id: 'zoom', name: 'Zoom', description: 'Video conferencing', category: 'Communication', iconUrl: si('zoom', '#0B5CFF'), targets: { arch: 'zoom', nix: 'zoom-us', flatpak: 'us.zoom.Zoom', snap: 'zoom-client' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/us.zoom.Zoom)/[Snap](https://snapcraft.io/zoom-client) or download from [zoom.us/download/linux](https://zoom.us/download/linux).' },
-    { id: 'thunderbird', name: 'Thunderbird', description: 'Email client', category: 'Communication', iconUrl: si('thunderbird', '#0A84FF'), targets: { ubuntu: 'thunderbird', debian: 'thunderbird', arch: 'thunderbird', fedora: 'thunderbird', opensuse: 'MozillaThunderbird', nix: 'thunderbird', flatpak: 'org.mozilla.Thunderbird', snap: 'thunderbird' } },
-    { id: 'element', name: 'Element', description: 'Matrix client', category: 'Communication', iconUrl: si('element', '#0DBD8B'), targets: { arch: 'element-desktop', opensuse: 'element-desktop', nix: 'element-desktop', flatpak: 'im.riot.Riot', snap: 'element-desktop' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/im.riot.Riot)/[Snap](https://snapcraft.io/element-desktop) or follow instructions at [element.io/download#linux](https://element.io/en/download#linux).' },
+  // COMMUNICATION
+  {
+    id: "discord",
+    name: "Discord",
+    description: "Voice and text chat",
+    category: "Communication",
+    iconUrl: si("discord", "#5865F2"),
+    targets: {
+      arch: "discord",
+      opensuse: "discord",
+      nix: "discord",
+      flatpak: "com.discordapp.Discord",
+      snap: "discord",
+    },
+    unavailableReason:
+      "Not in official repos. Install via [Flatpak](https://flathub.org/en/apps/com.discordapp.Discord) or download from [discord.com/download](https://discord.com/download).",
+  },
+  {
+    id: "vesktop",
+    name: "Vesktop",
+    description: "Discord with Vencord",
+    category: "Communication",
+    iconUrl: si("discord", "#5865F2"),
+    targets: {
+      arch: "vesktop-bin",
+      nix: "vesktop",
+      flatpak: "dev.vencord.Vesktop",
+    },
+    unavailableReason:
+      "Not available in official repos. Check it on [Flatpak](https://flathub.org/en/apps/dev.vencord.Vesktop) or Download from [vesktop.dev/install/linux](https://vesktop.dev/install/linux/).",
+  },
+  {
+    id: "telegram",
+    name: "Telegram",
+    description: "Cloud messaging",
+    category: "Communication",
+    iconUrl: si("telegram", "#26A5E4"),
+    targets: {
+      ubuntu: "telegram-desktop",
+      debian: "telegram-desktop",
+      arch: "telegram-desktop",
+      fedora: "telegram-desktop",
+      opensuse: "telegram-desktop",
+      nix: "telegram-desktop",
+      flatpak: "org.telegram.desktop",
+      snap: "telegram-desktop",
+    },
+  },
+  {
+    id: "signal",
+    name: "Signal",
+    description: "Encrypted messaging",
+    category: "Communication",
+    iconUrl: si("signal", "#3A76F0"),
+    targets: {
+      arch: "signal-desktop",
+      opensuse: "signal-desktop",
+      nix: "signal-desktop",
+      flatpak: "org.signal.Signal",
+      snap: "signal-desktop",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/org.signal.Signal)/[Snap](https://snapcraft.io/signal-desktop) or follow instructions at [signal.org/download/linux](https://signal.org/download/linux/).",
+  },
+  {
+    id: "slack",
+    name: "Slack",
+    description: "Team collaboration",
+    category: "Communication",
+    iconUrl: si("slack", "#4A154B"),
+    targets: {
+      arch: "slack-desktop",
+      nix: "slack",
+      flatpak: "com.slack.Slack",
+      snap: "slack",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.slack.Slack)/[Snap](https://snapcraft.io/slack) or download from [slack.com/downloads/linux](https://slack.com/downloads/linux).",
+  },
+  {
+    id: "zoom",
+    name: "Zoom",
+    description: "Video conferencing",
+    category: "Communication",
+    iconUrl: si("zoom", "#0B5CFF"),
+    targets: {
+      arch: "zoom",
+      nix: "zoom-us",
+      flatpak: "us.zoom.Zoom",
+      snap: "zoom-client",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/us.zoom.Zoom)/[Snap](https://snapcraft.io/zoom-client) or download from [zoom.us/download/linux](https://zoom.us/download/linux).",
+  },
+  {
+    id: "thunderbird",
+    name: "Thunderbird",
+    description: "Email client",
+    category: "Communication",
+    iconUrl: si("thunderbird", "#0A84FF"),
+    targets: {
+      ubuntu: "thunderbird",
+      debian: "thunderbird",
+      arch: "thunderbird",
+      fedora: "thunderbird",
+      opensuse: "MozillaThunderbird",
+      nix: "thunderbird",
+      flatpak: "org.mozilla.Thunderbird",
+      snap: "thunderbird",
+    },
+  },
+  {
+    id: "element",
+    name: "Element",
+    description: "Matrix client",
+    category: "Communication",
+    iconUrl: si("element", "#0DBD8B"),
+    targets: {
+      arch: "element-desktop",
+      opensuse: "element-desktop",
+      nix: "element-desktop",
+      flatpak: "im.riot.Riot",
+      snap: "element-desktop",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/im.riot.Riot)/[Snap](https://snapcraft.io/element-desktop) or follow instructions at [element.io/download#linux](https://element.io/en/download#linux).",
+  },
 
-    // DEV LANGUAGES
-    { id: 'python3', name: 'Python 3', description: 'Python language', category: 'Dev: Languages', iconUrl: si('python', '#3776AB'), targets: { ubuntu: 'python3', debian: 'python3', arch: 'python', fedora: 'python3', opensuse: 'python3', nix: 'python3' }, unavailableReason: 'Python 3 is a system package and not available via Flatpak or Snap.' },
-    { id: 'nodejs', name: 'Node.js', description: 'JavaScript runtime', category: 'Dev: Languages', iconUrl: si('nodedotjs', '#5FA04E'), targets: { ubuntu: 'nodejs', debian: 'nodejs', arch: 'nodejs', fedora: 'nodejs', opensuse: 'nodejs', nix: 'nodejs', snap: 'node --classic' }, unavailableReason: 'Node.js is not available as a Flatpak or Snap.' },
-    { id: 'go', name: 'Go', description: 'Go language', category: 'Dev: Languages', iconUrl: si('go', '#00ADD8'), targets: { ubuntu: 'golang', debian: 'golang', arch: 'go', fedora: 'golang', opensuse: 'go', nix: 'go', snap: 'go --classic' }, unavailableReason: 'Go is not available as a Flatpak package.' },
-    { id: 'rust', name: 'Rust', description: 'Rust via rustup', category: 'Dev: Languages', iconUrl: si('rust', '#F74C00'), targets: { arch: 'rustup', fedora: 'rustup', opensuse: 'rustup', nix: 'rustup', snap: 'rustup --classic' }, unavailableReason: 'Install via [rustup.rs](https://rustup.rs) on Ubuntu and Debian.' },
-    { id: 'ruby', name: 'Ruby', description: 'Ruby language', category: 'Dev: Languages', iconUrl: si('ruby', '#CC342D'), targets: { ubuntu: 'ruby', debian: 'ruby', arch: 'ruby', fedora: 'ruby', opensuse: 'ruby', nix: 'ruby', snap: 'ruby --classic' }, unavailableReason: 'Ruby is a system package and not available via Flatpak or Snap.' },
-    { id: 'php', name: 'PHP', description: 'PHP language', category: 'Dev: Languages', iconUrl: si('php', '#777BB4'), targets: { ubuntu: 'php', debian: 'php', arch: 'php', fedora: 'php', opensuse: 'php8', nix: 'php' }, unavailableReason: 'PHP is a system package and not available via Flatpak or Snap.' },
-    { id: 'openjdk', name: 'OpenJDK', description: 'Java Development Kit', category: 'Dev: Languages', iconUrl: si('openjdk', '#437291'), targets: { ubuntu: 'openjdk-21-jdk', debian: 'openjdk-17-jdk', arch: 'jdk-openjdk', fedora: 'java-21-openjdk', opensuse: 'java-21-openjdk', nix: 'openjdk' }, unavailableReason: 'OpenJDK is a system package and not available via Flatpak or Snap.' },
-    { id: 'deno', name: 'Deno', description: 'Modern JS runtime', category: 'Dev: Languages', iconUrl: si('deno', '#70FFAF'), targets: { arch: 'deno', opensuse: 'deno', nix: 'deno' }, unavailableReason: 'Install via `curl -fsSL https://deno.land/install.sh | sh` on other distros.' },
-    { id: 'bun', name: 'Bun', description: 'Fast JS runtime', category: 'Dev: Languages', iconUrl: icon('logos', 'bun'), targets: { arch: 'bun-bin', nix: 'bun' }, unavailableReason: 'Install via `curl -fsSL https://bun.sh/install.sh | bash` on other distros.' },
+  // DEV LANGUAGES
+  {
+    id: "python3",
+    name: "Python 3",
+    description: "Python language",
+    category: "Dev: Languages",
+    iconUrl: si("python", "#3776AB"),
+    targets: {
+      ubuntu: "python3",
+      debian: "python3",
+      arch: "python",
+      fedora: "python3",
+      opensuse: "python3",
+      nix: "python3",
+    },
+    unavailableReason:
+      "Python 3 is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "nodejs",
+    name: "Node.js",
+    description: "JavaScript runtime",
+    category: "Dev: Languages",
+    iconUrl: si("nodedotjs", "#5FA04E"),
+    targets: {
+      ubuntu: "nodejs",
+      debian: "nodejs",
+      arch: "nodejs",
+      fedora: "nodejs",
+      opensuse: "nodejs",
+      nix: "nodejs",
+      snap: "node --classic",
+    },
+    unavailableReason: "Node.js is not available as a Flatpak or Snap.",
+  },
+  {
+    id: "go",
+    name: "Go",
+    description: "Go language",
+    category: "Dev: Languages",
+    iconUrl: si("go", "#00ADD8"),
+    targets: {
+      ubuntu: "golang",
+      debian: "golang",
+      arch: "go",
+      fedora: "golang",
+      opensuse: "go",
+      nix: "go",
+      snap: "go --classic",
+    },
+    unavailableReason: "Go is not available as a Flatpak package.",
+  },
+  {
+    id: "rust",
+    name: "Rust",
+    description: "Rust via rustup",
+    category: "Dev: Languages",
+    iconUrl: si("rust", "#F74C00"),
+    targets: {
+      arch: "rustup",
+      fedora: "rustup",
+      opensuse: "rustup",
+      nix: "rustup",
+      snap: "rustup --classic",
+    },
+    unavailableReason:
+      "Install via [rustup.rs](https://rustup.rs) on Ubuntu and Debian.",
+  },
+  {
+    id: "ruby",
+    name: "Ruby",
+    description: "Ruby language",
+    category: "Dev: Languages",
+    iconUrl: si("ruby", "#CC342D"),
+    targets: {
+      ubuntu: "ruby",
+      debian: "ruby",
+      arch: "ruby",
+      fedora: "ruby",
+      opensuse: "ruby",
+      nix: "ruby",
+      snap: "ruby --classic",
+    },
+    unavailableReason:
+      "Ruby is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "php",
+    name: "PHP",
+    description: "PHP language",
+    category: "Dev: Languages",
+    iconUrl: si("php", "#777BB4"),
+    targets: {
+      ubuntu: "php",
+      debian: "php",
+      arch: "php",
+      fedora: "php",
+      opensuse: "php8",
+      nix: "php",
+    },
+    unavailableReason:
+      "PHP is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "openjdk",
+    name: "OpenJDK",
+    description: "Java Development Kit",
+    category: "Dev: Languages",
+    iconUrl: si("openjdk", "#437291"),
+    targets: {
+      ubuntu: "openjdk-21-jdk",
+      debian: "openjdk-17-jdk",
+      arch: "jdk-openjdk",
+      fedora: "java-21-openjdk",
+      opensuse: "java-21-openjdk",
+      nix: "openjdk",
+    },
+    unavailableReason:
+      "OpenJDK is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "deno",
+    name: "Deno",
+    description: "Modern JS runtime",
+    category: "Dev: Languages",
+    iconUrl: si("deno", "#70FFAF"),
+    targets: { arch: "deno", opensuse: "deno", nix: "deno" },
+    unavailableReason:
+      "Install via `curl -fsSL https://deno.land/install.sh | sh` on other distros.",
+  },
+  {
+    id: "bun",
+    name: "Bun",
+    description: "Fast JS runtime",
+    category: "Dev: Languages",
+    iconUrl: icon("logos", "bun"),
+    targets: { arch: "bun-bin", nix: "bun" },
+    unavailableReason:
+      "Install via `curl -fsSL https://bun.sh/install.sh | bash` on other distros.",
+  },
 
-    // DEV EDITORS
-    { id: 'vscode', name: 'VS Code', description: 'Popular code editor', category: 'Dev: Editors', iconUrl: lo('visual-studio-code'), targets: { arch: 'code', nix: 'vscode', flatpak: 'com.visualstudio.code', snap: 'code --classic' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.visualstudio.code)/[Snap](https://snapcraft.io/code) or download from [code.visualstudio.com](https://code.visualstudio.com/Download).' },
-    { id: 'vscodium', name: 'VSCodium', description: 'VS Code without telemetry', category: 'Dev: Editors', iconUrl: si('vscodium', '#2F80ED'), targets: { arch: 'vscodium-bin', nix: 'vscodium', flatpak: 'com.vscodium.codium', snap: 'codium --classic' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.vscodium.codium)/[Snap](https://snapcraft.io/codium) or follow instructions at [vscodium.com](https://vscodium.com/#install).' },
-    { id: 'neovim', name: 'Neovim', description: 'Vim-based editor', category: 'Dev: Editors', iconUrl: si('neovim', '#57A143'), targets: { ubuntu: 'neovim', debian: 'neovim', arch: 'neovim', fedora: 'neovim', opensuse: 'neovim', nix: 'neovim', flatpak: 'com.neovim.Neovim', snap: 'nvim --classic' } },
-    { id: 'helix', name: 'Helix', description: 'Post-modern editor', category: 'Dev: Editors', iconUrl: mdi('dna', '#4E2F7F'), targets: { ubuntu: 'helix', arch: 'helix', fedora: 'helix', opensuse: 'helix', nix: 'helix', flatpak: 'com.helix-editor.Helix', snap: 'helix --classic' } },
-    { id: 'zed', name: 'Zed', description: 'Fast collaborative editor', category: 'Dev: Editors', iconUrl: si('zedindustries', '#084CCF'), targets: { arch: 'zed', fedora: 'zed', nix: 'zed-editor', flatpak: 'dev.zed.Zed' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/dev.zed.Zed) or see [zed.dev/docs/linux](https://zed.dev/docs/linux#other-ways-to-install-zed-on-linux) for other methods.' },
-    { id: 'sublime', name: 'Sublime Text', description: 'Fast text editor', category: 'Dev: Editors', iconUrl: si('sublimetext', '#FF9800'), targets: { arch: 'sublime-text-4', nix: 'sublime-text', flatpak: 'com.sublimetext.three', snap: 'sublime-text --classic' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.sublimetext.three)/[Snap](https://snapcraft.io/sublime-text) or follow instructions at [sublimetext.com/docs/linux_repositories](https://www.sublimetext.com/docs/linux_repositories.html).' },
-    { id: 'arduino', name: 'Arduino IDE', description: 'Arduino development', category: 'Dev: Editors', iconUrl: si('arduino', '#00878F'), targets: { ubuntu: 'arduino', debian: 'arduino', arch: 'arduino', fedora: 'arduino', nix: 'arduino-ide', flatpak: 'cc.arduino.IDE2', snap: 'arduino' }, unavailableReason: 'Arduino IDE is not in official openSUSE repos. Use [Flatpak](https://flathub.org/en/apps/cc.arduino.IDE2) or [Snap](https://snapcraft.io/arduino) instead.' },
-    { id: 'cursor', name: 'Cursor', description: 'AI code editor', category: 'Dev: Editors', iconUrl: si('cursor', '#232020ff'), targets: { arch: 'cursor-bin', nix: 'code-cursor' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/cursor-bin) or Nix. Download from [cursor.com/download](https://cursor.com/download).' },
+  // DEV EDITORS
+  {
+    id: "vscode",
+    name: "VS Code",
+    description: "Popular code editor",
+    category: "Dev: Editors",
+    iconUrl: lo("visual-studio-code"),
+    targets: {
+      arch: "code",
+      nix: "vscode",
+      flatpak: "com.visualstudio.code",
+      snap: "code --classic",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.visualstudio.code)/[Snap](https://snapcraft.io/code) or download from [code.visualstudio.com](https://code.visualstudio.com/Download).",
+  },
+  {
+    id: "vscodium",
+    name: "VSCodium",
+    description: "VS Code without telemetry",
+    category: "Dev: Editors",
+    iconUrl: si("vscodium", "#2F80ED"),
+    targets: {
+      arch: "vscodium-bin",
+      nix: "vscodium",
+      flatpak: "com.vscodium.codium",
+      snap: "codium --classic",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.vscodium.codium)/[Snap](https://snapcraft.io/codium) or follow instructions at [vscodium.com](https://vscodium.com/#install).",
+  },
+  {
+    id: "neovim",
+    name: "Neovim",
+    description: "Vim-based editor",
+    category: "Dev: Editors",
+    iconUrl: si("neovim", "#57A143"),
+    targets: {
+      ubuntu: "neovim",
+      debian: "neovim",
+      arch: "neovim",
+      fedora: "neovim",
+      opensuse: "neovim",
+      nix: "neovim",
+      flatpak: "com.neovim.Neovim",
+      snap: "nvim --classic",
+    },
+  },
+  {
+    id: "helix",
+    name: "Helix",
+    description: "Post-modern editor",
+    category: "Dev: Editors",
+    iconUrl: mdi("dna", "#4E2F7F"),
+    targets: {
+      ubuntu: "helix",
+      arch: "helix",
+      fedora: "helix",
+      opensuse: "helix",
+      nix: "helix",
+      flatpak: "com.helix-editor.Helix",
+      snap: "helix --classic",
+    },
+  },
+  {
+    id: "zed",
+    name: "Zed",
+    description: "Fast collaborative editor",
+    category: "Dev: Editors",
+    iconUrl: si("zedindustries", "#084CCF"),
+    targets: {
+      arch: "zed",
+      fedora: "zed",
+      nix: "zed-editor",
+      flatpak: "dev.zed.Zed",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/dev.zed.Zed) or see [zed.dev/docs/linux](https://zed.dev/docs/linux#other-ways-to-install-zed-on-linux) for other methods.",
+  },
+  {
+    id: "sublime",
+    name: "Sublime Text",
+    description: "Fast text editor",
+    category: "Dev: Editors",
+    iconUrl: si("sublimetext", "#FF9800"),
+    targets: {
+      arch: "sublime-text-4",
+      nix: "sublime-text",
+      flatpak: "com.sublimetext.three",
+      snap: "sublime-text --classic",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.sublimetext.three)/[Snap](https://snapcraft.io/sublime-text) or follow instructions at [sublimetext.com/docs/linux_repositories](https://www.sublimetext.com/docs/linux_repositories.html).",
+  },
+  {
+    id: "arduino",
+    name: "Arduino IDE",
+    description: "Arduino development",
+    category: "Dev: Editors",
+    iconUrl: si("arduino", "#00878F"),
+    targets: {
+      ubuntu: "arduino",
+      debian: "arduino",
+      arch: "arduino",
+      fedora: "arduino",
+      nix: "arduino-ide",
+      flatpak: "cc.arduino.IDE2",
+      snap: "arduino",
+    },
+    unavailableReason:
+      "Arduino IDE is not in official openSUSE repos. Use [Flatpak](https://flathub.org/en/apps/cc.arduino.IDE2) or [Snap](https://snapcraft.io/arduino) instead.",
+  },
+  {
+    id: "cursor",
+    name: "Cursor",
+    description: "AI code editor",
+    category: "Dev: Editors",
+    iconUrl: si("cursor", "#232020ff"),
+    targets: { arch: "cursor-bin", nix: "code-cursor" },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/cursor-bin) or Nix. Download from [cursor.com/download](https://cursor.com/download).",
+  },
 
-    // DEV TOOLS
-    { id: 'git', name: 'Git', description: 'Version control', category: 'Dev: Tools', iconUrl: si('git', '#F05032'), targets: { ubuntu: 'git', debian: 'git', arch: 'git', fedora: 'git', opensuse: 'git', nix: 'git' }, unavailableReason: 'Git is a system package and not available via Flatpak or Snap.' },
-    { id: 'gitlfs', name: 'Git LFS', description: 'Large file storage', category: 'Dev: Tools', iconUrl: si('git', '#F05032'), targets: { ubuntu: 'git-lfs', debian: 'git-lfs', arch: 'git-lfs', fedora: 'git-lfs', opensuse: 'git-lfs', nix: 'git-lfs' }, unavailableReason: 'Git LFS is a system package and not available via Flatpak or Snap.' },
-    { id: 'lazygit', name: 'LazyGit', description: 'Terminal Git UI', category: 'Dev: Tools', iconUrl: si('git', '#F05032'), targets: { ubuntu: 'lazygit', debian: 'lazygit', arch: 'lazygit', fedora: 'lazygit', opensuse: 'lazygit', nix: 'lazygit' }, unavailableReason: 'LazyGit is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'docker', name: 'Docker', description: 'Container runtime', category: 'Dev: Tools', iconUrl: si('docker', '#2496ED'), targets: { ubuntu: 'docker.io', debian: 'docker.io', arch: 'docker', fedora: 'docker', opensuse: 'docker', nix: 'docker', snap: 'docker' }, unavailableReason: 'Docker is a system service and not available as a Flatpak.' },
-    { id: 'podman', name: 'Podman', description: 'Daemonless containers', category: 'Dev: Tools', iconUrl: si('podman', '#892CA0'), targets: { ubuntu: 'podman', debian: 'podman', arch: 'podman', fedora: 'podman', opensuse: 'podman', nix: 'podman' }, unavailableReason: 'Podman is a system package and not available via Flatpak or Snap.' },
-    { id: 'kubectl', name: 'kubectl', description: 'Kubernetes CLI', category: 'Dev: Tools', iconUrl: si('kubernetes', '#326CE5'), targets: { arch: 'kubectl', fedora: 'kubernetes-client', opensuse: 'kubectl', nix: 'kubectl', snap: 'kubectl --classic' }, unavailableReason: 'kubectl is not in official Ubuntu or Debian repos. Use Snap or install via [kubernetes.io](https://kubernetes.io/docs/tasks/tools/).' },
-    { id: 'vagrant', name: 'Vagrant', description: 'Dev environment manager', category: 'Dev: Tools', iconUrl: si('vagrant', '#1868F2'), targets: { ubuntu: 'vagrant', debian: 'vagrant', arch: 'vagrant', fedora: 'vagrant', opensuse: 'vagrant', nix: 'vagrant' }, unavailableReason: 'Vagrant is a system package and not available via Flatpak or Snap.' },
-    { id: 'virtualbox', name: 'VirtualBox', description: 'Virtual machines', category: 'Dev: Tools', iconUrl: si('virtualbox', '#183A61'), targets: { ubuntu: 'virtualbox', debian: 'virtualbox', arch: 'virtualbox', fedora: 'VirtualBox', opensuse: 'virtualbox', nix: 'virtualbox' }, unavailableReason: 'VirtualBox requires kernel modules and is not available via Flatpak or Snap.' },
-    { id: 'gnomeboxes', name: 'GNOME Boxes', description: 'Simple VM manager', category: 'Dev: Tools', iconUrl: si('gnome', '#4A86CF'), targets: { ubuntu: 'gnome-boxes', debian: 'gnome-boxes', arch: 'gnome-boxes', fedora: 'gnome-boxes', opensuse: 'gnome-boxes', nix: 'gnome-boxes', flatpak: 'org.gnome.Boxes' }, unavailableReason: 'GNOME Boxes is not available as a Snap package.' },
-    { id: 'dbeaver', name: 'DBeaver', description: 'Database tool', category: 'Dev: Tools', iconUrl: si('dbeaver', '#382923'), targets: { arch: 'dbeaver', nix: 'dbeaver-bin', flatpak: 'io.dbeaver.DBeaverCommunity' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/io.dbeaver.DBeaverCommunity) or download from [dbeaver.io/download](https://dbeaver.io/download/).' },
-    { id: 'meld', name: 'Meld', description: 'Visual diff tool', category: 'Dev: Tools', iconUrl: 'https://meldmerge.org/images/meld.svg', targets: { ubuntu: 'meld', debian: 'meld', arch: 'meld', fedora: 'meld', opensuse: 'meld', nix: 'meld', flatpak: 'org.gnome.meld' }, unavailableReason: 'Meld is not available as a Snap package.' },
-    { id: 'wireshark', name: 'Wireshark', description: 'Network analyzer', category: 'Dev: Tools', iconUrl: si('wireshark', '#1679A7'), targets: { ubuntu: 'wireshark', debian: 'wireshark', arch: 'wireshark-qt', fedora: 'wireshark', opensuse: 'wireshark', nix: 'wireshark', flatpak: 'org.wireshark.Wireshark' }, unavailableReason: 'Wireshark is not available as a Snap package.' },
-    { id: 'postman', name: 'Postman', description: 'API development', category: 'Dev: Tools', iconUrl: si('postman', '#FF6C37'), targets: { arch: 'postman-bin', nix: 'postman', flatpak: 'com.getpostman.Postman', snap: 'postman' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.getpostman.Postman)/[Snap](https://snapcraft.io/postman) or download from [postman.com/downloads](https://www.postman.com/downloads/).' },
-    { id: 'bruno', name: 'Bruno', description: 'API client (offline)', category: 'Dev: Tools', iconUrl: mdi('api', '#F4A62A'), targets: { arch: 'bruno-bin', nix: 'bruno', flatpak: 'com.usebruno.Bruno', snap: 'bruno' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/com.usebruno.Bruno)/[Snap](https://snapcraft.io/bruno) or download from [usebruno.com](https://www.usebruno.com/downloads).' },
-    { id: 'hoppscotch', name: 'Hoppscotch', description: 'API development', category: 'Dev: Tools', iconUrl: si('hoppscotch', '#47C0A7'), targets: { arch: 'hoppscotch-bin', nix: 'hoppscotch' }, unavailableReason: 'Use [AUR](https://aur.archlinux.org/packages/hoppscotch-bin) or download from [hoppscotch.io](https://hoppscotch.io/download).' },
-    { id: 'virtmanager', name: 'Virt Manager', description: 'KVM/QEMU manager', category: 'Dev: Tools', iconUrl: si('qemu', '#FF6600'), targets: { ubuntu: 'virt-manager', debian: 'virt-manager', arch: 'virt-manager', fedora: 'virt-manager', opensuse: 'virt-manager', nix: 'virt-manager' }, unavailableReason: 'Virt Manager requires system access and is not available via Flatpak or Snap.' },
-    { id: 'imhex', name: 'ImHex', description: 'Hex editor', category: 'Dev: Tools', iconUrl: mdi('hexadecimal', '#4FC1E8'), targets: { arch: 'imhex-bin', fedora: 'imhex', nix: 'imhex', flatpak: 'net.werwolv.ImHex' }, unavailableReason: 'Not in most repos. Use [Flatpak](https://flathub.org/apps/net.werwolv.ImHex) or download from [imhex.werwolv.net](https://imhex.werwolv.net/).' },
+  // DEV TOOLS
+  {
+    id: "git",
+    name: "Git",
+    description: "Version control",
+    category: "Dev: Tools",
+    iconUrl: si("git", "#F05032"),
+    targets: {
+      ubuntu: "git",
+      debian: "git",
+      arch: "git",
+      fedora: "git",
+      opensuse: "git",
+      nix: "git",
+    },
+    unavailableReason:
+      "Git is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "gitlfs",
+    name: "Git LFS",
+    description: "Large file storage",
+    category: "Dev: Tools",
+    iconUrl: si("git", "#F05032"),
+    targets: {
+      ubuntu: "git-lfs",
+      debian: "git-lfs",
+      arch: "git-lfs",
+      fedora: "git-lfs",
+      opensuse: "git-lfs",
+      nix: "git-lfs",
+    },
+    unavailableReason:
+      "Git LFS is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "lazygit",
+    name: "LazyGit",
+    description: "Terminal Git UI",
+    category: "Dev: Tools",
+    iconUrl: si("git", "#F05032"),
+    targets: {
+      ubuntu: "lazygit",
+      debian: "lazygit",
+      arch: "lazygit",
+      fedora: "lazygit",
+      opensuse: "lazygit",
+      nix: "lazygit",
+    },
+    unavailableReason:
+      "LazyGit is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "docker",
+    name: "Docker",
+    description: "Container runtime",
+    category: "Dev: Tools",
+    iconUrl: si("docker", "#2496ED"),
+    targets: {
+      ubuntu: "docker.io",
+      debian: "docker.io",
+      arch: "docker",
+      fedora: "docker",
+      opensuse: "docker",
+      nix: "docker",
+      snap: "docker",
+    },
+    unavailableReason:
+      "Docker is a system service and not available as a Flatpak.",
+  },
+  {
+    id: "podman",
+    name: "Podman",
+    description: "Daemonless containers",
+    category: "Dev: Tools",
+    iconUrl: si("podman", "#892CA0"),
+    targets: {
+      ubuntu: "podman",
+      debian: "podman",
+      arch: "podman",
+      fedora: "podman",
+      opensuse: "podman",
+      nix: "podman",
+    },
+    unavailableReason:
+      "Podman is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "kubectl",
+    name: "kubectl",
+    description: "Kubernetes CLI",
+    category: "Dev: Tools",
+    iconUrl: si("kubernetes", "#326CE5"),
+    targets: {
+      arch: "kubectl",
+      fedora: "kubernetes-client",
+      opensuse: "kubectl",
+      nix: "kubectl",
+      snap: "kubectl --classic",
+    },
+    unavailableReason:
+      "kubectl is not in official Ubuntu or Debian repos. Use Snap or install via [kubernetes.io](https://kubernetes.io/docs/tasks/tools/).",
+  },
+  {
+    id: "vagrant",
+    name: "Vagrant",
+    description: "Dev environment manager",
+    category: "Dev: Tools",
+    iconUrl: si("vagrant", "#1868F2"),
+    targets: {
+      ubuntu: "vagrant",
+      debian: "vagrant",
+      arch: "vagrant",
+      fedora: "vagrant",
+      opensuse: "vagrant",
+      nix: "vagrant",
+    },
+    unavailableReason:
+      "Vagrant is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "virtualbox",
+    name: "VirtualBox",
+    description: "Virtual machines",
+    category: "Dev: Tools",
+    iconUrl: si("virtualbox", "#183A61"),
+    targets: {
+      ubuntu: "virtualbox",
+      debian: "virtualbox",
+      arch: "virtualbox",
+      fedora: "VirtualBox",
+      opensuse: "virtualbox",
+      nix: "virtualbox",
+    },
+    unavailableReason:
+      "VirtualBox requires kernel modules and is not available via Flatpak or Snap.",
+  },
+  {
+    id: "gnomeboxes",
+    name: "GNOME Boxes",
+    description: "Simple VM manager",
+    category: "Dev: Tools",
+    iconUrl: si("gnome", "#4A86CF"),
+    targets: {
+      ubuntu: "gnome-boxes",
+      debian: "gnome-boxes",
+      arch: "gnome-boxes",
+      fedora: "gnome-boxes",
+      opensuse: "gnome-boxes",
+      nix: "gnome-boxes",
+      flatpak: "org.gnome.Boxes",
+    },
+    unavailableReason: "GNOME Boxes is not available as a Snap package.",
+  },
+  {
+    id: "dbeaver",
+    name: "DBeaver",
+    description: "Database tool",
+    category: "Dev: Tools",
+    iconUrl: si("dbeaver", "#382923"),
+    targets: {
+      arch: "dbeaver",
+      nix: "dbeaver-bin",
+      flatpak: "io.dbeaver.DBeaverCommunity",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/io.dbeaver.DBeaverCommunity) or download from [dbeaver.io/download](https://dbeaver.io/download/).",
+  },
+  {
+    id: "meld",
+    name: "Meld",
+    description: "Visual diff tool",
+    category: "Dev: Tools",
+    iconUrl: "https://meldmerge.org/images/meld.svg",
+    targets: {
+      ubuntu: "meld",
+      debian: "meld",
+      arch: "meld",
+      fedora: "meld",
+      opensuse: "meld",
+      nix: "meld",
+      flatpak: "org.gnome.meld",
+    },
+    unavailableReason: "Meld is not available as a Snap package.",
+  },
+  {
+    id: "wireshark",
+    name: "Wireshark",
+    description: "Network analyzer",
+    category: "Dev: Tools",
+    iconUrl: si("wireshark", "#1679A7"),
+    targets: {
+      ubuntu: "wireshark",
+      debian: "wireshark",
+      arch: "wireshark-qt",
+      fedora: "wireshark",
+      opensuse: "wireshark",
+      nix: "wireshark",
+      flatpak: "org.wireshark.Wireshark",
+    },
+    unavailableReason: "Wireshark is not available as a Snap package.",
+  },
+  {
+    id: "postman",
+    name: "Postman",
+    description: "API development",
+    category: "Dev: Tools",
+    iconUrl: si("postman", "#FF6C37"),
+    targets: {
+      arch: "postman-bin",
+      nix: "postman",
+      flatpak: "com.getpostman.Postman",
+      snap: "postman",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.getpostman.Postman)/[Snap](https://snapcraft.io/postman) or download from [postman.com/downloads](https://www.postman.com/downloads/).",
+  },
+  {
+    id: "bruno",
+    name: "Bruno",
+    description: "API client (offline)",
+    category: "Dev: Tools",
+    iconUrl: mdi("api", "#F4A62A"),
+    targets: {
+      arch: "bruno-bin",
+      nix: "bruno",
+      flatpak: "com.usebruno.Bruno",
+      snap: "bruno",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/com.usebruno.Bruno)/[Snap](https://snapcraft.io/bruno) or download from [usebruno.com](https://www.usebruno.com/downloads).",
+  },
+  {
+    id: "hoppscotch",
+    name: "Hoppscotch",
+    description: "API development",
+    category: "Dev: Tools",
+    iconUrl: si("hoppscotch", "#47C0A7"),
+    targets: { arch: "hoppscotch-bin", nix: "hoppscotch" },
+    unavailableReason:
+      "Use [AUR](https://aur.archlinux.org/packages/hoppscotch-bin) or download from [hoppscotch.io](https://hoppscotch.io/download).",
+  },
+  {
+    id: "virtmanager",
+    name: "Virt Manager",
+    description: "KVM/QEMU manager",
+    category: "Dev: Tools",
+    iconUrl: si("qemu", "#FF6600"),
+    targets: {
+      ubuntu: "virt-manager",
+      debian: "virt-manager",
+      arch: "virt-manager",
+      fedora: "virt-manager",
+      opensuse: "virt-manager",
+      nix: "virt-manager",
+    },
+    unavailableReason:
+      "Virt Manager requires system access and is not available via Flatpak or Snap.",
+  },
+  {
+    id: "imhex",
+    name: "ImHex",
+    description: "Hex editor",
+    category: "Dev: Tools",
+    iconUrl: mdi("hexadecimal", "#4FC1E8"),
+    targets: {
+      arch: "imhex-bin",
+      fedora: "imhex",
+      nix: "imhex",
+      flatpak: "net.werwolv.ImHex",
+    },
+    unavailableReason:
+      "Not in most repos. Use [Flatpak](https://flathub.org/apps/net.werwolv.ImHex) or download from [imhex.werwolv.net](https://imhex.werwolv.net/).",
+  },
 
-    // TERMINAL
-    { id: 'zsh', name: 'Zsh', description: 'Extended shell', category: 'Terminal', iconUrl: si('zsh', '#F15A24'), targets: { ubuntu: 'zsh', debian: 'zsh', arch: 'zsh', fedora: 'zsh', opensuse: 'zsh', nix: 'zsh' }, unavailableReason: 'Zsh is a system shell and not available via Flatpak or Snap.' },
-    { id: 'ohmyzsh', name: 'Oh My Zsh', description: 'Zsh framework', category: 'Terminal', iconUrl: si('zsh', '#F15A24'), targets: {}, unavailableReason: 'Install via `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`. See [ohmyzsh wiki](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).' },
-    { id: 'fish', name: 'Fish', description: 'User-friendly shell', category: 'Terminal', iconUrl: vs('file-type-shell'), targets: { ubuntu: 'fish', debian: 'fish', arch: 'fish', fedora: 'fish', opensuse: 'fish', nix: 'fish' }, unavailableReason: 'Fish is a system shell and not available via Flatpak or Snap.' },
-    { id: 'starship', name: 'Starship', description: 'Shell prompt', category: 'Terminal', iconUrl: si('starship', '#DD0B78'), targets: { ubuntu: 'starship', debian: 'starship', arch: 'starship', opensuse: 'starship', nix: 'starship' }, unavailableReason: 'Not in Fedora repos. Install via `curl -sS https://starship.rs/install.sh | sh` or see [starship.rs](https://starship.rs/).' },
-    { id: 'alacritty', name: 'Alacritty', description: 'GPU terminal', category: 'Terminal', iconUrl: si('alacritty', '#F46D01'), targets: { ubuntu: 'alacritty', debian: 'alacritty', arch: 'alacritty', fedora: 'alacritty', opensuse: 'alacritty', nix: 'alacritty', snap: 'alacritty --classic' }, unavailableReason: 'Alacritty is not available as a Flatpak package.' },
-    { id: 'kitty', name: 'Kitty', description: 'Feature-rich terminal', category: 'Terminal', iconUrl: mdi('cat', '#ea5e5e'), targets: { ubuntu: 'kitty', debian: 'kitty', arch: 'kitty', fedora: 'kitty', opensuse: 'kitty', nix: 'kitty' }, unavailableReason: 'Kitty is not available via Flatpak or Snap.' },
-    { id: 'wezterm', name: 'WezTerm', description: 'GPU terminal', category: 'Terminal', iconUrl: si('wezterm', '#4E49EE'), targets: { arch: 'wezterm', opensuse: 'wezterm', nix: 'wezterm', flatpak: 'org.wezfurlong.wezterm' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/en/apps/org.wezfurlong.wezterm) or follow instructions at [wezfurlong.org/wezterm/install](https://wezfurlong.org/wezterm/install/linux.html).' },
-    { id: 'foot', name: 'Foot', description: 'Wayland terminal', category: 'Terminal', iconUrl: si('wayland', '#FFBC00'), targets: { ubuntu: 'foot', debian: 'foot', arch: 'foot', fedora: 'foot', opensuse: 'foot', nix: 'foot' }, unavailableReason: 'Foot is a Wayland-only terminal and not available via Flatpak or Snap.' },
-    { id: 'ghostty', name: 'Ghostty', description: 'Fast GPU terminal', category: 'Terminal', iconUrl: mdi('ghost-outline', '#6E56CF'), targets: { arch: 'ghostty', nix: 'ghostty' }, unavailableReason: 'Not in most repos. See [official binaries](https://ghostty.org/docs/install/binary#linux-(official)) or build from source.' },
-    { id: 'zellij', name: 'Zellij', description: 'Terminal multiplexer', category: 'Terminal', iconUrl: mdi('view-split-vertical', '#A48CF4'), targets: { ubuntu: 'zellij', arch: 'zellij', fedora: 'zellij', opensuse: 'zellij', nix: 'zellij' }, unavailableReason: 'Not in Debian repos. Install via `cargo install zellij` or see [zellij.dev](https://zellij.dev/documentation/installation.html).' },
+  // TERMINAL
+  {
+    id: "zsh",
+    name: "Zsh",
+    description: "Extended shell",
+    category: "Terminal",
+    iconUrl: si("zsh", "#F15A24"),
+    targets: {
+      ubuntu: "zsh",
+      debian: "zsh",
+      arch: "zsh",
+      fedora: "zsh",
+      opensuse: "zsh",
+      nix: "zsh",
+    },
+    unavailableReason:
+      "Zsh is a system shell and not available via Flatpak or Snap.",
+  },
+  {
+    id: "ohmyzsh",
+    name: "Oh My Zsh",
+    description: "Zsh framework",
+    category: "Terminal",
+    iconUrl: si("zsh", "#F15A24"),
+    targets: {},
+    unavailableReason:
+      'Install via `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`. See [ohmyzsh wiki](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).',
+  },
+  {
+    id: "fish",
+    name: "Fish",
+    description: "User-friendly shell",
+    category: "Terminal",
+    iconUrl: vs("file-type-shell"),
+    targets: {
+      ubuntu: "fish",
+      debian: "fish",
+      arch: "fish",
+      fedora: "fish",
+      opensuse: "fish",
+      nix: "fish",
+    },
+    unavailableReason:
+      "Fish is a system shell and not available via Flatpak or Snap.",
+  },
+  {
+    id: "starship",
+    name: "Starship",
+    description: "Shell prompt",
+    category: "Terminal",
+    iconUrl: si("starship", "#DD0B78"),
+    targets: {
+      ubuntu: "starship",
+      debian: "starship",
+      arch: "starship",
+      opensuse: "starship",
+      nix: "starship",
+    },
+    unavailableReason:
+      "Not in Fedora repos. Install via `curl -sS https://starship.rs/install.sh | sh` or see [starship.rs](https://starship.rs/).",
+  },
+  {
+    id: "alacritty",
+    name: "Alacritty",
+    description: "GPU terminal",
+    category: "Terminal",
+    iconUrl: si("alacritty", "#F46D01"),
+    targets: {
+      ubuntu: "alacritty",
+      debian: "alacritty",
+      arch: "alacritty",
+      fedora: "alacritty",
+      opensuse: "alacritty",
+      nix: "alacritty",
+      snap: "alacritty --classic",
+    },
+    unavailableReason: "Alacritty is not available as a Flatpak package.",
+  },
+  {
+    id: "kitty",
+    name: "Kitty",
+    description: "Feature-rich terminal",
+    category: "Terminal",
+    iconUrl: mdi("cat", "#ea5e5e"),
+    targets: {
+      ubuntu: "kitty",
+      debian: "kitty",
+      arch: "kitty",
+      fedora: "kitty",
+      opensuse: "kitty",
+      nix: "kitty",
+    },
+    unavailableReason: "Kitty is not available via Flatpak or Snap.",
+  },
+  {
+    id: "wezterm",
+    name: "WezTerm",
+    description: "GPU terminal",
+    category: "Terminal",
+    iconUrl: si("wezterm", "#4E49EE"),
+    targets: {
+      arch: "wezterm",
+      opensuse: "wezterm",
+      nix: "wezterm",
+      flatpak: "org.wezfurlong.wezterm",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/org.wezfurlong.wezterm) or follow instructions at [wezfurlong.org/wezterm/install](https://wezfurlong.org/wezterm/install/linux.html).",
+  },
+  {
+    id: "foot",
+    name: "Foot",
+    description: "Wayland terminal",
+    category: "Terminal",
+    iconUrl: si("wayland", "#FFBC00"),
+    targets: {
+      ubuntu: "foot",
+      debian: "foot",
+      arch: "foot",
+      fedora: "foot",
+      opensuse: "foot",
+      nix: "foot",
+    },
+    unavailableReason:
+      "Foot is a Wayland-only terminal and not available via Flatpak or Snap.",
+  },
+  {
+    id: "ghostty",
+    name: "Ghostty",
+    description: "Fast GPU terminal",
+    category: "Terminal",
+    iconUrl: mdi("ghost-outline", "#6E56CF"),
+    targets: { arch: "ghostty", nix: "ghostty" },
+    unavailableReason:
+      "Not in most repos. See [official binaries](https://ghostty.org/docs/install/binary#linux-(official)) or build from source.",
+  },
+  {
+    id: "zellij",
+    name: "Zellij",
+    description: "Terminal multiplexer",
+    category: "Terminal",
+    iconUrl: mdi("view-split-vertical", "#A48CF4"),
+    targets: {
+      ubuntu: "zellij",
+      arch: "zellij",
+      fedora: "zellij",
+      opensuse: "zellij",
+      nix: "zellij",
+    },
+    unavailableReason:
+      "Not in Debian repos. Install via `cargo install zellij` or see [zellij.dev](https://zellij.dev/documentation/installation.html).",
+  },
 
-    // CLI TOOLS
-    { id: 'btop', name: 'btop', description: 'Resource monitor', category: 'CLI Tools', iconUrl: mdi('monitor-dashboard', '#FF6B6B'), targets: { ubuntu: 'btop', debian: 'btop', arch: 'btop', fedora: 'btop', opensuse: 'btop', nix: 'btop' }, unavailableReason: 'btop is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'htop', name: 'htop', description: 'Process viewer', category: 'CLI Tools', iconUrl: mdi('chart-bar', '#4CE026'), targets: { ubuntu: 'htop', debian: 'htop', arch: 'htop', fedora: 'htop', opensuse: 'htop', nix: 'htop', snap: 'htop' }, unavailableReason: 'htop is a CLI tool and not available as a Flatpak.' },
-    { id: 'fastfetch', name: 'fastfetch', description: 'System info', category: 'CLI Tools', iconUrl: mdi('console', '#57F287'), targets: { arch: 'fastfetch', fedora: 'fastfetch', opensuse: 'fastfetch', nix: 'fastfetch' }, unavailableReason: 'Not in Ubuntu/Debian repos. Install from [github.com/fastfetch-cli/fastfetch](https://github.com/fastfetch-cli/fastfetch/releases).' },
-    { id: 'neofetch', name: 'neofetch', description: 'System info', category: 'CLI Tools', iconUrl: si('linux', '#FCC624'), targets: { ubuntu: 'neofetch', debian: 'neofetch', arch: 'neofetch', fedora: 'neofetch', opensuse: 'neofetch', nix: 'neofetch' }, unavailableReason: 'neofetch is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'eza', name: 'eza', description: 'Modern ls', category: 'CLI Tools', iconUrl: mdi('format-list-bulleted', '#F9E64F'), targets: { ubuntu: 'eza', debian: 'eza', arch: 'eza', fedora: 'eza', opensuse: 'eza', nix: 'eza' }, unavailableReason: 'eza is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'bat', name: 'bat', description: 'Cat with syntax', category: 'CLI Tools', iconUrl: mdi('file-code-outline', '#A6E22E'), targets: { ubuntu: 'bat', debian: 'bat', arch: 'bat', fedora: 'bat', opensuse: 'bat', nix: 'bat' }, unavailableReason: 'bat is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'fzf', name: 'fzf', description: 'Fuzzy finder', category: 'CLI Tools', iconUrl: mdi('magnify', '#FF0055'), targets: { ubuntu: 'fzf', debian: 'fzf', arch: 'fzf', fedora: 'fzf', opensuse: 'fzf', nix: 'fzf' }, unavailableReason: 'fzf is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'ripgrep', name: 'ripgrep', description: 'Fast grep', category: 'CLI Tools', iconUrl: mdi('text-search', '#C0C0C0'), targets: { ubuntu: 'ripgrep', debian: 'ripgrep', arch: 'ripgrep', fedora: 'ripgrep', opensuse: 'ripgrep', nix: 'ripgrep' }, unavailableReason: 'ripgrep is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'zoxide', name: 'zoxide', description: 'Smarter cd', category: 'CLI Tools', iconUrl: mdi('folder-move-outline', '#FF9F43'), targets: { ubuntu: 'zoxide', debian: 'zoxide', arch: 'zoxide', fedora: 'zoxide', opensuse: 'zoxide', nix: 'zoxide' }, unavailableReason: 'zoxide is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'tldr', name: 'tldr', description: 'Simple man pages', category: 'CLI Tools', iconUrl: mdi('book-open-page-variant-outline', '#2D9CDB'), targets: { ubuntu: 'tldr', debian: 'tldr', arch: 'tldr', fedora: 'tldr', nix: 'tldr' }, unavailableReason: 'tldr is a CLI tool and not available on openSUSE, Flatpak, or Snap.' },
-    { id: 'wget', name: 'wget', description: 'Network downloader', category: 'CLI Tools', iconUrl: mdi('download', '#3FA75E'), targets: { ubuntu: 'wget', debian: 'wget', arch: 'wget', fedora: 'wget', opensuse: 'wget', nix: 'wget' }, unavailableReason: 'wget is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'curl', name: 'curl', description: 'Data transfer', category: 'CLI Tools', iconUrl: si('curl', '#073551'), targets: { ubuntu: 'curl', debian: 'curl', arch: 'curl', fedora: 'curl', opensuse: 'curl', nix: 'curl' }, unavailableReason: 'curl is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'aria2', name: 'aria2', description: 'Download accelerator', category: 'CLI Tools', iconUrl: mdi('download-multiple', '#F94144'), targets: { ubuntu: 'aria2', debian: 'aria2', arch: 'aria2', fedora: 'aria2', opensuse: 'aria2', nix: 'aria2' }, unavailableReason: 'aria2 is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'yazi', name: 'yazi', description: 'Terminal file manager', category: 'CLI Tools', iconUrl: mdi('folder-table-outline', '#F3B329'), targets: { arch: 'yazi', opensuse: 'yazi', nix: 'yazi' }, unavailableReason: 'Not in most repos. Install via [cargo](https://crates.io/crates/yazi) or download from [github.com/sxyazi/yazi](https://github.com/sxyazi/yazi/releases).' },
-    { id: 'ranger', name: 'ranger', description: 'Terminal file manager', category: 'CLI Tools', iconUrl: mdi('folder-key-outline', '#FFFFFF'), targets: { ubuntu: 'ranger', debian: 'ranger', arch: 'ranger', fedora: 'ranger', opensuse: 'ranger', nix: 'ranger' }, unavailableReason: 'ranger is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'ncdu', name: 'ncdu', description: 'Disk usage', category: 'CLI Tools', iconUrl: mdi('chart-arc', '#00ADEE'), targets: { ubuntu: 'ncdu', debian: 'ncdu', arch: 'ncdu', fedora: 'ncdu', opensuse: 'ncdu', nix: 'ncdu' }, unavailableReason: 'ncdu is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'fd', name: 'fd', description: 'Modern find', category: 'CLI Tools', iconUrl: mdi('file-search-outline', '#56BE89'), targets: { ubuntu: 'fd-find', debian: 'fd-find', arch: 'fd', fedora: 'fd-find', opensuse: 'fd', nix: 'fd' }, unavailableReason: 'fd is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'tmux', name: 'tmux', description: 'Terminal multiplexer', category: 'CLI Tools', iconUrl: si('tmux', '#1BB91F'), targets: { ubuntu: 'tmux', debian: 'tmux', arch: 'tmux', fedora: 'tmux', opensuse: 'tmux', nix: 'tmux' }, unavailableReason: 'tmux is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'superfile', name: 'Superfile', description: 'Terminal file manager', category: 'CLI Tools', iconUrl: mdi('folder-multiple', '#FFD93D'), targets: { arch: 'superfile', nix: 'superfile' }, unavailableReason: 'Install via `go install` or see [superfile.dev](https://superfile.dev/getting-started/installation/).' },
-    { id: 'rsync', name: 'rsync', description: 'File sync tool', category: 'CLI Tools', iconUrl: mdi('sync', '#2ECC71'), targets: { ubuntu: 'rsync', debian: 'rsync', arch: 'rsync', fedora: 'rsync', opensuse: 'rsync', nix: 'rsync' }, unavailableReason: 'rsync is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'uv', name: 'uv', description: 'Fast Python package manager', category: 'Dev: Languages', iconUrl: si('astral', '#5C4EE5'), targets: { arch: 'uv', nix: 'uv' }, unavailableReason: 'Install via `curl -LsSf https://astral.sh/uv/install.sh | sh`. See [installation guide](https://docs.astral.sh/uv/getting-started/installation/).' },
+  // CLI TOOLS
+  {
+    id: "btop",
+    name: "btop",
+    description: "Resource monitor",
+    category: "CLI Tools",
+    iconUrl: mdi("monitor-dashboard", "#FF6B6B"),
+    targets: {
+      ubuntu: "btop",
+      debian: "btop",
+      arch: "btop",
+      fedora: "btop",
+      opensuse: "btop",
+      nix: "btop",
+    },
+    unavailableReason:
+      "btop is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "htop",
+    name: "htop",
+    description: "Process viewer",
+    category: "CLI Tools",
+    iconUrl: mdi("chart-bar", "#4CE026"),
+    targets: {
+      ubuntu: "htop",
+      debian: "htop",
+      arch: "htop",
+      fedora: "htop",
+      opensuse: "htop",
+      nix: "htop",
+      snap: "htop",
+    },
+    unavailableReason: "htop is a CLI tool and not available as a Flatpak.",
+  },
+  {
+    id: "fastfetch",
+    name: "fastfetch",
+    description: "System info",
+    category: "CLI Tools",
+    iconUrl: mdi("console", "#57F287"),
+    targets: {
+      arch: "fastfetch",
+      fedora: "fastfetch",
+      opensuse: "fastfetch",
+      nix: "fastfetch",
+    },
+    unavailableReason:
+      "Not in Ubuntu/Debian repos. Install from [github.com/fastfetch-cli/fastfetch](https://github.com/fastfetch-cli/fastfetch/releases).",
+  },
+  {
+    id: "neofetch",
+    name: "neofetch",
+    description: "System info",
+    category: "CLI Tools",
+    iconUrl: si("linux", "#FCC624"),
+    targets: {
+      ubuntu: "neofetch",
+      debian: "neofetch",
+      arch: "neofetch",
+      fedora: "neofetch",
+      opensuse: "neofetch",
+      nix: "neofetch",
+    },
+    unavailableReason:
+      "neofetch is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "eza",
+    name: "eza",
+    description: "Modern ls",
+    category: "CLI Tools",
+    iconUrl: mdi("format-list-bulleted", "#F9E64F"),
+    targets: {
+      ubuntu: "eza",
+      debian: "eza",
+      arch: "eza",
+      fedora: "eza",
+      opensuse: "eza",
+      nix: "eza",
+    },
+    unavailableReason:
+      "eza is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "bat",
+    name: "bat",
+    description: "Cat with syntax",
+    category: "CLI Tools",
+    iconUrl: mdi("file-code-outline", "#A6E22E"),
+    targets: {
+      ubuntu: "bat",
+      debian: "bat",
+      arch: "bat",
+      fedora: "bat",
+      opensuse: "bat",
+      nix: "bat",
+    },
+    unavailableReason:
+      "bat is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "fzf",
+    name: "fzf",
+    description: "Fuzzy finder",
+    category: "CLI Tools",
+    iconUrl: mdi("magnify", "#FF0055"),
+    targets: {
+      ubuntu: "fzf",
+      debian: "fzf",
+      arch: "fzf",
+      fedora: "fzf",
+      opensuse: "fzf",
+      nix: "fzf",
+    },
+    unavailableReason:
+      "fzf is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "ripgrep",
+    name: "ripgrep",
+    description: "Fast grep",
+    category: "CLI Tools",
+    iconUrl: mdi("text-search", "#C0C0C0"),
+    targets: {
+      ubuntu: "ripgrep",
+      debian: "ripgrep",
+      arch: "ripgrep",
+      fedora: "ripgrep",
+      opensuse: "ripgrep",
+      nix: "ripgrep",
+    },
+    unavailableReason:
+      "ripgrep is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "zoxide",
+    name: "zoxide",
+    description: "Smarter cd",
+    category: "CLI Tools",
+    iconUrl: mdi("folder-move-outline", "#FF9F43"),
+    targets: {
+      ubuntu: "zoxide",
+      debian: "zoxide",
+      arch: "zoxide",
+      fedora: "zoxide",
+      opensuse: "zoxide",
+      nix: "zoxide",
+    },
+    unavailableReason:
+      "zoxide is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "tldr",
+    name: "tldr",
+    description: "Simple man pages",
+    category: "CLI Tools",
+    iconUrl: mdi("book-open-page-variant-outline", "#2D9CDB"),
+    targets: {
+      ubuntu: "tldr",
+      debian: "tldr",
+      arch: "tldr",
+      fedora: "tldr",
+      nix: "tldr",
+    },
+    unavailableReason:
+      "tldr is a CLI tool and not available on openSUSE, Flatpak, or Snap.",
+  },
+  {
+    id: "wget",
+    name: "wget",
+    description: "Network downloader",
+    category: "CLI Tools",
+    iconUrl: mdi("download", "#3FA75E"),
+    targets: {
+      ubuntu: "wget",
+      debian: "wget",
+      arch: "wget",
+      fedora: "wget",
+      opensuse: "wget",
+      nix: "wget",
+    },
+    unavailableReason:
+      "wget is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "curl",
+    name: "curl",
+    description: "Data transfer",
+    category: "CLI Tools",
+    iconUrl: si("curl", "#073551"),
+    targets: {
+      ubuntu: "curl",
+      debian: "curl",
+      arch: "curl",
+      fedora: "curl",
+      opensuse: "curl",
+      nix: "curl",
+    },
+    unavailableReason:
+      "curl is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "aria2",
+    name: "aria2",
+    description: "Download accelerator",
+    category: "CLI Tools",
+    iconUrl: mdi("download-multiple", "#F94144"),
+    targets: {
+      ubuntu: "aria2",
+      debian: "aria2",
+      arch: "aria2",
+      fedora: "aria2",
+      opensuse: "aria2",
+      nix: "aria2",
+    },
+    unavailableReason:
+      "aria2 is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "yazi",
+    name: "yazi",
+    description: "Terminal file manager",
+    category: "CLI Tools",
+    iconUrl: mdi("folder-table-outline", "#F3B329"),
+    targets: { arch: "yazi", opensuse: "yazi", nix: "yazi" },
+    unavailableReason:
+      "Not in most repos. Install via [cargo](https://crates.io/crates/yazi) or download from [github.com/sxyazi/yazi](https://github.com/sxyazi/yazi/releases).",
+  },
+  {
+    id: "ranger",
+    name: "ranger",
+    description: "Terminal file manager",
+    category: "CLI Tools",
+    iconUrl: mdi("folder-key-outline", "#FFFFFF"),
+    targets: {
+      ubuntu: "ranger",
+      debian: "ranger",
+      arch: "ranger",
+      fedora: "ranger",
+      opensuse: "ranger",
+      nix: "ranger",
+    },
+    unavailableReason:
+      "ranger is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "ncdu",
+    name: "ncdu",
+    description: "Disk usage",
+    category: "CLI Tools",
+    iconUrl: mdi("chart-arc", "#00ADEE"),
+    targets: {
+      ubuntu: "ncdu",
+      debian: "ncdu",
+      arch: "ncdu",
+      fedora: "ncdu",
+      opensuse: "ncdu",
+      nix: "ncdu",
+    },
+    unavailableReason:
+      "ncdu is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "fd",
+    name: "fd",
+    description: "Modern find",
+    category: "CLI Tools",
+    iconUrl: mdi("file-search-outline", "#56BE89"),
+    targets: {
+      ubuntu: "fd-find",
+      debian: "fd-find",
+      arch: "fd",
+      fedora: "fd-find",
+      opensuse: "fd",
+      nix: "fd",
+    },
+    unavailableReason:
+      "fd is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "tmux",
+    name: "tmux",
+    description: "Terminal multiplexer",
+    category: "CLI Tools",
+    iconUrl: si("tmux", "#1BB91F"),
+    targets: {
+      ubuntu: "tmux",
+      debian: "tmux",
+      arch: "tmux",
+      fedora: "tmux",
+      opensuse: "tmux",
+      nix: "tmux",
+    },
+    unavailableReason:
+      "tmux is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "superfile",
+    name: "Superfile",
+    description: "Terminal file manager",
+    category: "CLI Tools",
+    iconUrl: mdi("folder-multiple", "#FFD93D"),
+    targets: { arch: "superfile", nix: "superfile" },
+    unavailableReason:
+      "Install via `go install` or see [superfile.dev](https://superfile.dev/getting-started/installation/).",
+  },
+  {
+    id: "rsync",
+    name: "rsync",
+    description: "File sync tool",
+    category: "CLI Tools",
+    iconUrl: mdi("sync", "#2ECC71"),
+    targets: {
+      ubuntu: "rsync",
+      debian: "rsync",
+      arch: "rsync",
+      fedora: "rsync",
+      opensuse: "rsync",
+      nix: "rsync",
+    },
+    unavailableReason:
+      "rsync is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "uv",
+    name: "uv",
+    description: "Fast Python package manager",
+    category: "Dev: Languages",
+    iconUrl: si("astral", "#5C4EE5"),
+    targets: { arch: "uv", nix: "uv" },
+    unavailableReason:
+      "Install via `curl -LsSf https://astral.sh/uv/install.sh | sh`. See [installation guide](https://docs.astral.sh/uv/getting-started/installation/).",
+  },
 
-    // MEDIA
-    { id: 'vlc', name: 'VLC', description: 'Plays any format', category: 'Media', iconUrl: si('vlcmediaplayer', '#FF8800'), targets: { ubuntu: 'vlc', debian: 'vlc', arch: 'vlc', fedora: 'vlc', opensuse: 'vlc', nix: 'vlc', flatpak: 'org.videolan.VLC', snap: 'vlc' } },
-    { id: 'mpv', name: 'mpv', description: 'Minimal player', category: 'Media', iconUrl: si('mpv', '#691F69'), targets: { ubuntu: 'mpv', debian: 'mpv', arch: 'mpv', fedora: 'mpv', opensuse: 'mpv', nix: 'mpv', flatpak: 'io.mpv.Mpv', snap: 'mpv' } },
-    { id: 'celluloid', name: 'Celluloid', description: 'GTK mpv frontend', category: 'Media', iconUrl: si('gnome', '#4A86CF'), targets: { ubuntu: 'celluloid', debian: 'celluloid', arch: 'celluloid', fedora: 'celluloid', opensuse: 'celluloid', nix: 'celluloid', flatpak: 'io.github.celluloid_player.Celluloid' }, unavailableReason: 'Celluloid is not available as a Snap package.' },
-    { id: 'strawberry', name: 'Strawberry', description: 'Music player', category: 'Media', iconUrl: si('musicbrainz', '#BA478F'), targets: { ubuntu: 'strawberry', debian: 'strawberry', arch: 'strawberry', fedora: 'strawberry', opensuse: 'strawberry', nix: 'strawberry', flatpak: 'org.strawberrymusicplayer.strawberry' }, unavailableReason: 'Strawberry is not available as a Snap package.' },
-    { id: 'spotify', name: 'Spotify', description: 'Music streaming', category: 'Media', iconUrl: si('spotify', '#1DB954'), targets: { arch: 'spotify', nix: 'spotify', flatpak: 'com.spotify.Client', snap: 'spotify' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.spotify.Client) or [Snap](https://snapcraft.io/spotify) or follow instructions at [spotify.com/download/linux](https://www.spotify.com/download/linux/).' },
-    { id: 'audacity', name: 'Audacity', description: 'Audio editor', category: 'Media', iconUrl: si('audacity', '#0000CC'), targets: { ubuntu: 'audacity', debian: 'audacity', arch: 'audacity', fedora: 'audacity', opensuse: 'audacity', nix: 'audacity', flatpak: 'org.audacityteam.Audacity', snap: 'audacity' } },
-    { id: 'kdenlive', name: 'Kdenlive', description: 'Video editor', category: 'Media', iconUrl: si('kdenlive', '#527EB2'), targets: { ubuntu: 'kdenlive', debian: 'kdenlive', arch: 'kdenlive', fedora: 'kdenlive', opensuse: 'kdenlive', nix: 'kdenlive', flatpak: 'org.kde.kdenlive', snap: 'kdenlive' } },
-    { id: 'obs', name: 'OBS Studio', description: 'Streaming', category: 'Media', iconUrl: si('obsstudio', '#A3A3A3'), targets: { ubuntu: 'obs-studio', debian: 'obs-studio', arch: 'obs-studio', fedora: 'obs-studio', opensuse: 'obs-studio', nix: 'obs-studio', flatpak: 'com.obsproject.Studio', snap: 'obs-studio' } },
-    { id: 'ffmpeg', name: 'FFmpeg', description: 'Media converter', category: 'Media', iconUrl: si('ffmpeg', '#007808'), targets: { ubuntu: 'ffmpeg', debian: 'ffmpeg', arch: 'ffmpeg', fedora: 'ffmpeg', opensuse: 'ffmpeg', nix: 'ffmpeg' }, unavailableReason: 'FFmpeg is a system library and not available via Flatpak or Snap.' },
-    { id: 'handbrake', name: 'HandBrake', description: 'Video transcoder', category: 'Media', iconUrl: mdi('video-vintage', '#F83262'), targets: { ubuntu: 'handbrake', debian: 'handbrake', arch: 'handbrake', opensuse: 'handbrake', nix: 'handbrake', flatpak: 'fr.handbrake.ghb', snap: 'handbrake-jz' }, unavailableReason: 'HandBrake is not in official Fedora repos. Use [Flatpak](https://flathub.org/apps/details/fr.handbrake.ghb) or [Snap](https://snapcraft.io/handbrake-jz) instead.' },
-    { id: 'stremio', name: 'Stremio', description: 'Media center', category: 'Media', iconUrl: si('stremio', '#8A5AAB'), targets: { arch: 'stremio', flatpak: 'com.stremio.Stremio' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/stremio) or [Flatpak](https://flathub.org/apps/details/com.stremio.Stremio), see [stremio.com/downloads](https://www.stremio.com/downloads) for more info.' },
-    { id: 'kodi', name: 'Kodi', description: 'Home theater', category: 'Media', iconUrl: si('kodi', '#17B2E7'), targets: { ubuntu: 'kodi', debian: 'kodi', arch: 'kodi', fedora: 'kodi', opensuse: 'kodi', nix: 'kodi', flatpak: 'tv.kodi.Kodi', snap: 'kodi' } },
-    { id: 'shortwave', name: 'Shortwave', description: 'Internet radio', category: 'Media', iconUrl: si('playerfm', '#478ECC'), targets: { ubuntu: 'shortwave', debian: 'shortwave', arch: 'shortwave', fedora: 'shortwave', opensuse: 'shortwave', nix: 'shortwave', flatpak: 'de.haeckerfelix.Shortwave', snap: 'shortwave' } },
+  // MEDIA
+  {
+    id: "vlc",
+    name: "VLC",
+    description: "Plays any format",
+    category: "Media",
+    iconUrl: si("vlcmediaplayer", "#FF8800"),
+    targets: {
+      ubuntu: "vlc",
+      debian: "vlc",
+      arch: "vlc",
+      fedora: "vlc",
+      opensuse: "vlc",
+      nix: "vlc",
+      flatpak: "org.videolan.VLC",
+      snap: "vlc",
+    },
+  },
+  {
+    id: "mpv",
+    name: "mpv",
+    description: "Minimal player",
+    category: "Media",
+    iconUrl: si("mpv", "#691F69"),
+    targets: {
+      ubuntu: "mpv",
+      debian: "mpv",
+      arch: "mpv",
+      fedora: "mpv",
+      opensuse: "mpv",
+      nix: "mpv",
+      flatpak: "io.mpv.Mpv",
+      snap: "mpv",
+    },
+  },
+  {
+    id: "celluloid",
+    name: "Celluloid",
+    description: "GTK mpv frontend",
+    category: "Media",
+    iconUrl: si("gnome", "#4A86CF"),
+    targets: {
+      ubuntu: "celluloid",
+      debian: "celluloid",
+      arch: "celluloid",
+      fedora: "celluloid",
+      opensuse: "celluloid",
+      nix: "celluloid",
+      flatpak: "io.github.celluloid_player.Celluloid",
+    },
+    unavailableReason: "Celluloid is not available as a Snap package.",
+  },
+  {
+    id: "strawberry",
+    name: "Strawberry",
+    description: "Music player",
+    category: "Media",
+    iconUrl: si("musicbrainz", "#BA478F"),
+    targets: {
+      ubuntu: "strawberry",
+      debian: "strawberry",
+      arch: "strawberry",
+      fedora: "strawberry",
+      opensuse: "strawberry",
+      nix: "strawberry",
+      flatpak: "org.strawberrymusicplayer.strawberry",
+    },
+    unavailableReason: "Strawberry is not available as a Snap package.",
+  },
+  {
+    id: "spotify",
+    name: "Spotify",
+    description: "Music streaming",
+    category: "Media",
+    iconUrl: si("spotify", "#1DB954"),
+    targets: {
+      arch: "spotify",
+      nix: "spotify",
+      flatpak: "com.spotify.Client",
+      snap: "spotify",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.spotify.Client) or [Snap](https://snapcraft.io/spotify) or follow instructions at [spotify.com/download/linux](https://www.spotify.com/download/linux/).",
+  },
+  {
+    id: "audacity",
+    name: "Audacity",
+    description: "Audio editor",
+    category: "Media",
+    iconUrl: si("audacity", "#0000CC"),
+    targets: {
+      ubuntu: "audacity",
+      debian: "audacity",
+      arch: "audacity",
+      fedora: "audacity",
+      opensuse: "audacity",
+      nix: "audacity",
+      flatpak: "org.audacityteam.Audacity",
+      snap: "audacity",
+    },
+  },
+  {
+    id: "kdenlive",
+    name: "Kdenlive",
+    description: "Video editor",
+    category: "Media",
+    iconUrl: si("kdenlive", "#527EB2"),
+    targets: {
+      ubuntu: "kdenlive",
+      debian: "kdenlive",
+      arch: "kdenlive",
+      fedora: "kdenlive",
+      opensuse: "kdenlive",
+      nix: "kdenlive",
+      flatpak: "org.kde.kdenlive",
+      snap: "kdenlive",
+    },
+  },
+  {
+    id: "obs",
+    name: "OBS Studio",
+    description: "Streaming",
+    category: "Media",
+    iconUrl: si("obsstudio", "#A3A3A3"),
+    targets: {
+      ubuntu: "obs-studio",
+      debian: "obs-studio",
+      arch: "obs-studio",
+      fedora: "obs-studio",
+      opensuse: "obs-studio",
+      nix: "obs-studio",
+      flatpak: "com.obsproject.Studio",
+      snap: "obs-studio",
+    },
+  },
+  {
+    id: "ffmpeg",
+    name: "FFmpeg",
+    description: "Media converter",
+    category: "Media",
+    iconUrl: si("ffmpeg", "#007808"),
+    targets: {
+      ubuntu: "ffmpeg",
+      debian: "ffmpeg",
+      arch: "ffmpeg",
+      fedora: "ffmpeg",
+      opensuse: "ffmpeg",
+      nix: "ffmpeg",
+    },
+    unavailableReason:
+      "FFmpeg is a system library and not available via Flatpak or Snap.",
+  },
+  {
+    id: "handbrake",
+    name: "HandBrake",
+    description: "Video transcoder",
+    category: "Media",
+    iconUrl: mdi("video-vintage", "#F83262"),
+    targets: {
+      ubuntu: "handbrake",
+      debian: "handbrake",
+      arch: "handbrake",
+      opensuse: "handbrake",
+      nix: "handbrake",
+      flatpak: "fr.handbrake.ghb",
+      snap: "handbrake-jz",
+    },
+    unavailableReason:
+      "HandBrake is not in official Fedora repos. Use [Flatpak](https://flathub.org/apps/details/fr.handbrake.ghb) or [Snap](https://snapcraft.io/handbrake-jz) instead.",
+  },
+  {
+    id: "stremio",
+    name: "Stremio",
+    description: "Media center",
+    category: "Media",
+    iconUrl: si("stremio", "#8A5AAB"),
+    targets: { arch: "stremio", flatpak: "com.stremio.Stremio" },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/stremio) or [Flatpak](https://flathub.org/apps/details/com.stremio.Stremio), see [stremio.com/downloads](https://www.stremio.com/downloads) for more info.",
+  },
+  {
+    id: "kodi",
+    name: "Kodi",
+    description: "Home theater",
+    category: "Media",
+    iconUrl: si("kodi", "#17B2E7"),
+    targets: {
+      ubuntu: "kodi",
+      debian: "kodi",
+      arch: "kodi",
+      fedora: "kodi",
+      opensuse: "kodi",
+      nix: "kodi",
+      flatpak: "tv.kodi.Kodi",
+      snap: "kodi",
+    },
+  },
+  {
+    id: "shortwave",
+    name: "Shortwave",
+    description: "Internet radio",
+    category: "Media",
+    iconUrl: si("playerfm", "#478ECC"),
+    targets: {
+      ubuntu: "shortwave",
+      debian: "shortwave",
+      arch: "shortwave",
+      fedora: "shortwave",
+      opensuse: "shortwave",
+      nix: "shortwave",
+      flatpak: "de.haeckerfelix.Shortwave",
+      snap: "shortwave",
+    },
+  },
 
-    // CREATIVE
-    { id: 'blender', name: 'Blender', description: '3D modeling', category: 'Creative', iconUrl: si('blender', '#E87D0D'), targets: { ubuntu: 'blender', debian: 'blender', arch: 'blender', fedora: 'blender', opensuse: 'blender', nix: 'blender', flatpak: 'org.blender.Blender', snap: 'blender --classic' } },
-    { id: 'gimp', name: 'GIMP', description: 'Image editor', category: 'Creative', iconUrl: si('gimp', '#5C5543'), targets: { ubuntu: 'gimp', debian: 'gimp', arch: 'gimp', fedora: 'gimp', opensuse: 'gimp', nix: 'gimp', flatpak: 'org.gimp.GIMP', snap: 'gimp' } },
-    { id: 'inkscape', name: 'Inkscape', description: 'Vector graphics', category: 'Creative', iconUrl: 'https://media.inkscape.org/static/images/inkscape-logo.svg', targets: { ubuntu: 'inkscape', debian: 'inkscape', arch: 'inkscape', fedora: 'inkscape', opensuse: 'inkscape', nix: 'inkscape', flatpak: 'org.inkscape.Inkscape', snap: 'inkscape' } },
-    { id: 'krita', name: 'Krita', description: 'Digital painting', category: 'Creative', iconUrl: si('krita', '#337FCC'), targets: { ubuntu: 'krita', debian: 'krita', arch: 'krita', fedora: 'krita', opensuse: 'krita', nix: 'krita', flatpak: 'org.kde.krita', snap: 'krita' } },
-    { id: 'darktable', name: 'Darktable', description: 'Photo workflow', category: 'Creative', iconUrl: 'https://www.svgrepo.com/show/378112/darktable.svg', targets: { ubuntu: 'darktable', debian: 'darktable', arch: 'darktable', fedora: 'darktable', opensuse: 'darktable', nix: 'darktable', flatpak: 'org.darktable.Darktable', snap: 'darktable' } },
-    { id: 'freecad', name: 'FreeCAD', description: '3D CAD', category: 'Creative', iconUrl: si('freecad', '#CB333B'), targets: { ubuntu: 'freecad', debian: 'freecad', arch: 'freecad', fedora: 'freecad', opensuse: 'freecad', nix: 'freecad', flatpak: 'org.freecad.FreeCAD', snap: 'freecad' } },
-    { id: 'kicad', name: 'KiCad', description: 'PCB design', category: 'Creative', iconUrl: si('kicad', '#314CB6'), targets: { ubuntu: 'kicad', debian: 'kicad', arch: 'kicad', fedora: 'kicad', opensuse: 'kicad', nix: 'kicad', flatpak: 'org.kicad.KiCad', snap: 'kicad' } },
-    { id: 'cura', name: 'UltiMaker Cura', description: '3D printing slicer', category: 'Creative', iconUrl: 'https://dl.flathub.org/media/com/ultimaker/cura.desktop/9eeed6dfd5a5ec2c8e5c8917012db5ad/icons/128x128/com.ultimaker.cura.desktop.png', targets: { ubuntu: 'cura', debian: 'cura', arch: 'cura', fedora: 'cura', opensuse: 'cura', nix: 'cura', flatpak: 'com.ultimaker.cura', snap: 'cura-slicer' } },
-    { id: 'orcaslicer', name: 'OrcaSlicer', description: 'G-code 3D slicer', category: 'Creative', iconUrl: mdi('printer-3d-nozzle', '#00AE42'), targets: { arch: 'orcaslicer-bin', nix: 'orcaslicer', flatpak: 'net.orcaslicer.OrcaSlicer' }, unavailableReason: 'Use [Flatpak](https://flathub.org/apps/net.orcaslicer.OrcaSlicer) or AppImage from [GitHub](https://github.com/SoftFever/OrcaSlicer/releases).' },
+  // CREATIVE
+  {
+    id: "blender",
+    name: "Blender",
+    description: "3D modeling",
+    category: "Creative",
+    iconUrl: si("blender", "#E87D0D"),
+    targets: {
+      ubuntu: "blender",
+      debian: "blender",
+      arch: "blender",
+      fedora: "blender",
+      opensuse: "blender",
+      nix: "blender",
+      flatpak: "org.blender.Blender",
+      snap: "blender --classic",
+    },
+  },
+  {
+    id: "davinci-resolve",
+    name: "DaVinci Resolve",
+    description: "Video editor",
+    category: "Creative",
+    iconUrl: si("davinciresolve", "#233A51"),
+    targets: {
+      ubuntu: "",
+      debian: "",
+      arch: "davinci-resolve",
+      fedora: "",
+      opensuse: "",
+      nix: "davinci-resolve",
+      flatpak: "",
+      snap: "",
+    },
+    unavailableReason:
+      "Available via [Nix](https://search.nixos.org/packages?channel=unstable&show=davinci-resolve).",
+  },
+  {
+    id: "gimp",
+    name: "GIMP",
+    description: "Image editor",
+    category: "Creative",
+    iconUrl: si("gimp", "#5C5543"),
+    targets: {
+      ubuntu: "gimp",
+      debian: "gimp",
+      arch: "gimp",
+      fedora: "gimp",
+      opensuse: "gimp",
+      nix: "gimp",
+      flatpak: "org.gimp.GIMP",
+      snap: "gimp",
+    },
+  },
+  {
+    id: "inkscape",
+    name: "Inkscape",
+    description: "Vector graphics",
+    category: "Creative",
+    iconUrl: "https://media.inkscape.org/static/images/inkscape-logo.svg",
+    targets: {
+      ubuntu: "inkscape",
+      debian: "inkscape",
+      arch: "inkscape",
+      fedora: "inkscape",
+      opensuse: "inkscape",
+      nix: "inkscape",
+      flatpak: "org.inkscape.Inkscape",
+      snap: "inkscape",
+    },
+  },
+  {
+    id: "krita",
+    name: "Krita",
+    description: "Digital painting",
+    category: "Creative",
+    iconUrl: si("krita", "#337FCC"),
+    targets: {
+      ubuntu: "krita",
+      debian: "krita",
+      arch: "krita",
+      fedora: "krita",
+      opensuse: "krita",
+      nix: "krita",
+      flatpak: "org.kde.krita",
+      snap: "krita",
+    },
+  },
+  {
+    id: "darktable",
+    name: "Darktable",
+    description: "Photo workflow",
+    category: "Creative",
+    iconUrl: "https://www.svgrepo.com/show/378112/darktable.svg",
+    targets: {
+      ubuntu: "darktable",
+      debian: "darktable",
+      arch: "darktable",
+      fedora: "darktable",
+      opensuse: "darktable",
+      nix: "darktable",
+      flatpak: "org.darktable.Darktable",
+      snap: "darktable",
+    },
+  },
+  {
+    id: "freecad",
+    name: "FreeCAD",
+    description: "3D CAD",
+    category: "Creative",
+    iconUrl: si("freecad", "#CB333B"),
+    targets: {
+      ubuntu: "freecad",
+      debian: "freecad",
+      arch: "freecad",
+      fedora: "freecad",
+      opensuse: "freecad",
+      nix: "freecad",
+      flatpak: "org.freecad.FreeCAD",
+      snap: "freecad",
+    },
+  },
+  {
+    id: "kicad",
+    name: "KiCad",
+    description: "PCB design",
+    category: "Creative",
+    iconUrl: si("kicad", "#314CB6"),
+    targets: {
+      ubuntu: "kicad",
+      debian: "kicad",
+      arch: "kicad",
+      fedora: "kicad",
+      opensuse: "kicad",
+      nix: "kicad",
+      flatpak: "org.kicad.KiCad",
+      snap: "kicad",
+    },
+  },
+  {
+    id: "cura",
+    name: "UltiMaker Cura",
+    description: "3D printing slicer",
+    category: "Creative",
+    iconUrl:
+      "https://dl.flathub.org/media/com/ultimaker/cura.desktop/9eeed6dfd5a5ec2c8e5c8917012db5ad/icons/128x128/com.ultimaker.cura.desktop.png",
+    targets: {
+      ubuntu: "cura",
+      debian: "cura",
+      arch: "cura",
+      fedora: "cura",
+      opensuse: "cura",
+      nix: "cura",
+      flatpak: "com.ultimaker.cura",
+      snap: "cura-slicer",
+    },
+  },
+  {
+    id: "orcaslicer",
+    name: "OrcaSlicer",
+    description: "G-code 3D slicer",
+    category: "Creative",
+    iconUrl: mdi("printer-3d-nozzle", "#00AE42"),
+    targets: {
+      arch: "orcaslicer-bin",
+      nix: "orcaslicer",
+      flatpak: "net.orcaslicer.OrcaSlicer",
+    },
+    unavailableReason:
+      "Use [Flatpak](https://flathub.org/apps/net.orcaslicer.OrcaSlicer) or AppImage from [GitHub](https://github.com/SoftFever/OrcaSlicer/releases).",
+  },
 
-    // GAMING
-    { id: 'steam', name: 'Steam', description: 'Gaming platform', category: 'Gaming', iconUrl: si('steam', '#00ADEE'), targets: { ubuntu: 'steam', debian: 'steam-installer', arch: 'steam', fedora: 'steam', opensuse: 'steam', nix: 'steam', flatpak: 'com.valvesoftware.Steam', snap: 'steam' } },
-    { id: 'lutris', name: 'Lutris', description: 'Game manager', category: 'Gaming', iconUrl: si('lutris', '#FF8F00'), targets: { ubuntu: 'lutris', debian: 'lutris', arch: 'lutris', fedora: 'lutris', opensuse: 'lutris', nix: 'lutris', flatpak: 'net.lutris.Lutris' }, unavailableReason: 'Lutris is not available as a Snap package.' },
-    { id: 'heroic', name: 'Heroic', description: 'Epic/GOG launcher', category: 'Gaming', iconUrl: si('heroicgameslauncher', '#7B62E8'), targets: { arch: 'heroic-games-launcher-bin', nix: 'heroic', flatpak: 'com.heroicgameslauncher.hgl' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/heroic-games-launcher-bin) or [Flatpak](https://flathub.org/apps/details/com.heroicgameslauncher.hgl). see [heroicgameslauncher.com](https://heroicgameslauncher.com/downloads) for more info.' },
-    { id: 'prism', name: 'Prism Launcher', description: 'Minecraft launcher', category: 'Gaming', iconUrl: 'https://raw.githubusercontent.com/PrismLauncher/PrismLauncher/develop/program_info/org.prismlauncher.PrismLauncher.logo.svg', targets: { arch: 'prismlauncher', nix: 'prismlauncher', flatpak: 'org.prismlauncher.PrismLauncher' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/prismlauncher) or [Flatpak](https://flathub.org/apps/details/org.prismlauncher.PrismLauncher). see [prismlauncher.org](https://prismlauncher.org/download/) for more info.' },
-    { id: 'retroarch', name: 'RetroArch', description: 'Emulator frontend', category: 'Gaming', iconUrl: si('retroarch', '#A0A0A0'), targets: { ubuntu: 'retroarch', debian: 'retroarch', arch: 'retroarch', fedora: 'retroarch', opensuse: 'retroarch', nix: 'retroarch', flatpak: 'org.libretro.RetroArch', snap: 'retroarch' } },
-    { id: 'mangohud', name: 'MangoHud', description: 'Performance overlay', category: 'Gaming', iconUrl: si('gamejolt', '#FF9900'), targets: { ubuntu: 'mangohud', debian: 'mangohud', arch: 'mangohud', fedora: 'mangohud', opensuse: 'mangohud', nix: 'mangohud' }, unavailableReason: 'MangoHud is a system overlay and not available via Flatpak or Snap.' },
-    { id: 'gamemode', name: 'GameMode', description: 'Gaming optimizer', category: 'Gaming', iconUrl: 'https://www.svgrepo.com/show/411187/game.svg', targets: { ubuntu: 'gamemode', debian: 'gamemode', arch: 'gamemode', fedora: 'gamemode', opensuse: 'gamemode', nix: 'gamemode' }, unavailableReason: 'GameMode is a system service and not available via Flatpak or Snap.' },
-    { id: 'protonup', name: 'ProtonUp-Qt', description: 'Proton-GE manager', category: 'Gaming', iconUrl: si('protondb', '#8B0000'), targets: { arch: 'protonup-qt-bin', nix: 'protonup-qt', flatpak: 'net.davidotek.pupgui2' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/protonup-qt-bin) or [Flatpak](https://flathub.org/apps/net.davidotek.pupgui2).' },
-    { id: 'antimicrox', name: 'AntiMicroX', description: 'Gamepad key mapper', category: 'Gaming', iconUrl: mdi('controller', '#007BFF'), targets: { ubuntu: 'antimicrox', debian: 'antimicrox', arch: 'antimicrox', fedora: 'antimicrox', opensuse: 'antimicrox', nix: 'antimicrox', flatpak: 'io.github.antimicrox.antimicrox' }, unavailableReason: 'Not available as a Snap package.' },
+  // GAMING
+  {
+    id: "steam",
+    name: "Steam",
+    description: "Gaming platform",
+    category: "Gaming",
+    iconUrl: si("steam", "#00ADEE"),
+    targets: {
+      ubuntu: "steam",
+      debian: "steam-installer",
+      arch: "steam",
+      fedora: "steam",
+      opensuse: "steam",
+      nix: "steam",
+      flatpak: "com.valvesoftware.Steam",
+      snap: "steam",
+    },
+  },
+  {
+    id: "lutris",
+    name: "Lutris",
+    description: "Game manager",
+    category: "Gaming",
+    iconUrl: si("lutris", "#FF8F00"),
+    targets: {
+      ubuntu: "lutris",
+      debian: "lutris",
+      arch: "lutris",
+      fedora: "lutris",
+      opensuse: "lutris",
+      nix: "lutris",
+      flatpak: "net.lutris.Lutris",
+    },
+    unavailableReason: "Lutris is not available as a Snap package.",
+  },
+  {
+    id: "heroic",
+    name: "Heroic",
+    description: "Epic/GOG launcher",
+    category: "Gaming",
+    iconUrl: si("heroicgameslauncher", "#7B62E8"),
+    targets: {
+      arch: "heroic-games-launcher-bin",
+      nix: "heroic",
+      flatpak: "com.heroicgameslauncher.hgl",
+    },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/heroic-games-launcher-bin) or [Flatpak](https://flathub.org/apps/details/com.heroicgameslauncher.hgl). see [heroicgameslauncher.com](https://heroicgameslauncher.com/downloads) for more info.",
+  },
+  {
+    id: "prism",
+    name: "Prism Launcher",
+    description: "Minecraft launcher",
+    category: "Gaming",
+    iconUrl:
+      "https://raw.githubusercontent.com/PrismLauncher/PrismLauncher/develop/program_info/org.prismlauncher.PrismLauncher.logo.svg",
+    targets: {
+      arch: "prismlauncher",
+      nix: "prismlauncher",
+      flatpak: "org.prismlauncher.PrismLauncher",
+    },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/prismlauncher) or [Flatpak](https://flathub.org/apps/details/org.prismlauncher.PrismLauncher). see [prismlauncher.org](https://prismlauncher.org/download/) for more info.",
+  },
+  {
+    id: "retroarch",
+    name: "RetroArch",
+    description: "Emulator frontend",
+    category: "Gaming",
+    iconUrl: si("retroarch", "#A0A0A0"),
+    targets: {
+      ubuntu: "retroarch",
+      debian: "retroarch",
+      arch: "retroarch",
+      fedora: "retroarch",
+      opensuse: "retroarch",
+      nix: "retroarch",
+      flatpak: "org.libretro.RetroArch",
+      snap: "retroarch",
+    },
+  },
+  {
+    id: "mangohud",
+    name: "MangoHud",
+    description: "Performance overlay",
+    category: "Gaming",
+    iconUrl: si("gamejolt", "#FF9900"),
+    targets: {
+      ubuntu: "mangohud",
+      debian: "mangohud",
+      arch: "mangohud",
+      fedora: "mangohud",
+      opensuse: "mangohud",
+      nix: "mangohud",
+    },
+    unavailableReason:
+      "MangoHud is a system overlay and not available via Flatpak or Snap.",
+  },
+  {
+    id: "gamemode",
+    name: "GameMode",
+    description: "Gaming optimizer",
+    category: "Gaming",
+    iconUrl: "https://www.svgrepo.com/show/411187/game.svg",
+    targets: {
+      ubuntu: "gamemode",
+      debian: "gamemode",
+      arch: "gamemode",
+      fedora: "gamemode",
+      opensuse: "gamemode",
+      nix: "gamemode",
+    },
+    unavailableReason:
+      "GameMode is a system service and not available via Flatpak or Snap.",
+  },
+  {
+    id: "protonup",
+    name: "ProtonUp-Qt",
+    description: "Proton-GE manager",
+    category: "Gaming",
+    iconUrl: si("protondb", "#8B0000"),
+    targets: {
+      arch: "protonup-qt-bin",
+      nix: "protonup-qt",
+      flatpak: "net.davidotek.pupgui2",
+    },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/protonup-qt-bin) or [Flatpak](https://flathub.org/apps/net.davidotek.pupgui2).",
+  },
+  {
+    id: "antimicrox",
+    name: "AntiMicroX",
+    description: "Gamepad key mapper",
+    category: "Gaming",
+    iconUrl: mdi("controller", "#007BFF"),
+    targets: {
+      ubuntu: "antimicrox",
+      debian: "antimicrox",
+      arch: "antimicrox",
+      fedora: "antimicrox",
+      opensuse: "antimicrox",
+      nix: "antimicrox",
+      flatpak: "io.github.antimicrox.antimicrox",
+    },
+    unavailableReason: "Not available as a Snap package.",
+  },
 
-    // OFFICE
-    { id: 'libreoffice', name: 'LibreOffice', description: 'Office suite', category: 'Office', iconUrl: si('libreoffice', '#0369A1'), targets: { ubuntu: 'libreoffice', debian: 'libreoffice', arch: 'libreoffice-fresh', fedora: 'libreoffice', opensuse: 'libreoffice', nix: 'libreoffice', flatpak: 'org.libreoffice.LibreOffice', snap: 'libreoffice' } },
-    { id: 'onlyoffice', name: 'OnlyOffice', description: 'Office suite', category: 'Office', iconUrl: si('onlyoffice', '#FF6F3D'), targets: { arch: 'onlyoffice-bin', nix: 'onlyoffice-bin', flatpak: 'org.onlyoffice.desktopeditors', snap: 'onlyoffice-desktopeditors' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/details/org.onlyoffice.desktopeditors) or [Snap](https://snapcraft.io/onlyoffice-desktopeditors) or download from [onlyoffice.com/desktop](https://www.onlyoffice.com/desktop.aspx).' },
-    { id: 'obsidian', name: 'Obsidian', description: 'Markdown notes', category: 'Office', iconUrl: si('obsidian', '#7C3AED'), targets: { arch: 'obsidian', nix: 'obsidian', flatpak: 'md.obsidian.Obsidian', snap: 'obsidian --classic' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/details/md.obsidian.Obsidian) or [Snap](https://snapcraft.io/obsidian) or download from [obsidian.md/download](https://obsidian.md/download).' },
-    { id: 'logseq', name: 'Logseq', description: 'Knowledge management', category: 'Office', iconUrl: si('logseq', '#06D5D5'), targets: { arch: 'logseq-desktop-bin', nix: 'logseq', flatpak: 'com.logseq.Logseq', snap: 'logseq' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.logseq.Logseq) or [Snap](https://snapcraft.io/logseq) or download from [logseq.com](https://logseq.com/downloads).' },
-    { id: 'joplin', name: 'Joplin', description: 'Note-taking', category: 'Office', iconUrl: si('joplin', '#1471B7'), targets: { arch: 'joplin-appimage', nix: 'joplin-desktop', flatpak: 'net.cozic.joplin_desktop', snap: 'joplin-desktop' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/details/net.cozic.joplin_desktop) or [Snap](https://snapcraft.io/joplin-desktop) or install from [joplinapp.org](https://joplinapp.org/help/install/).' },
-    { id: 'okular', name: 'Okular', description: 'PDF viewer', category: 'Office', iconUrl: si('kde', '#338BDB'), targets: { ubuntu: 'okular', debian: 'okular', arch: 'okular', fedora: 'okular', opensuse: 'okular', nix: 'okular', flatpak: 'org.kde.okular', snap: 'okular' } },
-    { id: 'zathura', name: 'Zathura', description: 'Minimal PDF viewer', category: 'Office', iconUrl: 'https://raw.githubusercontent.com/TrixieUA/MoreWaita-copr-trixieua/e5bed029d63d4c14f1aba811152f3f0bf473a4bc/scalable/apps/zathura.svg', targets: { ubuntu: 'zathura', debian: 'zathura', arch: 'zathura', fedora: 'zathura', opensuse: 'zathura', nix: 'zathura' }, unavailableReason: 'Zathura is not available via Flatpak or Snap.' },
-    { id: 'calibre', name: 'Calibre', description: 'E-book manager', category: 'Office', iconUrl: si('calibreweb', '#ECA315'), targets: { ubuntu: 'calibre', debian: 'calibre', arch: 'calibre', fedora: 'calibre', opensuse: 'calibre', nix: 'calibre', flatpak: 'com.calibre_ebook.calibre' }, unavailableReason: 'Calibre is not available as a Snap package.' },
-    { id: 'xournalpp', name: 'Xournal++', description: 'PDF annotation', category: 'Office', iconUrl: vs('file-type-pdf2'), targets: { ubuntu: 'xournalpp', debian: 'xournalpp', arch: 'xournalpp', fedora: 'xournalpp', opensuse: 'xournalpp', nix: 'xournalpp', flatpak: 'com.github.xournalpp.xournalpp' }, unavailableReason: 'Xournal++ is not available as a Snap package.' },
-    { id: 'zotero', name: 'Zotero', description: 'Research organizer', category: 'Office', iconUrl: si('zotero', '#CC2936'), targets: { nix: 'zotero', flatpak: 'org.zotero.Zotero', snap: 'zotero-snap' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/org.zotero.Zotero)/[Snap](https://snapcraft.io/zotero-snap) or download from [zotero.org](https://www.zotero.org/download/).' },
+  // OFFICE
+  {
+    id: "libreoffice",
+    name: "LibreOffice",
+    description: "Office suite",
+    category: "Office",
+    iconUrl: si("libreoffice", "#0369A1"),
+    targets: {
+      ubuntu: "libreoffice",
+      debian: "libreoffice",
+      arch: "libreoffice-fresh",
+      fedora: "libreoffice",
+      opensuse: "libreoffice",
+      nix: "libreoffice",
+      flatpak: "org.libreoffice.LibreOffice",
+      snap: "libreoffice",
+    },
+  },
+  {
+    id: "onlyoffice",
+    name: "OnlyOffice",
+    description: "Office suite",
+    category: "Office",
+    iconUrl: si("onlyoffice", "#FF6F3D"),
+    targets: {
+      arch: "onlyoffice-bin",
+      nix: "onlyoffice-bin",
+      flatpak: "org.onlyoffice.desktopeditors",
+      snap: "onlyoffice-desktopeditors",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/org.onlyoffice.desktopeditors) or [Snap](https://snapcraft.io/onlyoffice-desktopeditors) or download from [onlyoffice.com/desktop](https://www.onlyoffice.com/desktop.aspx).",
+  },
+  {
+    id: "obsidian",
+    name: "Obsidian",
+    description: "Markdown notes",
+    category: "Office",
+    iconUrl: si("obsidian", "#7C3AED"),
+    targets: {
+      arch: "obsidian",
+      nix: "obsidian",
+      flatpak: "md.obsidian.Obsidian",
+      snap: "obsidian --classic",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/md.obsidian.Obsidian) or [Snap](https://snapcraft.io/obsidian) or download from [obsidian.md/download](https://obsidian.md/download).",
+  },
+  {
+    id: "logseq",
+    name: "Logseq",
+    description: "Knowledge management",
+    category: "Office",
+    iconUrl: si("logseq", "#06D5D5"),
+    targets: {
+      arch: "logseq-desktop-bin",
+      nix: "logseq",
+      flatpak: "com.logseq.Logseq",
+      snap: "logseq",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.logseq.Logseq) or [Snap](https://snapcraft.io/logseq) or download from [logseq.com](https://logseq.com/downloads).",
+  },
+  {
+    id: "joplin",
+    name: "Joplin",
+    description: "Note-taking",
+    category: "Office",
+    iconUrl: si("joplin", "#1471B7"),
+    targets: {
+      arch: "joplin-appimage",
+      nix: "joplin-desktop",
+      flatpak: "net.cozic.joplin_desktop",
+      snap: "joplin-desktop",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/net.cozic.joplin_desktop) or [Snap](https://snapcraft.io/joplin-desktop) or install from [joplinapp.org](https://joplinapp.org/help/install/).",
+  },
+  {
+    id: "okular",
+    name: "Okular",
+    description: "PDF viewer",
+    category: "Office",
+    iconUrl: si("kde", "#338BDB"),
+    targets: {
+      ubuntu: "okular",
+      debian: "okular",
+      arch: "okular",
+      fedora: "okular",
+      opensuse: "okular",
+      nix: "okular",
+      flatpak: "org.kde.okular",
+      snap: "okular",
+    },
+  },
+  {
+    id: "zathura",
+    name: "Zathura",
+    description: "Minimal PDF viewer",
+    category: "Office",
+    iconUrl:
+      "https://raw.githubusercontent.com/TrixieUA/MoreWaita-copr-trixieua/e5bed029d63d4c14f1aba811152f3f0bf473a4bc/scalable/apps/zathura.svg",
+    targets: {
+      ubuntu: "zathura",
+      debian: "zathura",
+      arch: "zathura",
+      fedora: "zathura",
+      opensuse: "zathura",
+      nix: "zathura",
+    },
+    unavailableReason: "Zathura is not available via Flatpak or Snap.",
+  },
+  {
+    id: "calibre",
+    name: "Calibre",
+    description: "E-book manager",
+    category: "Office",
+    iconUrl: si("calibreweb", "#ECA315"),
+    targets: {
+      ubuntu: "calibre",
+      debian: "calibre",
+      arch: "calibre",
+      fedora: "calibre",
+      opensuse: "calibre",
+      nix: "calibre",
+      flatpak: "com.calibre_ebook.calibre",
+    },
+    unavailableReason: "Calibre is not available as a Snap package.",
+  },
+  {
+    id: "xournalpp",
+    name: "Xournal++",
+    description: "PDF annotation",
+    category: "Office",
+    iconUrl: vs("file-type-pdf2"),
+    targets: {
+      ubuntu: "xournalpp",
+      debian: "xournalpp",
+      arch: "xournalpp",
+      fedora: "xournalpp",
+      opensuse: "xournalpp",
+      nix: "xournalpp",
+      flatpak: "com.github.xournalpp.xournalpp",
+    },
+    unavailableReason: "Xournal++ is not available as a Snap package.",
+  },
+  {
+    id: "zotero",
+    name: "Zotero",
+    description: "Research organizer",
+    category: "Office",
+    iconUrl: si("zotero", "#CC2936"),
+    targets: {
+      nix: "zotero",
+      flatpak: "org.zotero.Zotero",
+      snap: "zotero-snap",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/org.zotero.Zotero)/[Snap](https://snapcraft.io/zotero-snap) or download from [zotero.org](https://www.zotero.org/download/).",
+  },
 
-    // VPN & NETWORK
-    { id: 'protonvpn', name: 'Proton VPN', description: 'Privacy VPN', category: 'VPN & Network', iconUrl: si('protonvpn', '#6D4AFF'), targets: { arch: 'proton-vpn-gtk-app', nix: 'protonvpn-gui', flatpak: 'com.protonvpn.www' }, unavailableReason: 'Not in official repos. Use Flatpak or follow instructions at [protonvpn.com/support/linux-vpn-setup](https://protonvpn.com/support/linux-vpn-setup/).' },
-    { id: 'mullvad', name: 'Mullvad VPN', description: 'Privacy VPN', category: 'VPN & Network', iconUrl: si('mullvad', '#44AD4D'), targets: { arch: 'mullvad-vpn-bin', nix: 'mullvad-vpn' }, unavailableReason: 'Not in official repos. Use [AUR](https://aur.archlinux.org/packages/mullvad-vpn-bin) or see [official install guide](https://mullvad.net/en/help/install-mullvad-app-linux).' },
-    { id: 'tailscale', name: 'Tailscale', description: 'Mesh VPN', category: 'VPN & Network', iconUrl: si('tailscale', '#797878'), targets: { ubuntu: 'tailscale', arch: 'tailscale', fedora: 'tailscale', opensuse: 'tailscale', nix: 'tailscale' }, unavailableReason: 'Not in Debian repos. Follow instructions at [tailscale.com/download/linux](https://tailscale.com/download/linux).' },
-    { id: 'wireguard', name: 'WireGuard', description: 'Modern VPN', category: 'VPN & Network', iconUrl: si('wireguard', '#88171A'), targets: { ubuntu: 'wireguard', debian: 'wireguard', arch: 'wireguard-tools', fedora: 'wireguard-tools', opensuse: 'wireguard-tools', nix: 'wireguard-tools' }, unavailableReason: 'WireGuard is a kernel module and not available via Flatpak or Snap.' },
-    { id: 'openvpn', name: 'OpenVPN', description: 'VPN client', category: 'VPN & Network', iconUrl: si('openvpn', '#EA7E20'), targets: { ubuntu: 'openvpn', debian: 'openvpn', arch: 'openvpn', fedora: 'openvpn', opensuse: 'openvpn', nix: 'openvpn' }, unavailableReason: 'OpenVPN is a system package and not available via Flatpak or Snap.' },
-    { id: 'nmap', name: 'Nmap', description: 'Network scanner', category: 'VPN & Network', iconUrl: 'https://raw.githubusercontent.com/bwks/vendor-icons-svg/702f2ac88acc71759ce623bc5000a596195e9db3/nmap-logo.svg', targets: { ubuntu: 'nmap', debian: 'nmap', arch: 'nmap', fedora: 'nmap', opensuse: 'nmap', nix: 'nmap' }, unavailableReason: 'Nmap is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'openssh', name: 'OpenSSH', description: 'SSH client', category: 'VPN & Network', iconUrl: mdi('ssh', '#F5A623'), targets: { ubuntu: 'openssh-client', debian: 'openssh-client', arch: 'openssh', fedora: 'openssh-clients', opensuse: 'openssh', nix: 'openssh' }, unavailableReason: 'OpenSSH is a system package and not available via Flatpak or Snap.' },
+  // VPN & NETWORK
+  {
+    id: "protonvpn",
+    name: "Proton VPN",
+    description: "Privacy VPN",
+    category: "VPN & Network",
+    iconUrl: si("protonvpn", "#6D4AFF"),
+    targets: {
+      arch: "proton-vpn-gtk-app",
+      nix: "protonvpn-gui",
+      flatpak: "com.protonvpn.www",
+    },
+    unavailableReason:
+      "Not in official repos. Use Flatpak or follow instructions at [protonvpn.com/support/linux-vpn-setup](https://protonvpn.com/support/linux-vpn-setup/).",
+  },
+  {
+    id: "mullvad",
+    name: "Mullvad VPN",
+    description: "Privacy VPN",
+    category: "VPN & Network",
+    iconUrl: si("mullvad", "#44AD4D"),
+    targets: { arch: "mullvad-vpn-bin", nix: "mullvad-vpn" },
+    unavailableReason:
+      "Not in official repos. Use [AUR](https://aur.archlinux.org/packages/mullvad-vpn-bin) or see [official install guide](https://mullvad.net/en/help/install-mullvad-app-linux).",
+  },
+  {
+    id: "tailscale",
+    name: "Tailscale",
+    description: "Mesh VPN",
+    category: "VPN & Network",
+    iconUrl: si("tailscale", "#797878"),
+    targets: {
+      ubuntu: "tailscale",
+      arch: "tailscale",
+      fedora: "tailscale",
+      opensuse: "tailscale",
+      nix: "tailscale",
+    },
+    unavailableReason:
+      "Not in Debian repos. Follow instructions at [tailscale.com/download/linux](https://tailscale.com/download/linux).",
+  },
+  {
+    id: "wireguard",
+    name: "WireGuard",
+    description: "Modern VPN",
+    category: "VPN & Network",
+    iconUrl: si("wireguard", "#88171A"),
+    targets: {
+      ubuntu: "wireguard",
+      debian: "wireguard",
+      arch: "wireguard-tools",
+      fedora: "wireguard-tools",
+      opensuse: "wireguard-tools",
+      nix: "wireguard-tools",
+    },
+    unavailableReason:
+      "WireGuard is a kernel module and not available via Flatpak or Snap.",
+  },
+  {
+    id: "openvpn",
+    name: "OpenVPN",
+    description: "VPN client",
+    category: "VPN & Network",
+    iconUrl: si("openvpn", "#EA7E20"),
+    targets: {
+      ubuntu: "openvpn",
+      debian: "openvpn",
+      arch: "openvpn",
+      fedora: "openvpn",
+      opensuse: "openvpn",
+      nix: "openvpn",
+    },
+    unavailableReason:
+      "OpenVPN is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "nmap",
+    name: "Nmap",
+    description: "Network scanner",
+    category: "VPN & Network",
+    iconUrl:
+      "https://raw.githubusercontent.com/bwks/vendor-icons-svg/702f2ac88acc71759ce623bc5000a596195e9db3/nmap-logo.svg",
+    targets: {
+      ubuntu: "nmap",
+      debian: "nmap",
+      arch: "nmap",
+      fedora: "nmap",
+      opensuse: "nmap",
+      nix: "nmap",
+    },
+    unavailableReason:
+      "Nmap is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "openssh",
+    name: "OpenSSH",
+    description: "SSH client",
+    category: "VPN & Network",
+    iconUrl: mdi("ssh", "#F5A623"),
+    targets: {
+      ubuntu: "openssh-client",
+      debian: "openssh-client",
+      arch: "openssh",
+      fedora: "openssh-clients",
+      opensuse: "openssh",
+      nix: "openssh",
+    },
+    unavailableReason:
+      "OpenSSH is a system package and not available via Flatpak or Snap.",
+  },
 
-    // SECURITY
-    { id: 'bitwarden', name: 'Bitwarden', description: 'Password manager', category: 'Security', iconUrl: si('bitwarden', '#175DDC'), targets: { arch: 'bitwarden', nix: 'bitwarden', flatpak: 'com.bitwarden.desktop', snap: 'bitwarden' }, unavailableReason: 'Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.bitwarden.desktop) or [Snap](https://snapcraft.io/bitwarden) or download from [bitwarden.com/download](https://bitwarden.com/download/).' },
-    { id: 'keepassxc', name: 'KeePassXC', description: 'Offline passwords', category: 'Security', iconUrl: si('keepassxc', '#65B726'), targets: { ubuntu: 'keepassxc', debian: 'keepassxc', arch: 'keepassxc', fedora: 'keepassxc', opensuse: 'keepassxc', nix: 'keepassxc', flatpak: 'org.keepassxc.KeePassXC', snap: 'keepassxc' } },
-    { id: 'veracrypt', name: 'VeraCrypt', description: 'Disk encryption', category: 'Security', iconUrl: 'https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/3390a630b535d1c1ccca04881b3959e262264116/Papirus/64x64/apps/veracrypt.svg', targets: { ubuntu: 'veracrypt', arch: 'veracrypt', fedora: 'veracrypt', opensuse: 'veracrypt', nix: 'veracrypt' }, unavailableReason: 'Not in Debian repos. Download from [veracrypt.fr/en/Downloads](https://veracrypt.fr/en/Downloads.html).' },
-    { id: 'gnupg', name: 'GnuPG', description: 'Encryption tool', category: 'Security', iconUrl: si('gnuprivacyguard', '#0093DD'), targets: { ubuntu: 'gnupg', debian: 'gnupg', arch: 'gnupg', fedora: 'gnupg2', opensuse: 'gnupg', nix: 'gnupg' }, unavailableReason: 'GnuPG is a system package and not available via Flatpak or Snap.' },
-    { id: 'firejail', name: 'Firejail', description: 'Sandboxing', category: 'Security', iconUrl: 'https://linux.fi/w/images/1/1f/Firejail-logo.png', targets: { ubuntu: 'firejail', debian: 'firejail', arch: 'firejail', fedora: 'firejail', opensuse: 'firejail', nix: 'firejail' }, unavailableReason: 'Firejail is a system security tool and not available via Flatpak or Snap.' },
-    { id: 'clamav', name: 'ClamAV', description: 'Antivirus', category: 'Security', iconUrl: 'https://raw.githubusercontent.com/ivangabriele/clamav-desktop/f60bfafdd23bb455f0468abe5f877d2b76eddfba/assets/icons/icon.svg', targets: { ubuntu: 'clamav', debian: 'clamav', arch: 'clamav', fedora: 'clamav', opensuse: 'clamav', nix: 'clamav' }, unavailableReason: 'ClamAV is a system package and not available via Flatpak or Snap.' },
+  // SECURITY
+  {
+    id: "bitwarden",
+    name: "Bitwarden",
+    description: "Password manager",
+    category: "Security",
+    iconUrl: si("bitwarden", "#175DDC"),
+    targets: {
+      arch: "bitwarden",
+      nix: "bitwarden",
+      flatpak: "com.bitwarden.desktop",
+      snap: "bitwarden",
+    },
+    unavailableReason:
+      "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.bitwarden.desktop) or [Snap](https://snapcraft.io/bitwarden) or download from [bitwarden.com/download](https://bitwarden.com/download/).",
+  },
+  {
+    id: "keepassxc",
+    name: "KeePassXC",
+    description: "Offline passwords",
+    category: "Security",
+    iconUrl: si("keepassxc", "#65B726"),
+    targets: {
+      ubuntu: "keepassxc",
+      debian: "keepassxc",
+      arch: "keepassxc",
+      fedora: "keepassxc",
+      opensuse: "keepassxc",
+      nix: "keepassxc",
+      flatpak: "org.keepassxc.KeePassXC",
+      snap: "keepassxc",
+    },
+  },
+  {
+    id: "veracrypt",
+    name: "VeraCrypt",
+    description: "Disk encryption",
+    category: "Security",
+    iconUrl:
+      "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/3390a630b535d1c1ccca04881b3959e262264116/Papirus/64x64/apps/veracrypt.svg",
+    targets: {
+      ubuntu: "veracrypt",
+      arch: "veracrypt",
+      fedora: "veracrypt",
+      opensuse: "veracrypt",
+      nix: "veracrypt",
+    },
+    unavailableReason:
+      "Not in Debian repos. Download from [veracrypt.fr/en/Downloads](https://veracrypt.fr/en/Downloads.html).",
+  },
+  {
+    id: "gnupg",
+    name: "GnuPG",
+    description: "Encryption tool",
+    category: "Security",
+    iconUrl: si("gnuprivacyguard", "#0093DD"),
+    targets: {
+      ubuntu: "gnupg",
+      debian: "gnupg",
+      arch: "gnupg",
+      fedora: "gnupg2",
+      opensuse: "gnupg",
+      nix: "gnupg",
+    },
+    unavailableReason:
+      "GnuPG is a system package and not available via Flatpak or Snap.",
+  },
+  {
+    id: "firejail",
+    name: "Firejail",
+    description: "Sandboxing",
+    category: "Security",
+    iconUrl: "https://linux.fi/w/images/1/1f/Firejail-logo.png",
+    targets: {
+      ubuntu: "firejail",
+      debian: "firejail",
+      arch: "firejail",
+      fedora: "firejail",
+      opensuse: "firejail",
+      nix: "firejail",
+    },
+    unavailableReason:
+      "Firejail is a system security tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "clamav",
+    name: "ClamAV",
+    description: "Antivirus",
+    category: "Security",
+    iconUrl:
+      "https://raw.githubusercontent.com/ivangabriele/clamav-desktop/f60bfafdd23bb455f0468abe5f877d2b76eddfba/assets/icons/icon.svg",
+    targets: {
+      ubuntu: "clamav",
+      debian: "clamav",
+      arch: "clamav",
+      fedora: "clamav",
+      opensuse: "clamav",
+      nix: "clamav",
+    },
+    unavailableReason:
+      "ClamAV is a system package and not available via Flatpak or Snap.",
+  },
 
-    // FILE SHARING
-    { id: 'syncthing', name: 'Syncthing', description: 'P2P file sync', category: 'File Sharing', iconUrl: si('syncthing', '#0CB7E4'), targets: { ubuntu: 'syncthing', debian: 'syncthing', arch: 'syncthing', fedora: 'syncthing', opensuse: 'syncthing', nix: 'syncthing', flatpak: 'me.kozec.syncthingtk' }, unavailableReason: 'Syncthing GTK is available on [Flatpak](https://flathub.org/apps/me.kozec.syncthingtk). Not available as Snap.' },
-    { id: 'qbittorrent', name: 'qBittorrent', description: 'Torrent client', category: 'File Sharing', iconUrl: si('qbittorrent', '#2F67BA'), targets: { ubuntu: 'qbittorrent', debian: 'qbittorrent', arch: 'qbittorrent', fedora: 'qbittorrent', opensuse: 'qbittorrent', nix: 'qbittorrent', flatpak: 'org.qbittorrent.qBittorrent', snap: 'qbittorrent-desktop-tak' } },
-    { id: 'transmission', name: 'Transmission', description: 'Torrent client', category: 'File Sharing', iconUrl: si('transmission', '#D70000'), targets: { ubuntu: 'transmission', debian: 'transmission', arch: 'transmission-gtk', fedora: 'transmission', opensuse: 'transmission', nix: 'transmission_4-gtk', flatpak: 'com.transmissionbt.Transmission' }, unavailableReason: 'Transmission is not available as a Snap package. Use [Flatpak](https://flathub.org/apps/com.transmissionbt.Transmission).' },
-    { id: 'localsend', name: 'LocalSend', description: 'Local file sharing', category: 'File Sharing', iconUrl: si('localsend', '#FCA73C'), targets: { arch: 'localsend-bin', nix: 'localsend', flatpak: 'org.localsend.localsend_app' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/localsend-bin) or [Flatpak](https://flathub.org/apps/org.localsend.localsend_app). Download from [localsend.org](https://localsend.org/download).' },
-    { id: 'filezilla', name: 'FileZilla', description: 'FTP client', category: 'File Sharing', iconUrl: si('filezilla', '#BF0000'), targets: { ubuntu: 'filezilla', debian: 'filezilla', arch: 'filezilla', fedora: 'filezilla', opensuse: 'filezilla', nix: 'filezilla', flatpak: 'org.filezillaproject.Filezilla' }, unavailableReason: 'FileZilla is not available as a Snap package.' },
-    { id: 'nextcloud', name: 'Nextcloud', description: 'Cloud sync client', category: 'File Sharing', iconUrl: si('nextcloud', '#0082C9'), targets: { ubuntu: 'nextcloud-desktop', debian: 'nextcloud-desktop', arch: 'nextcloud-client', fedora: 'nextcloud-client', opensuse: 'nextcloud-desktop', nix: 'nextcloud-client', flatpak: 'com.nextcloud.desktopclient.nextcloud', snap: 'nextcloud-desktop-client' } },
-    { id: 'dropbox', name: 'Dropbox', description: 'Cloud storage', category: 'File Sharing', iconUrl: si('dropbox', '#0061FF'), targets: { arch: 'dropbox', nix: 'dropbox', flatpak: 'com.dropbox.Client' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/dropbox) or [Flatpak](https://flathub.org/apps/com.dropbox.Client). See [dropbox.com/install-linux](https://www.dropbox.com/install-linux) for other methods.' },
-    { id: 'abdownloadmanager', name: 'AB Download Manager', description: 'Download accelerator', category: 'File Sharing', iconUrl: mdi('download-box', '#4CAF50'), targets: { arch: 'ab-download-manager-bin' }, unavailableReason: 'Only available via [AUR](https://aur.archlinux.org/packages/ab-download-manager-bin). Download from [abdownloadmanager.com](https://abdownloadmanager.com/).' },
+  // FILE SHARING
+  {
+    id: "syncthing",
+    name: "Syncthing",
+    description: "P2P file sync",
+    category: "File Sharing",
+    iconUrl: si("syncthing", "#0CB7E4"),
+    targets: {
+      ubuntu: "syncthing",
+      debian: "syncthing",
+      arch: "syncthing",
+      fedora: "syncthing",
+      opensuse: "syncthing",
+      nix: "syncthing",
+      flatpak: "me.kozec.syncthingtk",
+    },
+    unavailableReason:
+      "Syncthing GTK is available on [Flatpak](https://flathub.org/apps/me.kozec.syncthingtk). Not available as Snap.",
+  },
+  {
+    id: "qbittorrent",
+    name: "qBittorrent",
+    description: "Torrent client",
+    category: "File Sharing",
+    iconUrl: si("qbittorrent", "#2F67BA"),
+    targets: {
+      ubuntu: "qbittorrent",
+      debian: "qbittorrent",
+      arch: "qbittorrent",
+      fedora: "qbittorrent",
+      opensuse: "qbittorrent",
+      nix: "qbittorrent",
+      flatpak: "org.qbittorrent.qBittorrent",
+      snap: "qbittorrent-desktop-tak",
+    },
+  },
+  {
+    id: "transmission",
+    name: "Transmission",
+    description: "Torrent client",
+    category: "File Sharing",
+    iconUrl: si("transmission", "#D70000"),
+    targets: {
+      ubuntu: "transmission",
+      debian: "transmission",
+      arch: "transmission-gtk",
+      fedora: "transmission",
+      opensuse: "transmission",
+      nix: "transmission_4-gtk",
+      flatpak: "com.transmissionbt.Transmission",
+    },
+    unavailableReason:
+      "Transmission is not available as a Snap package. Use [Flatpak](https://flathub.org/apps/com.transmissionbt.Transmission).",
+  },
+  {
+    id: "localsend",
+    name: "LocalSend",
+    description: "Local file sharing",
+    category: "File Sharing",
+    iconUrl: si("localsend", "#FCA73C"),
+    targets: {
+      arch: "localsend-bin",
+      nix: "localsend",
+      flatpak: "org.localsend.localsend_app",
+    },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/localsend-bin) or [Flatpak](https://flathub.org/apps/org.localsend.localsend_app). Download from [localsend.org](https://localsend.org/download).",
+  },
+  {
+    id: "filezilla",
+    name: "FileZilla",
+    description: "FTP client",
+    category: "File Sharing",
+    iconUrl: si("filezilla", "#BF0000"),
+    targets: {
+      ubuntu: "filezilla",
+      debian: "filezilla",
+      arch: "filezilla",
+      fedora: "filezilla",
+      opensuse: "filezilla",
+      nix: "filezilla",
+      flatpak: "org.filezillaproject.Filezilla",
+    },
+    unavailableReason: "FileZilla is not available as a Snap package.",
+  },
+  {
+    id: "nextcloud",
+    name: "Nextcloud",
+    description: "Cloud sync client",
+    category: "File Sharing",
+    iconUrl: si("nextcloud", "#0082C9"),
+    targets: {
+      ubuntu: "nextcloud-desktop",
+      debian: "nextcloud-desktop",
+      arch: "nextcloud-client",
+      fedora: "nextcloud-client",
+      opensuse: "nextcloud-desktop",
+      nix: "nextcloud-client",
+      flatpak: "com.nextcloud.desktopclient.nextcloud",
+      snap: "nextcloud-desktop-client",
+    },
+  },
+  {
+    id: "dropbox",
+    name: "Dropbox",
+    description: "Cloud storage",
+    category: "File Sharing",
+    iconUrl: si("dropbox", "#0061FF"),
+    targets: { arch: "dropbox", nix: "dropbox", flatpak: "com.dropbox.Client" },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/dropbox) or [Flatpak](https://flathub.org/apps/com.dropbox.Client). See [dropbox.com/install-linux](https://www.dropbox.com/install-linux) for other methods.",
+  },
+  {
+    id: "abdownloadmanager",
+    name: "AB Download Manager",
+    description: "Download accelerator",
+    category: "File Sharing",
+    iconUrl: mdi("download-box", "#4CAF50"),
+    targets: { arch: "ab-download-manager-bin" },
+    unavailableReason:
+      "Only available via [AUR](https://aur.archlinux.org/packages/ab-download-manager-bin). Download from [abdownloadmanager.com](https://abdownloadmanager.com/).",
+  },
 
-    // SYSTEM
-    { id: 'gparted', name: 'GParted', description: 'Partition editor', category: 'System', iconUrl: si('gnome', '#E95420'), targets: { ubuntu: 'gparted', debian: 'gparted', arch: 'gparted', fedora: 'gparted', opensuse: 'gparted', nix: 'gparted' }, unavailableReason: 'GParted requires root access and is not available via Flatpak or Snap.' },
-    { id: 'kdeconnect', name: 'KDE Connect', description: 'Phone integration', category: 'System', iconUrl: si('kde', '#338BDB'), targets: { ubuntu: 'kdeconnect', debian: 'kdeconnect', arch: 'kdeconnect', fedora: 'kdeconnectd', opensuse: 'kdeconnect-kde', nix: 'kdeconnect' }, unavailableReason: 'KDE Connect is not available via Flatpak or Snap.' },
-    { id: 'timeshift', name: 'Timeshift', description: 'System restore', category: 'System', iconUrl: mdi('backup-restore', '#D9534F'), targets: { ubuntu: 'timeshift', debian: 'timeshift', arch: 'timeshift', fedora: 'timeshift', opensuse: 'timeshift', nix: 'timeshift' }, unavailableReason: 'Requires root filesystem access; not available as Flatpak or Snap.' },
-    { id: 'bleachbit', name: 'BleachBit', description: 'System cleaner', category: 'System', iconUrl: 'https://raw.githubusercontent.com/chocolatey-community/chocolatey-packages/782707302851e7935c4a5a3e48e27140c774fa78/icons/bleachbit.svg', targets: { ubuntu: 'bleachbit', debian: 'bleachbit', arch: 'bleachbit', fedora: 'bleachbit', opensuse: 'bleachbit', nix: 'bleachbit', flatpak: 'org.bleachbit.BleachBit' }, unavailableReason: 'BleachBit is not available as a Snap package.' },
-    { id: 'flameshot', name: 'Flameshot', description: 'Screenshot tool', category: 'System', iconUrl: 'https://raw.githubusercontent.com/flameshot-org/flameshot/master/data/img/app/flameshot.svg', targets: { ubuntu: 'flameshot', debian: 'flameshot', arch: 'flameshot', fedora: 'flameshot', opensuse: 'flameshot', nix: 'flameshot', flatpak: 'org.flameshot.Flameshot' }, unavailableReason: 'Flameshot is not available as a Snap package.' },
-    { id: 'gnometweaks', name: 'GNOME Tweaks', description: 'GNOME settings', category: 'System', iconUrl: si('gnome', '#4A86CF'), targets: { ubuntu: 'gnome-tweaks', debian: 'gnome-tweaks', arch: 'gnome-tweaks', fedora: 'gnome-tweaks', opensuse: 'gnome-tweaks', nix: 'gnome-tweaks' }, unavailableReason: 'GNOME Tweaks is not available via Flatpak or Snap.' },
-    { id: 'dconf', name: 'dconf Editor', description: 'GNOME config', category: 'System', iconUrl: si('gnome', '#4A86CF'), targets: { ubuntu: 'dconf-editor', debian: 'dconf-editor', arch: 'dconf-editor', fedora: 'dconf-editor', opensuse: 'dconf-editor', nix: 'dconf-editor' }, unavailableReason: 'dconf Editor is not available via Flatpak or Snap.' },
-    { id: 'borgbackup', name: 'BorgBackup', description: 'Dedup backup', category: 'System', iconUrl: si('borgbackup', '#00B041'), targets: { ubuntu: 'borgbackup', debian: 'borgbackup', arch: 'borg', fedora: 'borgbackup', opensuse: 'borgbackup', nix: 'borgbackup' }, unavailableReason: 'BorgBackup is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'restic', name: 'Restic', description: 'Fast backup', category: 'System', iconUrl: mdi('cloud-sync', '#00B4AB'), targets: { ubuntu: 'restic', debian: 'restic', arch: 'restic', fedora: 'restic', opensuse: 'restic', nix: 'restic' }, unavailableReason: 'Restic is a CLI tool and not available via Flatpak or Snap.' },
-    { id: 'flatpaksupport', name: 'Flatpak', description: 'App sandboxing', category: 'System', iconUrl: si('flatpak', '#4A90D9'), targets: { ubuntu: 'flatpak', debian: 'flatpak', arch: 'flatpak', fedora: 'flatpak', opensuse: 'flatpak', nix: 'flatpak' }, unavailableReason: 'Flatpak is a system package manager and not available via Flatpak or Snap.' },
-    { id: 'filelight', name: 'Filelight', description: 'Disk usage visualizer', category: 'System', iconUrl: si('kde', '#338BDB'), targets: { ubuntu: 'filelight', debian: 'filelight', arch: 'filelight', fedora: 'filelight', opensuse: 'filelight', nix: 'filelight', flatpak: 'org.kde.filelight', snap: 'filelight' } },
-    { id: 'conky', name: 'Conky', description: 'System monitor', category: 'System', iconUrl: mdi('monitor-dashboard', '#FFFFFF'), targets: { ubuntu: 'conky-all', debian: 'conky-all', arch: 'conky', fedora: 'conky', opensuse: 'conky', nix: 'conky' }, unavailableReason: 'Conky is a system tool and not available via Flatpak or Snap.' },
+  // SYSTEM
+  {
+    id: "gparted",
+    name: "GParted",
+    description: "Partition editor",
+    category: "System",
+    iconUrl: si("gnome", "#E95420"),
+    targets: {
+      ubuntu: "gparted",
+      debian: "gparted",
+      arch: "gparted",
+      fedora: "gparted",
+      opensuse: "gparted",
+      nix: "gparted",
+    },
+    unavailableReason:
+      "GParted requires root access and is not available via Flatpak or Snap.",
+  },
+  {
+    id: "kdeconnect",
+    name: "KDE Connect",
+    description: "Phone integration",
+    category: "System",
+    iconUrl: si("kde", "#338BDB"),
+    targets: {
+      ubuntu: "kdeconnect",
+      debian: "kdeconnect",
+      arch: "kdeconnect",
+      fedora: "kdeconnectd",
+      opensuse: "kdeconnect-kde",
+      nix: "kdeconnect",
+    },
+    unavailableReason: "KDE Connect is not available via Flatpak or Snap.",
+  },
+  {
+    id: "timeshift",
+    name: "Timeshift",
+    description: "System restore",
+    category: "System",
+    iconUrl: mdi("backup-restore", "#D9534F"),
+    targets: {
+      ubuntu: "timeshift",
+      debian: "timeshift",
+      arch: "timeshift",
+      fedora: "timeshift",
+      opensuse: "timeshift",
+      nix: "timeshift",
+    },
+    unavailableReason:
+      "Requires root filesystem access; not available as Flatpak or Snap.",
+  },
+  {
+    id: "bleachbit",
+    name: "BleachBit",
+    description: "System cleaner",
+    category: "System",
+    iconUrl:
+      "https://raw.githubusercontent.com/chocolatey-community/chocolatey-packages/782707302851e7935c4a5a3e48e27140c774fa78/icons/bleachbit.svg",
+    targets: {
+      ubuntu: "bleachbit",
+      debian: "bleachbit",
+      arch: "bleachbit",
+      fedora: "bleachbit",
+      opensuse: "bleachbit",
+      nix: "bleachbit",
+      flatpak: "org.bleachbit.BleachBit",
+    },
+    unavailableReason: "BleachBit is not available as a Snap package.",
+  },
+  {
+    id: "flameshot",
+    name: "Flameshot",
+    description: "Screenshot tool",
+    category: "System",
+    iconUrl:
+      "https://raw.githubusercontent.com/flameshot-org/flameshot/master/data/img/app/flameshot.svg",
+    targets: {
+      ubuntu: "flameshot",
+      debian: "flameshot",
+      arch: "flameshot",
+      fedora: "flameshot",
+      opensuse: "flameshot",
+      nix: "flameshot",
+      flatpak: "org.flameshot.Flameshot",
+    },
+    unavailableReason: "Flameshot is not available as a Snap package.",
+  },
+  {
+    id: "gnometweaks",
+    name: "GNOME Tweaks",
+    description: "GNOME settings",
+    category: "System",
+    iconUrl: si("gnome", "#4A86CF"),
+    targets: {
+      ubuntu: "gnome-tweaks",
+      debian: "gnome-tweaks",
+      arch: "gnome-tweaks",
+      fedora: "gnome-tweaks",
+      opensuse: "gnome-tweaks",
+      nix: "gnome-tweaks",
+    },
+    unavailableReason: "GNOME Tweaks is not available via Flatpak or Snap.",
+  },
+  {
+    id: "dconf",
+    name: "dconf Editor",
+    description: "GNOME config",
+    category: "System",
+    iconUrl: si("gnome", "#4A86CF"),
+    targets: {
+      ubuntu: "dconf-editor",
+      debian: "dconf-editor",
+      arch: "dconf-editor",
+      fedora: "dconf-editor",
+      opensuse: "dconf-editor",
+      nix: "dconf-editor",
+    },
+    unavailableReason: "dconf Editor is not available via Flatpak or Snap.",
+  },
+  {
+    id: "borgbackup",
+    name: "BorgBackup",
+    description: "Dedup backup",
+    category: "System",
+    iconUrl: si("borgbackup", "#00B041"),
+    targets: {
+      ubuntu: "borgbackup",
+      debian: "borgbackup",
+      arch: "borg",
+      fedora: "borgbackup",
+      opensuse: "borgbackup",
+      nix: "borgbackup",
+    },
+    unavailableReason:
+      "BorgBackup is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "restic",
+    name: "Restic",
+    description: "Fast backup",
+    category: "System",
+    iconUrl: mdi("cloud-sync", "#00B4AB"),
+    targets: {
+      ubuntu: "restic",
+      debian: "restic",
+      arch: "restic",
+      fedora: "restic",
+      opensuse: "restic",
+      nix: "restic",
+    },
+    unavailableReason:
+      "Restic is a CLI tool and not available via Flatpak or Snap.",
+  },
+  {
+    id: "flatpaksupport",
+    name: "Flatpak",
+    description: "App sandboxing",
+    category: "System",
+    iconUrl: si("flatpak", "#4A90D9"),
+    targets: {
+      ubuntu: "flatpak",
+      debian: "flatpak",
+      arch: "flatpak",
+      fedora: "flatpak",
+      opensuse: "flatpak",
+      nix: "flatpak",
+    },
+    unavailableReason:
+      "Flatpak is a system package manager and not available via Flatpak or Snap.",
+  },
+  {
+    id: "filelight",
+    name: "Filelight",
+    description: "Disk usage visualizer",
+    category: "System",
+    iconUrl: si("kde", "#338BDB"),
+    targets: {
+      ubuntu: "filelight",
+      debian: "filelight",
+      arch: "filelight",
+      fedora: "filelight",
+      opensuse: "filelight",
+      nix: "filelight",
+      flatpak: "org.kde.filelight",
+      snap: "filelight",
+    },
+  },
+  {
+    id: "conky",
+    name: "Conky",
+    description: "System monitor",
+    category: "System",
+    iconUrl: mdi("monitor-dashboard", "#FFFFFF"),
+    targets: {
+      ubuntu: "conky-all",
+      debian: "conky-all",
+      arch: "conky",
+      fedora: "conky",
+      opensuse: "conky",
+      nix: "conky",
+    },
+    unavailableReason:
+      "Conky is a system tool and not available via Flatpak or Snap.",
+  },
 ];
 
 // Categories in display order
 export const categories: Category[] = [
-    'Web Browsers', 'Communication', 'Dev: Languages', 'Dev: Editors', 'Dev: Tools',
-    'Terminal', 'CLI Tools', 'Media', 'Creative', 'Gaming', 'Office',
-    'VPN & Network', 'Security', 'File Sharing', 'System'
+  "Web Browsers",
+  "Communication",
+  "Dev: Languages",
+  "Dev: Editors",
+  "Dev: Tools",
+  "Terminal",
+  "CLI Tools",
+  "Media",
+  "Creative",
+  "Gaming",
+  "Office",
+  "VPN & Network",
+  "Security",
+  "File Sharing",
+  "System",
 ];
 
 // Get apps by category
 export const getAppsByCategory = (category: Category): AppData[] => {
-    return apps.filter(app => app.category === category);
+  return apps.filter((app) => app.category === category);
 };
 
 // Check if app is available for distro
 export const isAppAvailable = (app: AppData, distro: DistroId): boolean => {
-    return distro in app.targets;
+  return distro in app.targets;
 };
 
 // Generate install command
-export const generateCommand = (selectedAppIds: Set<string>, distro: DistroId): string => {
-    const distroData = distros.find(d => d.id === distro);
-    if (!distroData) return '';
+export const generateCommand = (
+  selectedAppIds: Set<string>,
+  distro: DistroId,
+): string => {
+  const distroData = distros.find((d) => d.id === distro);
+  if (!distroData) return "";
 
-    const packages = Array.from(selectedAppIds)
-        .map(id => apps.find(a => a.id === id))
-        .filter(app => app && app.targets[distro])
-        .map(app => app!.targets[distro]);
+  const packages = Array.from(selectedAppIds)
+    .map((id) => apps.find((a) => a.id === id))
+    .filter((app) => app && app.targets[distro])
+    .map((app) => app!.targets[distro]);
 
-    if (packages.length === 0) return 'Select apps to generate command';
-    return `${distroData.installPrefix} ${packages.join(' ')}`;
+  if (packages.length === 0) return "Select apps to generate command";
+  return `${distroData.installPrefix} ${packages.join(" ")}`;
 };
