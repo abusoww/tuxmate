@@ -1652,17 +1652,11 @@ export const apps: AppData[] = [
     category: "Creative",
     iconUrl: si("davinciresolve", "#233A51"),
     targets: {
-      // ubuntu: "",
-      // debian: "",
       arch: "davinci-resolve",
-      // fedora: "",
-      // opensuse: "",
       nix: "davinci-resolve",
-      // flatpak: "",
-      // snap: "",
     },
     unavailableReason:
-      "Available via [Nix](https://search.nixos.org/packages?channel=unstable&show=davinci-resolve). Read the [documentaion](https://docs.determinate.systems/).",
+      "Only available via [Nix](https://search.nixos.org/packages?channel=unstable&show=davinci-resolve) and [AUR](https://aur.archlinux.org/packages/davinci-resolve), or see [blackmagicdesign.com](https://www.blackmagicdesign.com/products/davinciresolve).",
   },
   {
     id: "gimp",
