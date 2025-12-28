@@ -450,7 +450,11 @@ function DistroSelector({ selectedDistro, onSelect }: { selectedDistro: DistroId
 function AppIcon({ url, name }: { url: string; name: string }) {
     const [error, setError] = useState(false);
     if (error) return <div className="w-4 h-4 rounded bg-[var(--accent)] flex items-center justify-center text-[10px] font-bold">{name[0]}</div>;
-    return <img src={url} alt="" aria-hidden="true" width={16} height={16} className="w-4 h-4 object-contain opacity-75" onError={() => setError(true)} loading="lazy" />;
+    return (
+        <div className="w-4 h-4 rounded-[6px] bg-white dark:bg-white flex items-center justify-center p-0.5 shrink-0">
+            <img src={url} alt="" aria-hidden="true" width={16} height={16} className="w-full h-full object-contain" onError={() => setError(true)} loading="lazy" />
+        </div>
+    );
 }
 
 // App Item
