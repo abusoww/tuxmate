@@ -2,9 +2,11 @@
  * Command Components
  * 
  * Components related to command generation and display:
- * - AurBar: AUR packages info for Arch Linux
  * - CommandFooter: Fixed bottom bar with command output
+ * - AurPopover: AUR packages popover badge
+ * - ShortcutsBar: Vim-style bar with search and keyboard shortcuts
  */
 
-export { AurBar } from './AurBar';
 export { CommandFooter } from './CommandFooter';
+export { AurPopover } from './AurPopover';
+export { ShortcutsBar } from './ShortcutsBar';

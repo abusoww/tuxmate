@@ -1,9 +1,10 @@
 'use client';
 
 import { memo } from 'react';
-import { Check } from 'lucide-react';
+import { Check, Package } from 'lucide-react';
 import { distros, type DistroId, type AppData } from '@/lib/data';
 import { analytics } from '@/lib/analytics';
+import { isAurPackage } from '@/lib/aur';
 import { AppIcon } from './AppIcon';
 
 /**
@@ -70,6 +71,8 @@ export const AppItem = memo(function AppItem({
         return `Not available in ${distroName} repos`;
     };
 
+    const isAur = selectedDistro === 'arch' && app.targets?.arch && isAurPackage(app.targets.arch);
+
     return (
         <div
             role="checkbox"
@@ -102,24 +105,34 @@ export const AppItem = memo(function AppItem({
             }}
         >
             <div className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-all duration-150
-        ${isSelected ? 'bg-[var(--text-secondary)] border-[var(--text-secondary)]' : 'border-[var(--border-secondary)]'}
+        ${isAur
+                    ? (isSelected ? 'bg-[#1793d1] border-[#1793d1]' : 'border-[#1793d1]/50')
+                    : (isSelected ? 'bg-[var(--text-secondary)] border-[var(--text-secondary)]' : 'border-[var(--border-secondary)]')
+                }
         ${!isAvailable ? 'border-dashed' : ''}`}>
                 {isSelected && <Check className="w-2.5 h-2.5 text-[var(--bg-primary)]" strokeWidth={3} />}
             </div>
             <AppIcon url={app.iconUrl} name={app.name} />
-            <span
-                className={`text-sm flex-1 ${!isAvailable ? 'text-[var(--text-muted)]' : isSelected ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}
-                style={{
-                    transition: 'color 0.5s',
-                    textRendering: 'geometricPrecision',
-                    WebkitFontSmoothing: 'antialiased',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    whiteSpace: 'nowrap'
-                }}
-            >
-                {app.name}
-            </span>
+            <div className="flex-1 flex items-baseline gap-1.5 min-w-0 overflow-hidden">
+                <span
+                    className={`text-sm truncate ${!isAvailable ? 'text-[var(--text-muted)]' : isSelected ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}
+                    style={{
+                        transition: 'color 0.5s',
+                        textRendering: 'geometricPrecision',
+                        WebkitFontSmoothing: 'antialiased'
+                    }}
+                >
+                    {app.name}
+                </span>
+                {isAur && (
+                    <img
+                        src="https://api.iconify.design/simple-icons/archlinux.svg?color=%231793d1"
+                        className="ml-1.5 w-3 h-3 flex-shrink-0 opacity-80"
+                        alt="AUR"
+                        title="This is an AUR package"
+                    />
+                )}
+            </div>
             {/* Exclamation mark icon for unavailable apps */}
             {!isAvailable && (
                 <div

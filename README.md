@@ -54,9 +54,9 @@ Shows which apps are available for your selected distro, with instructions for u
 
 ## 📸 Screenshots
 
-![Main interface with app selection](src/screenshots/1.png)
-![Category browsing and filtering](src/screenshots/2.png)
-![Generated install script](src/screenshots/3.png)
+![1](src/screenshots/1.png)
+![2](src/screenshots/2.png)
+![3](src/screenshots/3.png)
 
 
 
@@ -216,18 +216,21 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 - [x] Nix, Flatpak & Snap universal package support
 - [x] 150+ applications across 15 categories
 - [x] Smart script generation with error handling
-- [x] AUR helper integration (yay) for Arch
-- [x] Keyboard navigation (Vim keys + Arrows)
-- [x] Dark / Light theme toggle
+- [x] Dark / Light theme toggle with smooth animations
 - [x] Copy command & Download script
-- [x] Package availability indicators
 - [x] Custom domain
-- [x] Docker support for containerized deployment
-- [x] CI/CD workflow for automated Docker builds
+- [x] Docker support
+- [x] CI/CD shortcuts & workflow
+- [x] Search & filter applications (Real-time)
+- [x] AUR Helper selection (yay/paru) + Auto-detection
+- [x] Keyboard navigation (Vim keys, Arrows, Space, Esc, Enter)
+- [x] Package availability indicators (including AUR badges)
+
+
+
 
 ### Planned
 
-- [ ] Search & filter applications
 - [ ] Winget support (Windows)
 - [ ] Homebrew support (macOS)
 - [ ] Save custom presets / profiles

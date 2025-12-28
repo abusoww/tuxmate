@@ -87,6 +87,7 @@ All applications are defined in [`src/lib/data.ts`](src/lib/data.ts).
 2. If found → use `arch` field
 3. If NOT found → search [aur.archlinux.org](https://aur.archlinux.org/) → use `arch` field with AUR package name
 4. Prefer `-bin` suffix packages in AUR (pre-built, faster install)
+5. **IMPORTANT**: If your AUR package name does **NOT** end in `-bin`, `-git`, or `-appimage`, you **MUST** add it to `KNOWN_AUR_PACKAGES` in [`src/lib/aur.ts`](src/lib/aur.ts) so the app knows it's from AUR.
 
 #### Ubuntu/Debian: Official Repos Only
 

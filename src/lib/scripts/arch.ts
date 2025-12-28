@@ -5,7 +5,7 @@
 import { generateAsciiHeader, generateSharedUtils, escapeShellString, type PackageInfo } from './shared';
 import { isAurPackage } from '../aur';
 
-export function generateArchScript(packages: PackageInfo[]): string {
+export function generateArchScript(packages: PackageInfo[], helper: 'yay' | 'paru' = 'yay'): string {
     const aurPackages = packages.filter(p => isAurPackage(p.pkg));
     const officialPackages = packages.filter(p => !isAurPackage(p.pkg));
 
@@ -57,7 +57,7 @@ install_aur() {
     local start=$(date +%s)
     
     local output
-    if output=$(with_retry yay -S --needed --noconfirm "$pkg"); then
+    if output=$(with_retry ${helper} -S --needed --noconfirm "$pkg"); then
         local elapsed=$(($(date +%s) - start))
         update_avg_time $elapsed
         printf "\\r\\033[K"
@@ -85,14 +85,14 @@ info "Syncing databases..."
 with_retry sudo pacman -Sy --noconfirm >/dev/null && success "Synced" || warn "Sync failed, continuing..."
 
 ${aurPackages.length > 0 ? `
-if ! command -v yay &>/dev/null; then
-    warn "Installing yay for AUR packages..."
+if ! command -v ${helper} &>/dev/null; then
+    warn "Installing ${helper} for AUR packages..."
     sudo pacman -S --needed --noconfirm git base-devel >/dev/null 2>&1
     tmp=$(mktemp -d)
-    git clone https://aur.archlinux.org/yay.git "$tmp/yay" >/dev/null 2>&1
-    (cd "$tmp/yay" && makepkg -si --noconfirm >/dev/null 2>&1)
+    git clone https://aur.archlinux.org/${helper}.git "$tmp/${helper}" >/dev/null 2>&1
+    (cd "$tmp/${helper}" && makepkg -si --noconfirm >/dev/null 2>&1)
     rm -rf "$tmp"
-    command -v yay &>/dev/null && success "yay installed" || warn "yay install failed"
+    command -v ${helper} &>/dev/null && success "${helper} installed" || warn "${helper} install failed"
 fi
 ` : ''}
 
@@ -102,7 +102,7 @@ echo
 
 ${officialPackages.map(({ app, pkg }) => `install_pacman "${escapeShellString(app.name)}" "${pkg}"`).join('\n')}
 ${aurPackages.length > 0 ? `
-if command -v yay &>/dev/null; then
+if command -v ${helper} &>/dev/null; then
 ${aurPackages.map(({ app, pkg }) => `    install_aur "${escapeShellString(app.name)}" "${pkg}"`).join('\n')}
 fi
 ` : ''}

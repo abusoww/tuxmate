@@ -23,13 +23,14 @@ import {
 interface ScriptOptions {
     distroId: DistroId;
     selectedAppIds: Set<string>;
+    helper?: 'yay' | 'paru';
 }
 
 /**
  * Generate a full installation script with progress bars, error handling, and retries
  */
 export function generateInstallScript(options: ScriptOptions): string {
-    const { distroId, selectedAppIds } = options;
+    const { distroId, selectedAppIds, helper = 'yay' } = options;
     const distro = distros.find(d => d.id === distroId);
 
     if (!distro) return '#!/bin/bash\necho "Error: Unknown distribution"\nexit 1';
@@ -40,7 +41,7 @@ export function generateInstallScript(options: ScriptOptions): string {
     switch (distroId) {
         case 'ubuntu': return generateUbuntuScript(packages);
         case 'debian': return generateDebianScript(packages);
-        case 'arch': return generateArchScript(packages);
+        case 'arch': return generateArchScript(packages, helper);
         case 'fedora': return generateFedoraScript(packages);
         case 'opensuse': return generateOpenSUSEScript(packages);
         case 'nix': return generateNixScript(packages);

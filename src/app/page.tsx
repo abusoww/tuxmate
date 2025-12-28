@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback, useRef, useLayoutEffect } from 'react';
+import { useState, useMemo, useCallback, useRef, useLayoutEffect, useEffect } from 'react';
 import { X } from 'lucide-react';
 import gsap from 'gsap';
 
@@ -19,6 +19,7 @@ import { DistroSelector } from '@/components/distro';
 import { CategorySection } from '@/components/app';
 import { CommandFooter } from '@/components/command';
 import { Tooltip, GlobalStyles, LoadingSkeleton } from '@/components/common';
+
 
 // ============================================================================
 // Main Page Component
@@ -55,19 +56,52 @@ export default function Home() {
         setHasYayInstalled,
         hasAurPackages,
         aurAppNames,
-        isHydrated
+        isHydrated,
+        selectedHelper,
+        setSelectedHelper
     } = useLinuxInit();
+
+    // Search state
+    const [searchQuery, setSearchQuery] = useState('');
+    const searchInputRef = useRef<HTMLInputElement>(null);
+
+    // Handle "/" key to focus search
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            // Skip if already in input
+            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
+            if (e.key === '/') {
+                e.preventDefault();
+                searchInputRef.current?.focus();
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
 
     // ========================================================================
     // Category & Column Layout
     // ========================================================================
 
-    /** All categories with their apps */
-    const allCategoriesWithApps = useMemo(() =>
-        categories
-            .map(cat => ({ category: cat, apps: getAppsByCategory(cat) }))
-            .filter(c => c.apps.length > 0),
-        []);
+    /** All categories with their apps (filtered by search) */
+    const allCategoriesWithApps = useMemo(() => {
+        const query = searchQuery.toLowerCase().trim();
+        return categories
+            .map(cat => {
+                const categoryApps = getAppsByCategory(cat);
+                // Filter apps if there's a search query (match name or id only)
+                const filteredApps = query
+                    ? categoryApps.filter(app =>
+                        app.name.toLowerCase().includes(query) ||
+                        app.id.toLowerCase().includes(query)
+                    )
+                    : categoryApps;
+                return { category: cat, apps: filteredApps };
+            })
+            .filter(c => c.apps.length > 0);
+    }, [searchQuery]);
 
     /** Number of columns for the app grid layout */
     const COLUMN_COUNT = 5;
@@ -188,7 +222,7 @@ export default function Home() {
 
             {/* Header */}
             <header ref={headerRef} className="pt-8 sm:pt-12 pb-8 sm:pb-10 px-4 sm:px-6 relative" style={{ zIndex: 1 }}>
-                <div className="max-w-6xl mx-auto">
+                <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         {/* Logo & Title */}
                         <div className="header-animate">
@@ -250,8 +284,8 @@ export default function Home() {
             </header>
 
             {/* App Grid */}
-            <main className="px-4 sm:px-6 pb-24 relative" style={{ zIndex: 1 }}>
-                <div className="max-w-6xl mx-auto">
+            <main className="px-4 sm:px-6 pb-40 relative" style={{ zIndex: 1 }}>
+                <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 sm:gap-x-8">
                         {columns.map((columnCategories, colIdx) => {
                             // Calculate starting index for this column (for staggered animation)
@@ -260,11 +294,14 @@ export default function Home() {
                                 globalIdx += columns[c].length;
                             }
 
+                            // Generate stable key based on column content to ensure proper reconciliation
+                            const columnKey = `col-${colIdx}-${columnCategories.map(c => c.category).join('-')}`;
+
                             return (
-                                <div key={colIdx}>
+                                <div key={columnKey}>
                                     {columnCategories.map(({ category, apps: categoryApps }, catIdx) => (
                                         <CategorySection
-                                            key={category}
+                                            key={`${category}-${categoryApps.length}`}
                                             category={category}
                                             categoryApps={categoryApps}
                                             selectedApps={selectedApps}
@@ -299,6 +336,12 @@ export default function Home() {
                 aurAppNames={aurAppNames}
                 hasYayInstalled={hasYayInstalled}
                 setHasYayInstalled={setHasYayInstalled}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                searchInputRef={searchInputRef}
+                clearAll={clearAll}
+                selectedHelper={selectedHelper}
+                setSelectedHelper={setSelectedHelper}
             />
         </div>
     );

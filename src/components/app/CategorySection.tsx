@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useRef, useLayoutEffect } from 'react';
+import { memo, useRef, useLayoutEffect, useEffect } from 'react';
 import gsap from 'gsap';
 import { type DistroId, type AppData, type Category } from '@/lib/data';
 import { analytics } from '@/lib/analytics';
@@ -15,39 +15,6 @@ import { AppItem } from './AppItem';
  * - Expandable/collapsible content
  * - Keyboard navigation support
  * - Analytics tracking for expand/collapse
- * 
- * @param category - Category name
- * @param categoryApps - Array of apps in this category
- * @param selectedApps - Set of selected app IDs
- * @param isAppAvailable - Function to check app availability
- * @param selectedDistro - Currently selected distro ID
- * @param toggleApp - Function to toggle app selection
- * @param isExpanded - Whether the category is expanded
- * @param onToggleExpanded - Callback to toggle expansion
- * @param focusedId - Currently focused item ID
- * @param focusedType - Type of focused item ('category' or 'app')
- * @param onTooltipEnter - Callback for tooltip show
- * @param onTooltipLeave - Callback for tooltip hide
- * @param categoryIndex - Index for staggered animation timing
- * @param onCategoryFocus - Optional callback when category receives focus
- * @param onAppFocus - Optional callback when app receives focus
- * 
- * @example
- * <CategorySection
- *   category="Browsers"
- *   categoryApps={browserApps}
- *   selectedApps={selectedApps}
- *   isAppAvailable={isAppAvailable}
- *   selectedDistro="ubuntu"
- *   toggleApp={toggleApp}
- *   isExpanded={true}
- *   onToggleExpanded={() => toggleCategory("Browsers")}
- *   focusedId={focusedItem?.id}
- *   focusedType={focusedItem?.type}
- *   onTooltipEnter={showTooltip}
- *   onTooltipLeave={hideTooltip}
- *   categoryIndex={0}
- * />
  */
 
 interface CategorySectionProps {
@@ -68,7 +35,7 @@ interface CategorySectionProps {
     onAppFocus?: (appId: string) => void;
 }
 
-export const CategorySection = memo(function CategorySection({
+function CategorySectionComponent({
     category,
     categoryApps,
     selectedApps,
@@ -89,7 +56,9 @@ export const CategorySection = memo(function CategorySection({
     const isCategoryFocused = focusedType === 'category' && focusedId === category;
     const sectionRef = useRef<HTMLDivElement>(null);
     const hasAnimated = useRef(false);
+    const prevAppCount = useRef(categoryApps.length);
 
+    // Initial entrance animation
     useLayoutEffect(() => {
         if (!sectionRef.current || hasAnimated.current) return;
         hasAnimated.current = true;
@@ -107,20 +76,30 @@ export const CategorySection = memo(function CategorySection({
 
         gsap.to(header, {
             clipPath: 'inset(0 0% 0 0)',
-            duration: 0.6,
-            ease: 'power2.out',
-            delay: delay + 0.2
+            duration: 0.9,
+            ease: 'power3.out',
+            delay: delay + 0.1
         });
 
         gsap.to(items, {
             y: 0,
             opacity: 1,
-            duration: 0.5,
-            stagger: 0.03,
-            ease: 'power2.out',
-            delay: delay + 0.4
+            duration: 0.8,
+            stagger: 0.04,
+            ease: 'expo.out',
+            delay: delay + 0.2
         });
     }, [categoryIndex]);
+
+    // When app count changes (after search clears), ensure all items are visible
+    useEffect(() => {
+        if (categoryApps.length !== prevAppCount.current && sectionRef.current) {
+            const items = sectionRef.current.querySelectorAll('.app-item');
+            // Reset any hidden items to visible
+            gsap.set(items, { y: 0, opacity: 1, clearProps: 'all' });
+        }
+        prevAppCount.current = categoryApps.length;
+    }, [categoryApps.length]);
 
     return (
         <div ref={sectionRef} className="mb-5 category-section">
@@ -140,7 +119,10 @@ export const CategorySection = memo(function CategorySection({
                 selectedCount={selectedInCategory}
                 onFocus={onCategoryFocus}
             />
-            <div className={`overflow-hidden transition-all duration-300 ease-out ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+            <div
+                className={`overflow-hidden transition-all duration-500 ${isExpanded ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}
+                style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
+            >
                 {categoryApps.map((app) => (
                     <AppItem
                         key={app.id}
@@ -158,4 +140,32 @@ export const CategorySection = memo(function CategorySection({
             </div>
         </div>
     );
+}
+
+// Custom memo comparison to ensure proper re-renders when categoryApps changes
+export const CategorySection = memo(CategorySectionComponent, (prevProps, nextProps) => {
+    // Always re-render if app count changes
+    if (prevProps.categoryApps.length !== nextProps.categoryApps.length) return false;
+
+    // Check if app IDs are the same
+    const prevIds = prevProps.categoryApps.map(a => a.id).join(',');
+    const nextIds = nextProps.categoryApps.map(a => a.id).join(',');
+    if (prevIds !== nextIds) return false;
+
+    // Check other important props
+    if (prevProps.category !== nextProps.category) return false;
+    if (prevProps.isExpanded !== nextProps.isExpanded) return false;
+    if (prevProps.selectedDistro !== nextProps.selectedDistro) return false;
+    if (prevProps.focusedId !== nextProps.focusedId) return false;
+    if (prevProps.focusedType !== nextProps.focusedType) return false;
+    if (prevProps.categoryIndex !== nextProps.categoryIndex) return false;
+
+    // Check if selection state changed for any app in this category
+    for (const app of nextProps.categoryApps) {
+        if (prevProps.selectedApps.has(app.id) !== nextProps.selectedApps.has(app.id)) {
+            return false;
+        }
+    }
+
+    return true;
 });

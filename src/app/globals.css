@@ -356,7 +356,7 @@ html {
 }
 
 .stagger-item {
-    animation: staggerIn 0.15s ease-out forwards;
+    animation: staggerIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Tooltip fade */
@@ -373,7 +373,7 @@ html {
 }
 
 .tooltip-animate {
-    animation: tooltipIn 0.15s ease-out forwards;
+    animation: tooltipIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Dropdown entrance */
@@ -390,7 +390,7 @@ html {
 }
 
 .dropdown-animate {
-    animation: dropIn 0.15s ease-out forwards;
+    animation: dropIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Button press */
@@ -478,24 +478,24 @@ html {
 @keyframes slideUp {
     0% {
         opacity: 0;
-        transform: translateY(100%);
+        transform: translateY(20px) scale(0.98);
     }
 
     100% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 }
 
 @keyframes slideDown {
     0% {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0) scale(1);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(100%);
+        transform: translateY(20px) scale(0.98);
     }
 }
 
@@ -506,6 +506,51 @@ html {
 
     100% {
         opacity: 0;
+    }
+}
+
+/* Smooth spring-like animations for floating cards */
+@keyframes cardSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+
+    60% {
+        transform: translateY(-3px) scale(1.01);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes cardSlideOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+}
+
+@keyframes cardSlideInSecond {
+    0% {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+
+    60% {
+        transform: translateY(-2px) scale(1.005);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
@@ -524,25 +569,53 @@ html {
 /* ===== COMMAND BAR SCROLLBAR ===== */
 
 .command-scroll {
-    scrollbar-width: thin;
-    scrollbar-color: var(--text-muted) var(--bg-hover);
-    padding-bottom: 10px;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
 }
 
 .command-scroll::-webkit-scrollbar {
-    height: 6px;
+    display: none;
+    /* Chrome/Safari/Opera */
 }
 
-.command-scroll::-webkit-scrollbar-track {
-    background: var(--bg-hover);
-    border-radius: 6px;
+/* ===== SEARCH POPUP ANIMATION ===== */
+
+@keyframes searchPopIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-.command-scroll::-webkit-scrollbar-thumb {
-    background: var(--text-muted);
-    border-radius: 6px;
+/* ===== THEME FLASH ANIMATION ===== */
+
+@keyframes themeFlash {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.15;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
-.command-scroll::-webkit-scrollbar-thumb:hover {
+body.theme-flash::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
     background: var(--text-primary);
+    animation: themeFlash 0.15s ease-out forwards;
 }
