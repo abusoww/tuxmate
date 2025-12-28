@@ -116,9 +116,10 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 - [x] Dark / Light theme toggle
 - [x] Copy command & Download script
 - [x] Package availability indicators
+- [x] Custom domain
 
 ### Planned
-- [ ] Custom domain
+
 - [ ] Search & filter applications
 - [ ] Winget support (Windows)
 - [ ] Homebrew support (macOS)
