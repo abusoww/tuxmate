@@ -112,7 +112,7 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
                     <div className="flex items-stretch">
                         <div className="hidden sm:flex items-center gap-3 px-3 py-1 text-[var(--text-muted)] text-[10px] border-l border-[var(--border-primary)]/30">
                             {/* Navigation */}
-                            <span className="hidden lg:inline"><b className="text-[var(--text-secondary)]">↓←↑→ </b>/<b className="text-[var(--text-secondary)]"> hjkl</b> Navigation</span>
+                            <span className="hidden lg:inline"><b className="text-[var(--text-secondary)]">←↓↑→ </b>/<b className="text-[var(--text-secondary)]"> hjkl</b> Navigation</span>
                             <span className="hidden lg:inline opacity-30">·</span>
                             {/* Actions */}
                             <span><b className="text-[var(--text-secondary)]">/</b> search</span>
