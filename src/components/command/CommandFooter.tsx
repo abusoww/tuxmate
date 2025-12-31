@@ -95,6 +95,9 @@ export function CommandFooter({
                 return;
             }
 
+            // Ignore if modifier keys are pressed (prevents conflicts with browser shortcuts like Ctrl+D)
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
+
             // These shortcuts always work
             const alwaysEnabled = ['t', 'c'];
             if (selectedCount === 0 && !alwaysEnabled.includes(e.key)) return;

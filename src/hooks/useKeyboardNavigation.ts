@@ -77,6 +77,9 @@ export function useKeyboardNavigation(
             // Skip if typing in input
             if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
+            // Skip if modifier keys are pressed (prevents conflicts with browser shortcuts like Ctrl+D)
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
+
             const key = e.key;
 
             // Space to toggle

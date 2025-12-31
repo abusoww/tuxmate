@@ -71,6 +71,9 @@ export default function Home() {
             // Skip if already in input
             if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
+            // Skip if modifier keys are pressed (prevents conflicts with browser shortcuts)
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
+
             if (e.key === '/') {
                 e.preventDefault();
                 searchInputRef.current?.focus();

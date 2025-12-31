@@ -38,6 +38,9 @@ export function AurPanel({
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.target instanceof HTMLInputElement) return;
+
+            // Skip if modifier keys are pressed (prevents conflicts with browser shortcuts)
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
             if (e.key === '1') setSelectedHelper('yay');
             if (e.key === '2') setSelectedHelper('paru');
         };

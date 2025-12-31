@@ -43,6 +43,9 @@ export function HowItWorks() {
             // Ignore if typing in input
             if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
+            // Skip if Ctrl/Alt/Meta are pressed (Shift is allowed for ?)
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
+
             if (e.key === '?' || (e.shiftKey && e.key === '/')) {
                 e.preventDefault();
                 if (isOpen) {
