@@ -232,7 +232,7 @@ export function CommandFooter({
                                     onClick={clearAll}
                                     disabled={selectedCount === 0}
                                     className={`hidden md:flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
-                                        ? 'text-[var(--text-muted)] hover:bg-rose-500/10 hover:text-rose-400'
+                                        ? 'bg-rose-500/5 text-rose-300/90 hover:bg-rose-500/10 hover:text-rose-200'
                                         : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                         }`}
                                     title="Clear All (c)"
@@ -246,7 +246,7 @@ export function CommandFooter({
                                     onClick={handleDownload}
                                     disabled={selectedCount === 0}
                                     className={`hidden md:flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
-                                        ? 'text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]'
+                                        ? 'bg-teal-500/5 text-teal-300/90 hover:bg-teal-500/10 hover:text-teal-200'
                                         : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                         }`}
                                     title="Download Script (d)"
@@ -261,8 +261,8 @@ export function CommandFooter({
                                     disabled={selectedCount === 0}
                                     className={`hidden md:flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
                                         ? (copied
-                                            ? 'bg-emerald-600 text-white'
-                                            : 'bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90')
+                                            ? 'bg-emerald-500/10 text-emerald-300'
+                                            : 'bg-indigo-500/10 text-indigo-300/90 hover:bg-indigo-500/20 hover:text-indigo-200')
                                         : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                         }`}
                                     title="Copy Command (y)"
