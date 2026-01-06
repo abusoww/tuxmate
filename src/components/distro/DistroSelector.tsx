@@ -124,7 +124,7 @@ export function DistroSelector({
                 <div className="w-6 h-6 rounded-lg bg-[var(--bg-tertiary)] flex items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-110">
                     <DistroIcon url={currentDistro?.iconUrl || ''} name={currentDistro?.name || ''} size={16} />
                 </div>
-                <span className="text-sm font-medium text-[var(--text-primary)] hidden sm:inline">{currentDistro?.name}</span>
+                <span className="text-sm font-medium text-[var(--text-primary)]">{currentDistro?.name}</span>
                 <ChevronDown className={`w-3.5 h-3.5 text-[var(--text-muted)] transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
             </button>
             {mounted && typeof document !== 'undefined' && createPortal(dropdown, document.body)}

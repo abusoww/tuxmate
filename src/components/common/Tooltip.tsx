@@ -66,10 +66,11 @@ export function Tooltip({ tooltip, onEnter, onLeave }: TooltipProps) {
         });
     };
 
+    // Hide tooltips on mobile - they don't work with touch
     return (
         <div
             role="tooltip"
-            className="fixed z-50 pointer-events-auto"
+            className="hidden md:block fixed z-50 pointer-events-auto"
             style={{
                 left: left,
                 top: top,

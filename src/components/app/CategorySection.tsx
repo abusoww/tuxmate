@@ -98,7 +98,7 @@ function CategorySectionComponent({
     }, [categoryApps.length]);
 
     return (
-        <div ref={sectionRef} className="mb-5 category-section">
+        <div ref={sectionRef} className="mb-3 md:mb-5 category-section">
             <CategoryHeader
                 category={category}
                 isExpanded={isExpanded}

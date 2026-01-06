@@ -200,10 +200,12 @@ export function HowItWorks() {
             <button
                 ref={triggerRef}
                 onClick={handleOpen}
-                className={`flex items-center gap-1.5 text-sm transition-[color,transform] duration-200 hover:scale-105 ${isOpen ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'}`}
+                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs sm:text-sm transition-all duration-200 hover:scale-105 ${isOpen
+                    ? 'bg-[var(--accent)]/20 text-[var(--text-primary)]'
+                    : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-hover)]'}`}
             >
-                <HelpCircle className="w-4 h-4" />
-                <span className="hidden sm:inline whitespace-nowrap">How it works?</span>
+                <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <span className="whitespace-nowrap">Help</span>
             </button>
             {isOpen && mounted && typeof document !== 'undefined' && createPortal(modal, document.body)}
         </>

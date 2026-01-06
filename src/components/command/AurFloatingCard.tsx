@@ -80,9 +80,9 @@ export function AurFloatingCard({
         }, 3000);
 
         return (
-            <div className="fixed top-4 right-4 z-30">
+            <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-30">
                 <p
-                    className="text-[13px] text-[var(--text-muted)]"
+                    className="text-[13px] text-[var(--text-muted)] text-center md:text-right"
                     style={{
                         animation: 'slideInFromRight 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
                     }}
@@ -96,7 +96,7 @@ export function AurFloatingCard({
     // Hide cards while exiting
     if (isExiting && helperChosen) {
         return (
-            <div className="fixed top-4 right-4 z-30 flex flex-col gap-3 items-end">
+            <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-30 flex flex-col gap-3 items-center md:items-end">
                 <div
                     className="w-72 bg-[var(--bg-secondary)] backdrop-blur-xl border border-[var(--border-primary)]/60 rounded-2xl shadow-xl shadow-black/10 overflow-hidden"
                     style={{ animation: 'slideOutToRight 0.25s ease-out forwards' }}
@@ -116,7 +116,7 @@ export function AurFloatingCard({
     }
 
     return (
-        <div className="fixed top-4 right-4 z-30 flex flex-col gap-3 items-end">
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-30 flex flex-col gap-3 items-center md:items-end">
             {/* Card 1: Do you have an AUR helper? */}
             <div
                 className={`

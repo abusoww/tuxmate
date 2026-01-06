@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef } from 'react';
 import { Check, Copy, X, Download } from 'lucide-react';
 import { AurDrawerSettings } from './AurDrawerSettings';
 
@@ -38,6 +39,32 @@ export function CommandDrawer({
     selectedHelper,
     setSelectedHelper,
 }: CommandDrawerProps) {
+    // Swipe-to-dismiss state
+    const [dragOffset, setDragOffset] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const dragStartY = useRef(0);
+    const DISMISS_THRESHOLD = 100; // px to drag before closing
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        dragStartY.current = e.touches[0].clientY;
+        setIsDragging(true);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (!isDragging) return;
+        const delta = e.touches[0].clientY - dragStartY.current;
+        // Only allow dragging down (positive delta)
+        setDragOffset(Math.max(0, delta));
+    };
+
+    const handleTouchEnd = () => {
+        setIsDragging(false);
+        if (dragOffset > DISMISS_THRESHOLD) {
+            onClose();
+        }
+        setDragOffset(0);
+    };
+
     if (!isOpen) return null;
 
     const handleCopyAndClose = () => {
@@ -66,16 +93,22 @@ export function CommandDrawer({
                 style={{
                     animation: isClosing
                         ? 'slideDown 0.3s cubic-bezier(0.32, 0, 0.67, 0) forwards'
-                        : 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                    maxHeight: '80vh'
+                        : dragOffset > 0 ? 'none' : 'slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                    maxHeight: '80vh',
+                    transform: dragOffset > 0 ? `translateY(${dragOffset}px)` : undefined,
+                    transition: isDragging ? 'none' : 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
             >
-                {/* Drawer Handle - mobile only */}
-                <div className="flex justify-center pt-3 pb-2 md:hidden">
-                    <button
-                        className="w-12 h-1.5 bg-[var(--text-muted)]/40 rounded-full cursor-pointer hover:bg-[var(--text-muted)] transition-colors"
+                {/* Drawer Handle - mobile only, draggable */}
+                <div
+                    className="flex justify-center pt-3 pb-2 md:hidden cursor-grab active:cursor-grabbing touch-none"
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                >
+                    <div
+                        className="w-12 h-1.5 bg-[var(--text-muted)]/40 rounded-full"
                         onClick={onClose}
-                        aria-label="Close drawer"
                     />
                 </div>
 
@@ -87,7 +120,10 @@ export function CommandDrawer({
                         </div>
                         <div>
                             <h3 id="drawer-title" className="text-sm font-semibold text-[var(--text-primary)]">Terminal Command</h3>
-                            <p className="text-xs text-[var(--text-muted)]">{selectedCount} app{selectedCount !== 1 ? 's' : ''} • Press Esc to close</p>
+                            <p className="text-xs text-[var(--text-muted)]">
+                                {selectedCount} app{selectedCount !== 1 ? 's' : ''}
+                                <span className="hidden md:inline"> • Press Esc to close</span>
+                            </p>
                         </div>
                     </div>
                     <button
@@ -153,24 +189,24 @@ export function CommandDrawer({
                     </div>
                 </div>
 
-                {/* Mobile Actions */}
-                <div className="md:hidden flex flex-col items-stretch gap-3 px-4 py-4 border-t border-[var(--border-primary)]">
+                {/* Mobile Actions - side by side for better UX */}
+                <div className="md:hidden flex items-stretch gap-3 px-4 py-4 border-t border-[var(--border-primary)]">
                     <button
                         onClick={onDownload}
-                        className="flex-1 h-14 flex items-center justify-center gap-2 rounded-xl bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] transition-colors font-medium text-base"
+                        className="flex-1 h-12 flex items-center justify-center gap-2 rounded-xl bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] active:scale-[0.98] transition-all font-medium text-sm"
                     >
-                        <Download className="w-5 h-5" />
-                        Download Script
+                        <Download className="w-4 h-4" />
+                        Download
                     </button>
                     <button
                         onClick={handleCopyAndClose}
-                        className={`flex-1 h-14 flex items-center justify-center gap-2 rounded-xl font-medium text-base transition-colors ${copied
+                        className={`flex-1 h-12 flex items-center justify-center gap-2 rounded-xl font-medium text-sm active:scale-[0.98] transition-all ${copied
                             ? 'bg-emerald-600 text-white'
                             : 'bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90'
                             }`}
                     >
-                        {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
-                        {copied ? 'Copied!' : 'Copy Command'}
+                        {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                        {copied ? 'Copied!' : 'Copy'}
                     </button>
                 </div>
             </div>

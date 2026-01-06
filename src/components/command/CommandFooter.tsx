@@ -203,11 +203,11 @@ export function CommandFooter({
                         {/* Command Bar */}
                         <div className="bg-[var(--bg-tertiary)] font-mono text-xs rounded-lg overflow-hidden border border-[var(--border-primary)]/40 shadow-2xl">
                             <div className="flex items-stretch">
-                                {/* Preview button */}
+                                {/* Preview button (hidden on mobile) */}
                                 <button
                                     onClick={() => selectedCount > 0 && setDrawerOpen(true)}
                                     disabled={selectedCount === 0}
-                                    className={`flex items-center gap-2 px-4 py-3 border-r border-[var(--border-primary)]/30 transition-colors shrink-0 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 ${selectedCount === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                    className={`hidden md:flex items-center gap-2 px-4 py-3 border-r border-[var(--border-primary)]/30 transition-colors shrink-0 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 hover:text-indigo-300 ${selectedCount === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                                     title="Toggle Preview (Tab)"
                                 >
                                     <ChevronUp className="w-3.5 h-3.5 shrink-0" />
@@ -227,11 +227,11 @@ export function CommandFooter({
                                     </code>
                                 </div>
 
-                                {/* Clear button */}
+                                {/* Clear button (hidden on mobile) */}
                                 <button
                                     onClick={clearAll}
                                     disabled={selectedCount === 0}
-                                    className={`flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
+                                    className={`hidden md:flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
                                         ? 'text-[var(--text-muted)] hover:bg-rose-500/10 hover:text-rose-400'
                                         : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                         }`}
@@ -241,11 +241,11 @@ export function CommandFooter({
                                     <span className="hidden sm:inline whitespace-nowrap">Clear</span>
                                 </button>
 
-                                {/* Download button */}
+                                {/* Download button (hidden on mobile) */}
                                 <button
                                     onClick={handleDownload}
                                     disabled={selectedCount === 0}
-                                    className={`flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
+                                    className={`hidden md:flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
                                         ? 'text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)] hover:text-[var(--text-primary)]'
                                         : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                         }`}
@@ -255,11 +255,11 @@ export function CommandFooter({
                                     <span className="hidden sm:inline whitespace-nowrap">Download</span>
                                 </button>
 
-                                {/* Copy button */}
+                                {/* Copy button (hidden on mobile) */}
                                 <button
                                     onClick={handleCopy}
                                     disabled={selectedCount === 0}
-                                    className={`flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
+                                    className={`hidden md:flex items-center gap-1.5 px-3 py-3 border-l border-[var(--border-primary)]/30 transition-colors ${selectedCount > 0
                                         ? (copied
                                             ? 'bg-emerald-600 text-white'
                                             : 'bg-[var(--text-primary)] text-[var(--bg-primary)] hover:opacity-90')

@@ -37,8 +37,8 @@ export function ShortcutsBar({
             <div className="flex items-stretch justify-between">
                 {/* LEFT SECTION */}
                 <div className="flex items-stretch">
-                    {/* Mode Badge - like nvim NORMAL/INSERT */}
-                    <div className="bg-[var(--text-primary)] text-[var(--bg-primary)] px-3 py-1 font-bold flex items-center whitespace-nowrap">
+                    {/* Mode Badge - like nvim NORMAL/INSERT (hidden on mobile) */}
+                    <div className="hidden md:flex bg-[var(--text-primary)] text-[var(--bg-primary)] px-3 py-1 font-bold items-center whitespace-nowrap">
                         {distroName.toUpperCase()}
                     </div>
 
@@ -98,8 +98,8 @@ export function ShortcutsBar({
                     )}
                 </div>
 
-                {/* RIGHT SECTION - Compact Shortcuts */}
-                <div className="flex items-stretch">
+                {/* RIGHT SECTION - Compact Shortcuts (hidden on mobile) */}
+                <div className="hidden md:flex items-stretch">
                     <div className="hidden sm:flex items-center gap-3 px-3 py-1 text-[var(--text-muted)] text-[10px] border-l border-[var(--border-primary)]/30">
                         {/* Navigation */}
                         <span className="hidden lg:inline"><b className="text-[var(--text-secondary)]">←↓↑→ </b>/<b className="text-[var(--text-secondary)]"> hjkl</b> Navigation</span>

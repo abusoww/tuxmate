@@ -14,17 +14,17 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TuxMate - Linux App Installer Command Generator",
+  title: "TuxMate - LINUX BULK APP INSTALLER",
   description: "TuxMate helps you generate terminal commands to install your favorite apps on any Linux distribution. Select your distro, pick your apps, and get your install command.",
   openGraph: {
-    title: "TuxMate - Linux App Installer",
+    title: "TuxMate - Linux Bulk App Installer",
     description: "Generate install commands for 180+ apps on Ubuntu, Debian, Arch, Fedora, and more.",
     type: "website",
-    url: "https://tuxmate.abusov.com",
+    url: "https://tuxmate.com",
   },
   twitter: {
     card: "summary_large_image",
-    title: "TuxMate - Linux App Installer",
+    title: "TuxMate - Linux Bulk App Installer",
     description: "Generate install commands for 180+ apps on any Linux distro.",
   },
 };

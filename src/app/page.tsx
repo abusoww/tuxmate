@@ -220,7 +220,7 @@ export default function Home() {
                                             The Linux Bulk App Installer.
                                         </p>
                                         <span className="hidden sm:inline text-[var(--text-muted)] opacity-30 text-[10px]">•</span>
-                                        <div className="-ml-1 sm:ml-0 scale-90 sm:scale-100 origin-left opacity-80 hover:opacity-100 transition-opacity">
+                                        <div className="hidden sm:block">
                                             <HowItWorks />
                                         </div>
                                     </div>
@@ -229,14 +229,18 @@ export default function Home() {
                         </div>
 
                         {/* Header Controls */}
-                        <div className="header-controls flex items-center gap-3 sm:gap-4">
-                            {/* Links */}
+                        <div className="header-controls flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
+                            {/* Left side on mobile: Help + Links */}
                             <div className="flex items-center gap-3 sm:gap-4">
+                                {/* Help - mobile only here, desktop is in title area */}
+                                <div className="sm:hidden">
+                                    <HowItWorks />
+                                </div>
                                 <GitHubLink />
                                 <ContributeLink />
                             </div>
 
-                            {/* Control buttons */}
+                            {/* Right side: Theme + Distro (with separator on desktop) */}
                             <div className="flex items-center gap-2 pl-2 sm:pl-3 border-l border-[var(--border-primary)]">
                                 <ThemeToggle />
                                 <DistroSelector selectedDistro={selectedDistro} onSelect={setSelectedDistro} />
@@ -249,7 +253,46 @@ export default function Home() {
             {/* App Grid */}
             <main className="px-4 sm:px-6 pb-40 relative" style={{ zIndex: 1 }}>
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-4 sm:gap-x-8">
+                    {/* Mobile: 2-column grid with balanced distribution */}
+                    <div className="grid grid-cols-2 gap-x-4 md:hidden items-start">
+                        {(() => {
+                            // Tetris packing for 2 columns on mobile
+                            const mobileColumns: Array<typeof allCategoriesWithApps> = [[], []];
+                            const heights = [0, 0];
+                            allCategoriesWithApps.forEach(catData => {
+                                const minIdx = heights[0] <= heights[1] ? 0 : 1;
+                                mobileColumns[minIdx].push(catData);
+                                heights[minIdx] += catData.apps.length + 2;
+                            });
+                            return mobileColumns.map((columnCategories, colIdx) => (
+                                <div key={`mobile-col-${colIdx}`}>
+                                    {columnCategories.map(({ category, apps: categoryApps }, catIdx) => (
+                                        <CategorySection
+                                            key={`${category}-${categoryApps.length}`}
+                                            category={category}
+                                            categoryApps={categoryApps}
+                                            selectedApps={selectedApps}
+                                            isAppAvailable={isAppAvailable}
+                                            selectedDistro={selectedDistro}
+                                            toggleApp={toggleApp}
+                                            isExpanded={expandedCategories.has(category)}
+                                            onToggleExpanded={() => toggleCategoryExpanded(category)}
+                                            focusedId={focusedItem?.id}
+                                            focusedType={focusedItem?.type}
+                                            onTooltipEnter={showTooltip}
+                                            onTooltipLeave={hideTooltip}
+                                            categoryIndex={catIdx}
+                                            onCategoryFocus={() => setFocusByItem('category', category)}
+                                            onAppFocus={(appId) => setFocusByItem('app', appId)}
+                                        />
+                                    ))}
+                                </div>
+                            ));
+                        })()}
+                    </div>
+
+                    {/* Desktop: Grid with Tetris packing */}
+                    <div className="hidden md:grid md:grid-cols-4 lg:grid-cols-5 gap-x-8 items-start">
                         {columns.map((columnCategories, colIdx) => {
                             // Calculate starting index for this column (for staggered animation)
                             let globalIdx = 0;
