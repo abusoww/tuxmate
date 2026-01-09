@@ -9,3 +9,4 @@ export { generateOpenSUSEScript } from './opensuse';
 export { generateNixScript } from './nix';
 export { generateFlatpakScript } from './flatpak';
 export { generateSnapScript } from './snap';
+export { generateHomebrewScript } from './homebrew';

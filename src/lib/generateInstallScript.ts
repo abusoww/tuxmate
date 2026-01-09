@@ -12,6 +12,7 @@ import {
     generateNixScript,
     generateFlatpakScript,
     generateSnapScript,
+    generateHomebrewScript,
 } from './scripts';
 
 interface ScriptOptions {
@@ -39,6 +40,7 @@ export function generateInstallScript(options: ScriptOptions): string {
         case 'nix': return generateNixScript(packages);
         case 'flatpak': return generateFlatpakScript(packages);
         case 'snap': return generateSnapScript(packages);
+        case 'homebrew': return generateHomebrewScript(packages);
         default: return '#!/bin/bash\necho "Unsupported distribution"\nexit 1';
     }
 }
@@ -61,6 +63,18 @@ export function generateSimpleCommand(selectedAppIds: Set<string>, distroId: Dis
         case 'snap':
             if (packages.length === 1) return `sudo snap install ${pkgList}`;
             return packages.map(p => `sudo snap install ${p.pkg}`).join(' && ');
+        case 'homebrew': {
+            const formulae = packages.filter(p => !p.pkg.startsWith('--cask '));
+            const casks = packages.filter(p => p.pkg.startsWith('--cask '));
+            const parts = [];
+            if (formulae.length > 0) {
+                parts.push(`brew install ${formulae.map(p => p.pkg).join(' ')}`);
+            }
+            if (casks.length > 0) {
+                parts.push(`brew install --cask ${casks.map(p => p.pkg.replace('--cask ', '')).join(' ')}`);
+            }
+            return parts.join(' && ') || '# No packages selected';
+        }
         default: return `# Install: ${pkgList}`;
     }
 }
