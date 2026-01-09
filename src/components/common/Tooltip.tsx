@@ -7,9 +7,10 @@ interface TooltipProps {
     tooltip: TooltipState | null;
     onMouseEnter: () => void;
     onMouseLeave: () => void;
+    setRef?: (el: HTMLDivElement | null) => void;
 }
 
-export function Tooltip({ tooltip, onMouseEnter, onMouseLeave }: TooltipProps) {
+export function Tooltip({ tooltip, onMouseEnter, onMouseLeave, setRef }: TooltipProps) {
     const [current, setCurrent] = useState<TooltipState | null>(null);
     const [visible, setVisible] = useState(false);
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -62,6 +63,7 @@ export function Tooltip({ tooltip, onMouseEnter, onMouseLeave }: TooltipProps) {
 
     return (
         <div
+            ref={setRef}
             role="tooltip"
             className="fixed hidden md:block pointer-events-auto z-[9999]"
             style={{ left: current.x, top: current.y - 10 }}

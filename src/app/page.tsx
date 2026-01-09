@@ -24,7 +24,7 @@ import { Tooltip, GlobalStyles, LoadingSkeleton } from '@/components/common';
 export default function Home() {
     // All the state we need to make this thing work
 
-    const { tooltip, show: showTooltip, hide: hideTooltip, tooltipMouseEnter, tooltipMouseLeave } = useTooltip();
+    const { tooltip, show: showTooltip, hide: hideTooltip, tooltipMouseEnter, tooltipMouseLeave, setTooltipRef } = useTooltip();
 
     const {
         selectedDistro,
@@ -203,7 +203,7 @@ export default function Home() {
             onClick={clearFocus}
         >
             <GlobalStyles />
-            <Tooltip tooltip={tooltip} onMouseEnter={tooltipMouseEnter} onMouseLeave={tooltipMouseLeave} />
+            <Tooltip tooltip={tooltip} onMouseEnter={tooltipMouseEnter} onMouseLeave={tooltipMouseLeave} setRef={setTooltipRef} />
 
             {/* Header */}
             <header ref={headerRef} className="pt-8 sm:pt-12 pb-8 sm:pb-10 px-4 sm:px-6 relative" style={{ zIndex: 1 }}>

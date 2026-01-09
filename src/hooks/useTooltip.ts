@@ -20,6 +20,12 @@ export function useTooltip() {
     const hideTimeout = useRef<NodeJS.Timeout | null>(null);
     const isOverTrigger = useRef(false);
     const isOverTooltip = useRef(false);
+    const tooltipRef = useRef<HTMLDivElement | null>(null);
+
+    // Allow setting the tooltip element ref from the Tooltip component
+    const setTooltipRef = useCallback((el: HTMLDivElement | null) => {
+        tooltipRef.current = el;
+    }, []);
 
     const cancel = useCallback(() => {
         if (showTimeout.current) {
@@ -74,7 +80,18 @@ export function useTooltip() {
     }, [tryHide]);
 
     useEffect(() => {
-        const dismiss = () => {
+        const dismiss = (e: MouseEvent) => {
+            // Don't dismiss if clicking inside the tooltip
+            if (tooltipRef.current && tooltipRef.current.contains(e.target as Node)) {
+                return;
+            }
+            cancel();
+            isOverTrigger.current = false;
+            isOverTooltip.current = false;
+            setTooltip(null);
+        };
+
+        const dismissOnScroll = () => {
             cancel();
             isOverTrigger.current = false;
             isOverTooltip.current = false;
@@ -82,20 +99,20 @@ export function useTooltip() {
         };
 
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') dismiss();
+            if (e.key === 'Escape') dismissOnScroll();
         };
 
         window.addEventListener('mousedown', dismiss, true);
-        window.addEventListener('scroll', dismiss, true);
+        window.addEventListener('scroll', dismissOnScroll, true);
         window.addEventListener('keydown', handleKeyDown);
 
         return () => {
             cancel();
             window.removeEventListener('mousedown', dismiss, true);
-            window.removeEventListener('scroll', dismiss, true);
+            window.removeEventListener('scroll', dismissOnScroll, true);
             window.removeEventListener('keydown', handleKeyDown);
         };
     }, [cancel]);
 
-    return { tooltip, show, hide, tooltipMouseEnter, tooltipMouseLeave };
+    return { tooltip, show, hide, tooltipMouseEnter, tooltipMouseLeave, setTooltipRef };
 }
