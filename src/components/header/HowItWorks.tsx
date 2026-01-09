@@ -183,10 +183,13 @@ export function HowItWorks() {
                                 <strong className="text-[var(--text-secondary)]">Arch Linux users</strong> — Some packages come from the AUR. TuxMate uses yay or paru as the AUR helper. Press 1 or 2 anytime to switch between them.
                             </li>
                             <li>
+                                <strong className="text-[var(--text-secondary)]">Homebrew users</strong> — Works on both macOS and Linux. GUI apps (Casks) are macOS-only and will be automatically skipped on Linux. The script handles this check for you.
+                            </li>
+                            <li>
                                 <strong className="text-[var(--text-secondary)]">Auto-save</strong> — Your app selections are saved automatically in your browser. Come back anytime and your selections will still be there.
                             </li>
                             <li>
-                                <strong className="text-[var(--text-secondary)]">Running scripts</strong> — Downloaded scripts are saved as <code className="px-1 py-0.5 rounded bg-[var(--bg-tertiary)] text-xs font-mono">tuxmate-*.sh</code>. Run them with <code className="px-1 py-0.5 rounded bg-[var(--bg-tertiary)] text-xs font-mono">bash tuxmate-*.sh</code>
+                                <strong className="text-[var(--text-secondary)]">Script Safety</strong> — Downloaded scripts are robust and idempotent. They include error handling, network retries, and system checks. Run them with <code className="px-1 py-0.5 rounded bg-[var(--bg-tertiary)] text-xs font-mono">bash tuxmate-*.sh</code> to safely install your selection.
                             </li>
                         </ul>
                     </section>
