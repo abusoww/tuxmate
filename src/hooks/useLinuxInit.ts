@@ -7,11 +7,7 @@ import { isAurPackage } from '@/lib/aur';
 // Re-export for backwards compatibility
 export { isAurPackage, AUR_PATTERNS, KNOWN_AUR_PACKAGES } from '@/lib/aur';
 
-/**
- * The big hook that runs the whole show.
- * Manages distro selection, app selection, localStorage persistence,
- * and command generation. If this breaks, everything breaks.
- */
+// Everything the app needs to work
 
 export interface UseLinuxInitReturn {
     selectedDistro: DistroId;

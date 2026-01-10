@@ -48,10 +48,7 @@ export function generateInstallScript(options: ScriptOptions): string {
     }
 }
 
-/**
- * Quick one-liner for the clipboard. No frills, just the command.
- * For users who know what they're doing and just want to paste.
- */
+// Quick one-liner for copy-paste warriors
 export function generateSimpleCommand(selectedAppIds: Set<string>, distroId: DistroId): string {
     const packages = getSelectedPackages(selectedAppIds, distroId);
     if (packages.length === 0) return '# No packages selected';

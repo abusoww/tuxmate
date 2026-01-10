@@ -37,11 +37,7 @@ export const metadata: Metadata = {
   },
 };
 
-/**
- * Inline script that runs before React hydrates.
- * Sets the theme immediately to prevent that jarring flash when
- * you visit the page at 2am and get blinded by light mode.
- */
+// Script to run before React hydrates to prevent theme flash
 const themeScript = `
   (function() {
     try {
