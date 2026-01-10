@@ -58,7 +58,7 @@ export function generateSimpleCommand(selectedAppIds: Set<string>, distroId: Dis
         case 'arch': return `yay -S --needed --noconfirm ${pkgList}`;
         case 'fedora': return `sudo dnf install -y ${pkgList}`;
         case 'opensuse': return `sudo zypper install -y ${pkgList}`;
-        case 'nix': return `nix-env -iA ${packages.map(p => `nixpkgs.${p.pkg}`).join(' ')}`;
+        case 'nix': return `nix-env -iA ${packages.filter(p => p.pkg.trim()).map(p => `nixpkgs.${p.pkg.trim()}`).join(' ')}`;
         case 'flatpak': return `flatpak install flathub -y ${pkgList}`;
         case 'snap':
             if (packages.length === 1) return `sudo snap install ${pkgList}`;

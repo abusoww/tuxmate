@@ -208,8 +208,9 @@ export function useLinuxInit(): UseLinuxInitReturn {
 
         // Handle special cases for Nix and Snap
         if (selectedDistro === 'nix') {
-            // Nix needs nixpkgs. prefix for each package
-            return `${distro.installPrefix} ${packageNames.map(p => `nixpkgs.${p}`).join(' ')}`;
+            // installPrefix already ends with 'nixpkgs.' so just join packages with ' nixpkgs.'
+            const filteredPkgs = packageNames.filter(p => p.trim());
+            return `${distro.installPrefix}${filteredPkgs.join(' nixpkgs.')}`;
         }
 
         if (selectedDistro === 'snap') {

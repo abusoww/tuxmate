@@ -46,7 +46,7 @@ echo
 info "Installing $TOTAL packages"
 echo
 
-${packages.map(({ app, pkg }) => `install_pkg "${escapeShellString(app.name)}" "${pkg}"`).join('\n')}
+${packages.filter(p => p.pkg.trim()).map(({ app, pkg }) => `install_pkg "${escapeShellString(app.name)}" "${pkg.trim()}"`).join('\n')}
 
 print_summary
 echo
