@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Check, Copy, ChevronUp, Download, X } from 'lucide-react';
 import { distros, type DistroId } from '@/lib/data';
 import { generateInstallScript } from '@/lib/generateInstallScript';
@@ -48,12 +48,13 @@ export function CommandFooter({
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [drawerClosing, setDrawerClosing] = useState(false);
     const [hasEverHadSelection, setHasEverHadSelection] = useState(false);
+    const initialCountRef = useRef(selectedCount);
 
     const { toggle: toggleTheme } = useTheme();
 
-    // Track if we've ever had a selection - once true, stays true forever
+    // Track if selection has changed from initial state (user interaction)
     useEffect(() => {
-        if (selectedCount > 0 && !hasEverHadSelection) {
+        if (selectedCount !== initialCountRef.current && !hasEverHadSelection) {
             setHasEverHadSelection(true);
         }
     }, [selectedCount, hasEverHadSelection]);
