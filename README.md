@@ -14,12 +14,9 @@
 
 ## 🐧 The only Mate you need for setup
 
-**TuxMate** is a web-based Linux application installer that generates
-distro-specific shell scripts, that aims to be the simplest way to bulk-install
-applications on a fresh Linux system.
+**TuxMate** is a simple web tool that generates install scripts for any Linux distro. Pick your apps, copy the command, done.
 
-Maybe you've just installed a fresh Linux distro. Perhaps you're setting up
-a new machine or can't remember all the package names for your favorite apps?
+Fresh install? New machine? Can't remember every package name? We've all been there.
 
 
 ## 📦 Supported Package Managers
@@ -33,7 +30,7 @@ a new machine or can't remember all the package names for your favorite apps?
 - Snap
 - Homebrew (macOS + Linux)
 
-## ✨ Features 🌟
+## ✨ Features
 
 ### **Application Catalog**  
 180+ applications across 15 categories: browsers, communication, dev tools, terminals, media, creative software, gaming, office, VPN/network, security, and more.
