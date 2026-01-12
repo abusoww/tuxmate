@@ -11,16 +11,19 @@ export const KNOWN_UNFREE_PACKAGES = new Set([
     'opera',
     'spotify',
     'steam',
-    'heroic',
     'vscode',
+    'sublime',
     'sublime4',
-    'jetbrains.idea-ultimate',
-    'jetbrains.webstorm',
-    'jetbrains.pycharm-professional',
+    'jetbrains',
     'nvidia-x11',
     'dropbox',
     '1password',
     'masterpdfeditor',
+    'postman',
+    'obsidian',
+    'davinci-resolve',
+    'code-cursor',
+    'vagrant',
 ]);
 
 export function isUnfreePackage(pkg: string): boolean {
