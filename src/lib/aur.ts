@@ -63,6 +63,9 @@ export const KNOWN_AUR_PACKAGES = new Set([
     // Creative
     'orcaslicer-bin',
 
+    // System
+    'fsearch',
+
     // Browsers (additional)
     'brave-bin',
     'librewolf-bin',
