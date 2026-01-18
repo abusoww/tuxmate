@@ -62,6 +62,7 @@ export const KNOWN_AUR_PACKAGES = new Set([
 
     // Creative
     'orcaslicer-bin',
+    'davinci-resolve',
 
     // System
     'fsearch',
