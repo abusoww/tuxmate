@@ -28,12 +28,12 @@ export const KNOWN_AUR_PACKAGES = new Set([
     'cursor-bin',
 
     // Dev Tools
+    'vagrant',
     'postman-bin',
     'bruno-bin',
     'hoppscotch-bin',
 
     // Dev Languages
-    'bun-bin',
 
     // Media
     'spotify',
@@ -61,6 +61,7 @@ export const KNOWN_AUR_PACKAGES = new Set([
     'bitwarden',
 
     // Creative
+    'cura',
     'orcaslicer-bin',
     'davinci-resolve',
 
