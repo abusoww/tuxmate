@@ -26,13 +26,25 @@ export function useVerification(): UseVerificationResult {
         if (fetchedRef.current) return;
         fetchedRef.current = true;
 
+        let isMounted = true;
+
         fetchFlathubVerifiedApps()
-            .then(() => setFlathubReady(true))
-            .catch((error) => {
-                console.error('Failed to fetch Flathub verification:', error);
-                setHasError(true);
+            .then(() => {
+                if (isMounted) setFlathubReady(true);
             })
-            .finally(() => setIsLoading(false));
+            .catch((error) => {
+                if (isMounted) {
+                    console.error('Failed to fetch Flathub verification:', error);
+                    setHasError(true);
+                }
+            })
+            .finally(() => {
+                if (isMounted) setIsLoading(false);
+            });
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     // Check if package is verified for the distro
