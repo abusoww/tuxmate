@@ -140,13 +140,15 @@ export const AppItem = memo(function AppItem({
                     {app.name}
                 </span>
                 {isAur && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                        src="https://api.iconify.design/simple-icons/archlinux.svg?color=%231793d1"
+                    <svg
                         className="ml-1.5 w-3 h-3 flex-shrink-0 opacity-80"
-                        alt="AUR"
-                        title="This is an AUR package"
-                    />
+                        viewBox="0 0 24 24"
+                        fill="#1793d1"
+                        aria-label="AUR package"
+                    >
+                        <title>This is an AUR package</title>
+                        <path d="M12 0c-.39 0-.77.126-1.11.365a2.22 2.22 0 0 0-.82 1.056L0 24h4.15l2.067-5.58h11.666L19.95 24h4.05L13.91 1.42A2.24 2.24 0 0 0 12 0zm0 4.542l5.77 15.548H6.23l5.77-15.548z" />
+                    </svg>
                 )}
                 {isVerified && verificationSource && (
                     <svg
