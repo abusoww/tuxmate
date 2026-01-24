@@ -49,7 +49,7 @@ export default function Home() {
     const searchInputRef = useRef<HTMLInputElement>(null);
 
     // Verification status for Flatpak/Snap apps
-    const { isVerified, getVerificationType } = useVerification();
+    const { isVerified, getVerificationSource } = useVerification();
 
     // Handle "/" key to focus search
     useEffect(() => {
@@ -292,7 +292,7 @@ export default function Home() {
                                             onCategoryFocus={() => setFocusByItem('category', category)}
                                             onAppFocus={(appId) => setFocusByItem('app', appId)}
                                             isVerified={isVerified}
-                                            getVerificationType={getVerificationType}
+                                            getVerificationSource={getVerificationSource}
                                         />
                                     ))}
                                 </div>
@@ -333,7 +333,7 @@ export default function Home() {
                                             onCategoryFocus={() => setFocusByItem('category', category)}
                                             onAppFocus={(appId) => setFocusByItem('app', appId)}
                                             isVerified={isVerified}
-                                            getVerificationType={getVerificationType}
+                                            getVerificationSource={getVerificationSource}
                                         />
                                     ))}
                                 </div>

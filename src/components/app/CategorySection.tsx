@@ -28,10 +28,9 @@ interface CategorySectionProps {
     categoryIndex: number;
     onCategoryFocus?: () => void;
     onAppFocus?: (appId: string) => void;
-    /** Check if a package is verified (Flatpak/Snap only) */
+    // Flatpak/Snap verification status
     isVerified?: (distro: DistroId, packageName: string) => boolean;
-    /** Get verification type for styling */
-    getVerificationType?: (distro: DistroId, packageName: string) => 'flathub' | 'snap' | null;
+    getVerificationSource?: (distro: DistroId, packageName: string) => 'flathub' | 'snap' | null;
 }
 
 /**
@@ -73,7 +72,7 @@ function CategorySectionComponent({
     onCategoryFocus,
     onAppFocus,
     isVerified,
-    getVerificationType,
+    getVerificationSource,
 }: CategorySectionProps) {
     const selectedInCategory = categoryApps.filter(a => selectedApps.has(a.id)).length;
     const isCategoryFocused = focusedType === 'category' && focusedId === category;
@@ -172,9 +171,9 @@ function CategorySectionComponent({
                             (selectedDistro === 'flatpak' || selectedDistro === 'snap') &&
                             isVerified?.(selectedDistro, app.targets?.[selectedDistro] || '') || false
                         }
-                        verificationType={
+                        verificationSource={
                             (selectedDistro === 'flatpak' || selectedDistro === 'snap')
-                                ? getVerificationType?.(selectedDistro, app.targets?.[selectedDistro] || '') || null
+                                ? getVerificationSource?.(selectedDistro, app.targets?.[selectedDistro] || '') || null
                                 : null
                         }
                     />

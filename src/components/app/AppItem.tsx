@@ -43,10 +43,9 @@ interface AppItemProps {
     onTooltipLeave: () => void;
     onFocus?: () => void;
     color?: string;
-    /** Whether the app is verified (Flatpak/Snap only) */
+    // Flatpak/Snap verification status
     isVerified?: boolean;
-    /** The verification source for styling */
-    verificationType?: 'flathub' | 'snap' | null;
+    verificationSource?: 'flathub' | 'snap' | null;
 }
 
 export const AppItem = memo(function AppItem({
@@ -61,7 +60,7 @@ export const AppItem = memo(function AppItem({
     onFocus,
     color = 'gray',
     isVerified = false,
-    verificationType = null,
+    verificationSource = null,
 }: AppItemProps) {
     // Why isn't this app available? Tell the user.
     const getUnavailableText = () => {
@@ -149,16 +148,16 @@ export const AppItem = memo(function AppItem({
                         title="This is an AUR package"
                     />
                 )}
-                {isVerified && verificationType && (
+                {isVerified && verificationSource && (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
-                        src={verificationType === 'flathub'
+                        src={verificationSource === 'flathub'
                             ? 'https://api.iconify.design/mdi/check-decagram.svg?color=%234A90D9'  // Flathub blue
                             : 'https://api.iconify.design/mdi/check-decagram.svg?color=%2382BEA0'  // Snap green
                         }
                         className="ml-1 w-3.5 h-3.5 flex-shrink-0 opacity-90"
                         alt="Verified"
-                        title={verificationType === 'flathub'
+                        title={verificationSource === 'flathub'
                             ? 'Verified on Flathub'
                             : 'Verified publisher on Snap Store'
                         }

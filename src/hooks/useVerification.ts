@@ -9,83 +9,58 @@ import {
 } from '@/lib/verification';
 
 export interface UseVerificationResult {
-    /** Whether verification data is still loading */
     isLoading: boolean;
-    /** Whether an error occurred during fetch */
     hasError: boolean;
-    /** Check if an app is verified for the given distro */
     isVerified: (distro: DistroId, packageName: string) => boolean;
-    /** Get the verification source type for styling */
-    getVerificationType: (distro: DistroId, packageName: string) => 'flathub' | 'snap' | null;
+    getVerificationSource: (distro: DistroId, packageName: string) => 'flathub' | 'snap' | null;
 }
 
-/**
- * Hook to manage verification status for Flatpak and Snap packages.
- * Fetches Flathub verification data on mount and provides lookup functions.
- * Snap uses a static list of known verified packages (no API call needed).
- */
+// Fetches Flathub data on mount, Snap uses static list (instant)
 export function useVerification(): UseVerificationResult {
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
-    const [flathubLoaded, setFlathubLoaded] = useState(false);
-    const [snapLoaded, setSnapLoaded] = useState(false);
-
-    // Track if we've already fetched to avoid duplicate requests
+    const [flathubReady, setFlathubReady] = useState(false);
     const fetchedRef = useRef(false);
 
-    // Fetch verification data on mount
     useEffect(() => {
         if (fetchedRef.current) return;
         fetchedRef.current = true;
 
-        const fetchVerificationData = async () => {
-            try {
-                // Fetch Flathub verified apps (bulk API call)
-                await fetchFlathubVerifiedApps();
-                setFlathubLoaded(true);
-
-                // Snap uses static list (API doesn't support CORS from browsers)
-                // No API call needed - data is immediately available
-                setSnapLoaded(true);
-            } catch (error) {
-                console.error('Error fetching verification data:', error);
+        fetchFlathubVerifiedApps()
+            .then(() => setFlathubReady(true))
+            .catch((error) => {
+                console.error('Failed to fetch Flathub verification:', error);
                 setHasError(true);
-                // Even on error, mark snap as loaded since it uses static data
-                setSnapLoaded(true);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-
-        fetchVerificationData();
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
-    // Check if an app is verified for the given distro
+    // Check if package is verified for the distro
     const isVerified = useCallback((distro: DistroId, packageName: string): boolean => {
-        if (distro === 'flatpak' && flathubLoaded) {
+        if (distro === 'flatpak' && flathubReady) {
             return isFlathubVerified(packageName);
         }
-        if (distro === 'snap' && snapLoaded) {
+        if (distro === 'snap') {
             return isSnapVerified(packageName);
         }
         return false;
-    }, [flathubLoaded, snapLoaded]);
+    }, [flathubReady]);
 
-    // Get the verification source type
-    const getVerificationType = useCallback((distro: DistroId, packageName: string): 'flathub' | 'snap' | null => {
-        if (distro === 'flatpak' && flathubLoaded && isFlathubVerified(packageName)) {
+    // Get verification source for badge styling
+    const getVerificationSource = useCallback((distro: DistroId, packageName: string): 'flathub' | 'snap' | null => {
+        if (distro === 'flatpak' && flathubReady && isFlathubVerified(packageName)) {
             return 'flathub';
         }
-        if (distro === 'snap' && snapLoaded && isSnapVerified(packageName)) {
+        if (distro === 'snap' && isSnapVerified(packageName)) {
             return 'snap';
         }
         return null;
-    }, [flathubLoaded, snapLoaded]);
+    }, [flathubReady]);
 
     return {
         isLoading,
         hasError,
         isVerified,
-        getVerificationType,
+        getVerificationSource,
     };
 }
