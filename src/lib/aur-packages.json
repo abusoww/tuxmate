@@ -1,36 +1,18 @@
 {
+    "_comment": "List of known AUR packages that do NOT have standard suffixes (-bin, -git, -appimage). Suffixes are automatically handled in aur.ts",
     "packages": [
         "google-chrome",
-        "zen-browser-bin",
-        "helium-browser-bin",
         "slack-desktop",
         "zoom",
-        "vesktop-bin",
         "sublime-text-4",
-        "vscodium-bin",
-        "cursor-bin",
         "vagrant",
-        "postman-bin",
-        "bruno-bin",
-        "hoppscotch-bin",
         "spotify",
         "stremio",
-        "heroic-games-launcher-bin",
-        "protonup-qt-bin",
-        "onlyoffice-bin",
-        "logseq-desktop-bin",
-        "joplin-appimage",
         "proton-vpn-gtk-app",
-        "mullvad-vpn-bin",
-        "localsend-bin",
         "dropbox",
-        "ab-download-manager-bin",
         "bitwarden",
         "cura",
-        "orcaslicer-bin",
         "davinci-resolve",
-        "fsearch",
-        "brave-bin",
-        "librewolf-bin"
+        "fsearch"
     ]
 }
