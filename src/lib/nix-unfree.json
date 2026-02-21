@@ -22,6 +22,9 @@
         "obsidian",
         "davinci-resolve",
         "code-cursor",
-        "vagrant"
+        "vagrant",
+        "jetbrains.idea",
+        "jetbrains.pycharm",
+        "jetbrains.clion"
     ]
 }
