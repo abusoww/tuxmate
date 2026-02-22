@@ -50,11 +50,11 @@ export function AurPopover({
             {/* Popover */}
             {isOpen && (
                 <div
-                    className="absolute bottom-full left-0 mb-2 w-64 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg overflow-hidden"
+                    className="absolute bottom-full left-0 mb-2 w-64 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-xl shadow-lg overflow-hidden"
                     style={{ animation: 'tooltipSlideUp 0.2s ease-out' }}
                 >
                     {/* Header */}
-                    <div className="px-3 py-2.5 border-b border-[var(--border-primary)]/15">
+                    <div className="px-3 py-2.5 border-b border-[var(--border-primary)]">
                         <p className="text-xs font-medium text-[var(--text-primary)]">AUR Packages</p>
                         <p className="text-xs text-[var(--text-muted)]">
                             {hasYayInstalled ? 'Using yay' : 'Will install yay first'}
@@ -74,7 +74,7 @@ export function AurPopover({
                     </div>
 
                     {/* Yay Checkbox */}
-                    <div className="px-3 py-2.5 border-t border-[var(--border-primary)]/15">
+                    <div className="px-3 py-2.5 border-t border-[var(--border-primary)]">
                         <label className="flex items-center gap-2 cursor-pointer select-none group">
                             <div className="relative">
                                 <input

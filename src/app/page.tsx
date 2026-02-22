@@ -131,6 +131,7 @@ export default function Home() {
             }
         };
 
+        window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [selectedCount, clearAll, hasAurPackages, setSelectedHelper, drawerOpen, closeDrawer, openDrawer, toggleThemeWithFlash]);
 

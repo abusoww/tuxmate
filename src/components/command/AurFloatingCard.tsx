@@ -91,14 +91,14 @@ export function AurFloatingCard({
         return (
             <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-30 flex flex-col gap-3 items-center md:items-end">
                 <div
-                    className="w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg overflow-hidden"
+                    className="w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-xl shadow-lg overflow-hidden"
                     style={{ animation: 'slideOutToRight 0.25s ease-out forwards' }}
                 >
                     <div className="p-4" />
                 </div>
                 {hasAnswered !== null && (
                     <div
-                        className="w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg overflow-hidden"
+                        className="w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-xl shadow-lg overflow-hidden"
                         style={{ animation: 'slideOutToRight 0.2s ease-out forwards' }}
                     >
                         <div className="p-4" />
@@ -112,7 +112,7 @@ export function AurFloatingCard({
         <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-30 flex flex-col gap-3 items-center md:items-end">
             <div
                 className={`
-                    w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg
+                    w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-xl shadow-lg
                     overflow-hidden
                     transition-[box-shadow] duration-200
                 `}
@@ -147,7 +147,7 @@ export function AurFloatingCard({
                             flex-1 py-2 px-4 rounded-lg text-sm font-medium 
                             transition-[background-color,color] duration-200 ease-out
                             ${hasAnswered === true
-                                ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] text-[var(--text-primary)] shadow-sm'
                                 : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                             }
                         `}
@@ -160,7 +160,7 @@ export function AurFloatingCard({
                             flex-1 py-2 px-4 rounded-lg text-sm font-medium 
                             transition-[background-color,color] duration-200 ease-out
                             ${hasAnswered === false
-                                ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] text-[var(--text-primary)] shadow-sm'
                                 : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                             }
                         `}
@@ -179,7 +179,7 @@ export function AurFloatingCard({
             {hasAnswered !== null && (
                 <div
                     className={`
-                        w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg
+                        w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)] rounded-xl shadow-lg
                         overflow-hidden
                     `}
                     style={{
@@ -212,7 +212,7 @@ export function AurFloatingCard({
                                 flex-1 py-2.5 px-4 rounded-lg text-sm font-medium 
                                 transition-[background-color,color] duration-200 ease-out
                                 ${selectedHelper === 'yay' && helperChosen
-                                    ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                    ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] text-[var(--text-primary)] shadow-sm'
                                     : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                                 }
                             `}
@@ -228,7 +228,7 @@ export function AurFloatingCard({
                                 flex-1 py-2.5 px-4 rounded-lg text-sm font-medium 
                                 transition-[background-color,color] duration-200 ease-out
                                 ${selectedHelper === 'paru' && helperChosen
-                                    ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                    ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)] text-[var(--text-primary)] shadow-sm'
                                     : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                                 }
                             `}

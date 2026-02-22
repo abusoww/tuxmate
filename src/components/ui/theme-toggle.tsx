@@ -45,6 +45,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
                 analytics.themeChanged(isDark ? 'light' : 'dark');
             }}
             role="button"
+            aria-label="Toggle theme"
             tabIndex={0}
         >
             <div className="flex justify-between items-center w-full">

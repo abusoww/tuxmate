@@ -18,17 +18,17 @@
 }
 
 .light {
-    --bg-primary: #f5f2ed;
-    --bg-secondary: #ebe8e2;
-    --bg-tertiary: #e0dcd4;
-    --bg-hover: #d8d4ca;
-    --bg-focus: #cec9bd;
-    --text-primary: #1a1815;
-    --text-secondary: #3a3733;
-    --text-muted: #5c5850;
-    --border-primary: #d8d4ca;
-    --border-secondary: #cec9bd;
-    --accent: #7d7970;
+    --bg-primary: #fbf7f0;
+    --bg-secondary: #f0e9dd;
+    --bg-tertiary: #e6dac9;
+    --bg-hover: #dcd0bc;
+    --bg-focus: #d2c4af;
+    --text-primary: #3d3730;
+    --text-secondary: #5c544a;
+    --text-muted: #7d7468;
+    --border-primary: #dcd0bc;
+    --border-secondary: #e6dac9;
+    --accent: #a4937d;
 }
 
 @theme inline {
@@ -765,7 +765,8 @@ body.theme-flash::after {
 }
 
 .sidebar-action-btn {
-    transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+    transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+    border: 1px solid var(--border-primary);
 }
 
 .sidebar-action-btn:hover:not(:disabled) {

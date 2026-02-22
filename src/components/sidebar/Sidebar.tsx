@@ -121,7 +121,7 @@ export function Sidebar({
 
             <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden sidebar-scroll">
                 <div className="px-5 pb-5">
-                    <div className="sidebar-search flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg border border-[var(--border-primary)]/20 bg-transparent">
+                    <div className="sidebar-search flex items-center gap-2.5 px-3.5 py-2.5 rounded-lg border border-[var(--border-primary)] bg-transparent">
                         <Search className="w-3.5 h-3.5 text-[var(--text-muted)] shrink-0 opacity-40" />
                         <input
                             ref={searchInputRef}
@@ -140,7 +140,7 @@ export function Sidebar({
                                 <X className="w-3.5 h-3.5" />
                             </button>
                         ) : (
-                            <kbd className="text-[10px] text-[var(--text-muted)]/40 border border-[var(--border-primary)]/30 rounded px-1.5 py-0.5 font-mono">/</kbd>
+                            <kbd className="text-[10px] text-[var(--text-muted)]/40 border border-[var(--border-primary)] rounded px-1.5 py-0.5 font-mono">/</kbd>
                         )}
                     </div>
                 </div>
@@ -149,7 +149,7 @@ export function Sidebar({
                     <p className="text-[10px] uppercase tracking-[0.15em] text-[var(--text-muted)] mb-2 px-1 font-semibold">Distribution</p>
                     <button
                         onClick={() => setDistroOpen(prev => !prev)}
-                        className="sidebar-distro-btn w-full flex items-center gap-3.5 px-4 py-3 rounded-xl border border-[var(--border-primary)]/20 bg-[var(--bg-secondary)]/50"
+                        className="sidebar-distro-btn w-full flex items-center gap-3.5 px-4 py-3 rounded-xl border border-[var(--border-primary)] bg-[var(--bg-secondary)]/50"
                     >
                         <div className="w-7 h-7 flex items-center justify-center shrink-0 rounded-lg"
                             style={{ backgroundColor: `color-mix(in srgb, ${distroColor}, transparent 80%)` }}>
@@ -162,7 +162,7 @@ export function Sidebar({
                     </button>
 
                     {distroOpen && (
-                        <div className="absolute left-5 right-5 mt-2 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-primary)]/30 overflow-hidden shadow-xl z-50"
+                        <div className="absolute left-5 right-5 mt-2 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-primary)] overflow-hidden shadow-xl z-50"
                             style={{ animation: 'dropIn 0.2s ease-out' }}>
                             {distros.map((distro) => (
                                 <button
@@ -198,7 +198,7 @@ export function Sidebar({
                     )}
                 </div>
 
-                <div className="mx-5 mb-4 border-t border-[var(--border-primary)]/15" />
+                <div className="mx-5 mb-4 border-t border-[var(--border-primary)]" />
                 <div className="px-5 pb-4">
                     <div className="flex items-center justify-between mb-2.5 px-1">
                         <div className="flex items-center gap-2">
@@ -219,7 +219,7 @@ export function Sidebar({
                     </div>
 
                     <div
-                        className="sidebar-command-preview rounded-xl bg-[var(--bg-secondary)]/60 border border-[var(--border-primary)]/15 overflow-hidden cursor-pointer group"
+                        className="sidebar-command-preview rounded-xl bg-[var(--bg-secondary)]/60 border border-[var(--border-primary)] overflow-hidden cursor-pointer group"
                         onClick={() => selectedCount > 0 && onOpenDrawer()}
                     >
                         <div className="px-4 py-3.5">
@@ -241,10 +241,10 @@ export function Sidebar({
                             </div>
                         </div>
                         {selectedCount > 0 && (
-                            <div className="px-4 py-2 bg-[var(--bg-tertiary)]/50 border-t border-[var(--border-primary)]/15 flex items-center justify-center gap-1.5 text-[10px] text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
+                            <div className="px-4 py-2 bg-[var(--bg-tertiary)]/50 border-t border-[var(--border-primary)] flex items-center justify-center gap-1.5 text-[10px] text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
                                 <Eye className="w-3 h-3" />
                                 <span>Click for full preview</span>
-                                <kbd className="ml-1 text-[9px] border border-[var(--border-primary)]/30 rounded px-1 py-px font-mono opacity-50">Tab</kbd>
+                                <kbd className="ml-1 text-[9px] border border-[var(--border-primary)] rounded px-1 py-px font-mono opacity-50">Tab</kbd>
                             </div>
                         )}
                     </div>
@@ -320,7 +320,7 @@ export function Sidebar({
 
                 {showAur && (
                     <>
-                        <div className="mx-5 my-3 border-t border-[var(--border-primary)]/25" />
+                        <div className="mx-5 my-3 border-t border-[var(--border-primary)]" />
                         <div className="px-5 pb-2">
                             <div className="flex items-center gap-2 mb-2.5 px-1">
                                 <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="#1793d1">
@@ -335,9 +335,9 @@ export function Sidebar({
                                     <button
                                         key={helper}
                                         onClick={() => setSelectedHelper(helper)}
-                                        className={`py-3 px-4 rounded-xl text-sm font-semibold transition-all ${selectedHelper === helper
-                                            ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm'
-                                            : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)]'
+                                        className={`py-3 px-4 rounded-xl text-sm font-semibold transition-all border ${selectedHelper === helper
+                                            ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm border-transparent'
+                                            : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] border-[var(--border-primary)]'
                                             }`}
                                     >
                                         {helper}
@@ -350,7 +350,7 @@ export function Sidebar({
 
                 {selectedDistro === 'nix' && hasUnfreePackages && unfreeAppNames && unfreeAppNames.length > 0 && (
                     <>
-                        <div className="mx-5 my-3 border-t border-[var(--border-primary)]/25" />
+                        <div className="mx-5 my-3 border-t border-[var(--border-primary)]" />
                         <div className="px-5 pb-2">
                             <div className="p-3.5 rounded-xl bg-amber-500/8 border border-amber-500/20">
                                 <p className="text-[11px] font-semibold text-amber-400 mb-1 flex items-center gap-1.5">
@@ -367,55 +367,55 @@ export function Sidebar({
 
                 <div className="min-h-4" />
                 <div className="px-5 pb-3">
-                    <div className="px-4 py-4 rounded-xl bg-[var(--bg-secondary)]/40 border border-[var(--border-primary)]/15">
+                    <div className="px-4 py-4 rounded-xl bg-[var(--bg-secondary)]/40 border border-[var(--border-primary)]">
                         <p className="text-[12px] uppercase tracking-[0.15em] text-[var(--text-secondary)] font-bold mb-3">Keyboard</p>
                         <div className="grid grid-cols-2 gap-y-2.5 gap-x-6 text-[13px]">
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Search</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">/</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">/</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Navigate</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">←→↑↓</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">←→↑↓</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Select</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">Space</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">Space</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Copy</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">y</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">y</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Download</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">d</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">d</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Preview</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">Tab</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">Tab</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Theme</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">t</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">t</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Clear All</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">c</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">c</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Help</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">?</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">?</kbd>
                             </div>
                             <div className="flex items-center justify-between">
                                 <span className="text-[var(--text-secondary)]">Close</span>
-                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)]/50 rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">Esc</kbd>
+                                <kbd className="text-[11px] text-[var(--text-primary)] bg-[var(--bg-secondary)] border border-[var(--border-primary)] rounded-md px-2 py-0.5 font-mono font-medium shadow-sm">Esc</kbd>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div className="px-5 py-4 border-t border-[var(--border-primary)]/15">
+            <div className="px-5 py-4 border-t border-[var(--border-primary)]">
                 <div className="flex items-center justify-between">
                     <ThemeToggle />
 
