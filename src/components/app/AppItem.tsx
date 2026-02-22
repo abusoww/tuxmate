@@ -5,15 +5,7 @@ import { Check } from 'lucide-react';
 import { distros, type DistroId, type AppData } from '@/lib/data';
 import { isAurPackage } from '@/lib/aur';
 import { AppIcon } from './AppIcon';
-// import { analytics } from '@/lib/analytics'; // Uncomment to enable app selection tracking
-
-/**
- * Individual app row in the category list.
- * Memoized because we render hundreds of these and React was having a moment.
- * Handles selection state, availability indicators, AUR badges, and tooltips.
- */
-
-// Tailwind colors as hex - because CSS variables don't work in inline styles
+// Individual app item.
 const COLOR_MAP: Record<string, string> = {
     'orange': '#f97316',
     'blue': '#3b82f6',
@@ -43,7 +35,6 @@ interface AppItemProps {
     onTooltipLeave: () => void;
     onFocus?: () => void;
     color?: string;
-    // Flatpak/Snap verification status
     isVerified?: boolean;
     verificationSource?: 'flathub' | 'snap' | null;
 }
@@ -62,16 +53,12 @@ export const AppItem = memo(function AppItem({
     isVerified = false,
     verificationSource = null,
 }: AppItemProps) {
-    // Why isn't this app available? Tell the user.
     const getUnavailableText = () => {
         const distroName = distros.find(d => d.id === selectedDistro)?.name || '';
         return app.unavailableReason || `Not available in ${distroName} repos`;
     };
 
-    // Special styling for AUR packages (Arch users love their badges)
     const isAur = selectedDistro === 'arch' && app.targets?.arch && isAurPackage(app.targets.arch);
-
-    // AUR gets its special Arch blue, everything else uses category color
     const hexColor = COLOR_MAP[color] || COLOR_MAP['gray'];
     const checkboxColor = isAur ? '#1793d1' : hexColor;
 
@@ -82,7 +69,7 @@ export const AppItem = memo(function AppItem({
             aria-checked={isSelected}
             aria-label={`${app.name}${!isAvailable ? ' (unavailable)' : ''}`}
             aria-disabled={!isAvailable}
-            className={`app-item group w-full flex items-center gap-2.5 py-1.5 px-2 outline-none transition-all duration-150
+            className={`app-item group w-full flex items-center gap-3 py-[7px] px-3 outline-none transition-all duration-150
         ${isFocused ? 'bg-[var(--bg-secondary)] border-l-2 shadow-sm' : 'border-l-2 border-transparent'}
         ${!isAvailable
                     ? 'opacity-40 grayscale-[30%]'
@@ -91,7 +78,7 @@ export const AppItem = memo(function AppItem({
             style={{
                 transition: 'background-color 0.15s, color 0.5s',
                 borderColor: isFocused ? hexColor : 'transparent',
-                backgroundColor: isFocused ? `color-mix(in srgb, ${hexColor}, transparent 85%)` : undefined, // Stronger tint on focus (15% opacity)
+                backgroundColor: isFocused ? `color-mix(in srgb, ${hexColor}, transparent 85%)` : undefined,
                 '--item-color': hexColor,
             } as React.CSSProperties}
             onClick={(e) => {
@@ -99,23 +86,17 @@ export const AppItem = memo(function AppItem({
                 onFocus?.();
                 if (isAvailable) {
                     onToggle();
-                    // Umami tracking disabled to save quota
-                    // if (isSelected) {
-                    //     analytics.appDeselected(app.name, app.category || '', selectedDistro);
-                    // } else {
-                    //     analytics.appSelected(app.name, app.category || '', selectedDistro);
-                    // }
                 }
             }}
         >
             <div
-                className={`w-4 h-4 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors duration-150 ${!isAvailable ? 'border-dashed' : ''}`}
+                className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 transition-colors duration-150 ${!isAvailable ? 'border-dashed' : ''}`}
                 style={{
                     borderColor: isSelected || isAur ? checkboxColor : 'var(--border-secondary)',
                     backgroundColor: isSelected ? checkboxColor : 'transparent',
                 }}
             >
-                {isSelected && <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
             </div>
             <AppIcon url={app.iconUrl} name={app.name} />
             <div className="flex-1 flex items-baseline gap-1.5 min-w-0 overflow-hidden">
@@ -123,7 +104,8 @@ export const AppItem = memo(function AppItem({
                     className={`truncate cursor-help ${!isAvailable ? 'text-[var(--text-muted)]' : isSelected ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}
                     style={{
                         fontFamily: 'var(--font-open-sans), sans-serif',
-                        fontSize: '16px',
+                        fontSize: '20px',
+                        fontWeight: 500,
                         transition: 'color 0.5s',
                         textRendering: 'geometricPrecision',
                         WebkitFontSmoothing: 'antialiased'
@@ -162,7 +144,6 @@ export const AppItem = memo(function AppItem({
                     </svg>
                 )}
             </div>
-            {/* Exclamation mark icon for unavailable apps */}
             {!isAvailable && (
                 <div
                     className="relative group flex-shrink-0 cursor-help"
@@ -170,8 +151,8 @@ export const AppItem = memo(function AppItem({
                     onMouseLeave={(e) => { e.stopPropagation(); onTooltipLeave(); }}
                 >
                     <svg
-                        className="w-4 h-4 text-[var(--text-muted)] transition-[color,transform] duration-300 hover:rotate-[360deg] hover:scale-110"
-                        style={{ color: isFocused ? hexColor : undefined }} // Use category color on hover/focus
+                        className="w-[18px] h-[18px] text-[var(--text-muted)] transition-[color,transform] duration-300 hover:rotate-[360deg] hover:scale-110"
+                        style={{ color: isFocused ? hexColor : undefined }}
                         viewBox="0 0 24 24"
                         fill="currentColor"
                         xmlns="http://www.w3.org/2000/svg"

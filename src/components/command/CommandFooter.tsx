@@ -5,7 +5,7 @@ import { Check, Copy, ChevronUp, Download, X } from 'lucide-react';
 import { distros, type DistroId } from '@/lib/data';
 import { generateInstallScript } from '@/lib/generateInstallScript';
 import { analytics } from '@/lib/analytics';
-import { useTheme } from '@/hooks/useTheme';
+
 import { ShortcutsBar } from './ShortcutsBar';
 import { AurFloatingCard } from './AurFloatingCard';
 import { CommandDrawer } from './CommandDrawer';
@@ -25,9 +25,13 @@ interface CommandFooterProps {
     clearAll: () => void;
     selectedHelper: 'yay' | 'paru';
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
-    // Nix unfree
     hasUnfreePackages?: boolean;
     unfreeAppNames?: string[];
+    drawerOpen?: boolean;
+    drawerClosing?: boolean;
+    onDrawerOpen?: () => void;
+    onDrawerClose?: () => void;
+    activeShortcut?: string | null;
 }
 
 
@@ -48,17 +52,21 @@ export function CommandFooter({
     setSelectedHelper,
     hasUnfreePackages,
     unfreeAppNames,
+    drawerOpen: externalDrawerOpen,
+    drawerClosing: externalDrawerClosing,
+    onDrawerOpen: externalOnDrawerOpen,
+    onDrawerClose: externalOnDrawerClose,
+    activeShortcut,
 }: CommandFooterProps) {
     const [copied, setCopied] = useState(false);
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const [drawerClosing, setDrawerClosing] = useState(false);
+    const [internalDrawerOpen, setInternalDrawerOpen] = useState(false);
+    const [internalDrawerClosing, setInternalDrawerClosing] = useState(false);
     const [hasEverHadSelection, setHasEverHadSelection] = useState(false);
     const initialCountRef = useRef(selectedCount);
 
-    const { toggle: toggleTheme } = useTheme();
+    const drawerOpen = externalDrawerOpen ?? internalDrawerOpen;
+    const drawerClosing = externalDrawerClosing ?? internalDrawerClosing;
 
-    // Track if user has actually interacted - hide the bar until then.
-    // Otherwise it just sits there looking sad with "No apps selected".
     useEffect(() => {
         if (selectedCount !== initialCountRef.current && !hasEverHadSelection) {
             // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -67,12 +75,16 @@ export function CommandFooter({
     }, [selectedCount, hasEverHadSelection]);
 
     const closeDrawer = useCallback(() => {
-        setDrawerClosing(true);
-        setTimeout(() => {
-            setDrawerOpen(false);
-            setDrawerClosing(false);
-        }, 250);
-    }, []);
+        if (externalOnDrawerClose) {
+            externalOnDrawerClose();
+        } else {
+            setInternalDrawerClosing(true);
+            setTimeout(() => {
+                setInternalDrawerOpen(false);
+                setInternalDrawerClosing(false);
+            }, 250);
+        }
+    }, [externalOnDrawerClose]);
 
     // Close drawer on Escape
     useEffect(() => {
@@ -117,45 +129,6 @@ export function CommandFooter({
         analytics.scriptDownloaded(distroName, selectedCount);
     }, [selectedCount, selectedDistro, selectedApps, selectedHelper]);
 
-    // Global keyboard shortcuts (vim-like)
-    useEffect(() => {
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (
-                e.target instanceof HTMLInputElement ||
-                e.target instanceof HTMLTextAreaElement ||
-                e.target instanceof HTMLSelectElement
-            ) {
-                return;
-            }
-
-            // Ignore modifier keys (prevents conflicts with browser shortcuts)
-            if (e.ctrlKey || e.altKey || e.metaKey) return;
-
-            const alwaysEnabled = ['t', 'c'];
-            if (selectedCount === 0 && !alwaysEnabled.includes(e.key)) return;
-
-            switch (e.key) {
-                case 'y': handleCopy(); break;
-                case 'd': handleDownload(); break;
-                case 't':
-                    document.body.classList.add('theme-flash');
-                    setTimeout(() => document.body.classList.remove('theme-flash'), 150);
-                    toggleTheme();
-                    break;
-                case 'c': clearAll(); break;
-                case '1': if (showAur) setSelectedHelper('yay'); break;
-                case '2': if (showAur) setSelectedHelper('paru'); break;
-                case 'Tab':
-                    e.preventDefault();
-                    if (selectedCount > 0) setDrawerOpen(prev => !prev);
-                    break;
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedCount, toggleTheme, clearAll, showAur, setSelectedHelper, handleCopy, handleDownload]);
-
     return (
         <>
             {/* AUR Floating Card */}
@@ -168,7 +141,6 @@ export function CommandFooter({
                 setSelectedHelper={setSelectedHelper}
             />
 
-            {/* Command Drawer */}
             <CommandDrawer
                 isOpen={drawerOpen}
                 isClosing={drawerClosing}
@@ -190,17 +162,16 @@ export function CommandFooter({
                 unfreeAppNames={unfreeAppNames}
             />
 
-            {/* Animated footer container - only shows after first selection */}
+            {/* Animated footer container - shows after first selection */}
             {hasEverHadSelection && (
                 <div
-                    className="fixed bottom-0 left-0 right-0 p-3"
+                    className="fixed bottom-0 left-0 right-0 p-3 lg:hidden"
                     style={{
                         zIndex: 10,
                         animation: 'footerSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both'
                     }}
                 >
                     <div className="relative w-[85%] mx-auto">
-                        {/* Soft glow behind bars */}
                         <div
                             className="absolute -inset-12 pointer-events-none"
                             style={{
@@ -225,13 +196,20 @@ export function CommandFooter({
                                 setSelectedHelper={setSelectedHelper}
                             />
 
-                            {/* Command Bar - AccessGuide style */}
                             <div className="bg-[var(--bg-tertiary)] font-mono text-xs overflow-hidden border-l-4 shadow-2xl"
                                 style={{ borderLeftColor: distroColor }}>
                                 <div className="flex items-stretch">
-                                    {/* Preview button (hidden on mobile) */}
+                                    {/* Preview button */}
                                     <button
-                                        onClick={() => selectedCount > 0 && setDrawerOpen(true)}
+                                        onClick={() => {
+                                            if (selectedCount > 0) {
+                                                if (externalOnDrawerOpen) {
+                                                    externalOnDrawerOpen();
+                                                } else {
+                                                    setInternalDrawerOpen(true);
+                                                }
+                                            }
+                                        }}
                                         disabled={selectedCount === 0}
                                         className={`hidden md:flex items-center gap-2 px-5 py-3 border-r border-[var(--border-primary)]/20 transition-all shrink-0 font-medium ${selectedCount === 0 ? 'opacity-50 cursor-not-allowed' : ''}`}
                                         title="Toggle Preview (Tab)"
@@ -257,22 +235,28 @@ export function CommandFooter({
                                         )}
                                     </button>
 
-                                    {/* Command text */}
                                     <div
                                         className="flex-1 min-w-0 flex items-center justify-center px-4 py-4 overflow-hidden bg-[var(--bg-secondary)] cursor-pointer hover:bg-[var(--bg-hover)] transition-colors group"
-                                        onClick={() => selectedCount > 0 && setDrawerOpen(true)}
+                                        onClick={() => {
+                                            if (selectedCount > 0) {
+                                                if (externalOnDrawerOpen) {
+                                                    externalOnDrawerOpen();
+                                                } else {
+                                                    setInternalDrawerOpen(true);
+                                                }
+                                            }
+                                        }}
                                     >
                                         <code className={`whitespace-nowrap overflow-x-auto command-scroll leading-none text-sm font-semibold ${selectedCount > 0 ? 'text-[var(--text-primary)]' : 'text-[var(--text-muted)]'}`}>
                                             {command}
                                         </code>
                                     </div>
 
-                                    {/* Clear button (hidden on mobile) */}
                                     <button
                                         onClick={clearAll}
                                         disabled={selectedCount === 0}
                                         className={`hidden md:flex items-center gap-2 px-4 py-3 border-l border-[var(--border-primary)]/20 transition-all duration-150 font-sans text-sm ${selectedCount > 0
-                                            ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] active:scale-[0.97]'
+                                            ? activeShortcut === 'c' ? 'bg-red-500/20 text-red-400 scale-[0.97]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] active:scale-[0.97]'
                                             : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                             }`}
                                         title="Clear All (c)"
@@ -291,12 +275,11 @@ export function CommandFooter({
                                         <span className="hidden sm:inline whitespace-nowrap">Clear</span>
                                     </button>
 
-                                    {/* Download button (hidden on mobile) */}
                                     <button
                                         onClick={handleDownload}
                                         disabled={selectedCount === 0}
                                         className={`hidden md:flex items-center gap-2 px-4 py-3 border-l border-[var(--border-primary)]/20 transition-all duration-150 font-sans text-sm ${selectedCount > 0
-                                            ? 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] active:scale-[0.97]'
+                                            ? activeShortcut === 'd' ? 'bg-[var(--bg-hover)] opacity-80 scale-[0.97]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] active:scale-[0.97]'
                                             : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                             }`}
                                         title="Download Script (d)"
@@ -315,14 +298,13 @@ export function CommandFooter({
                                         <span className="hidden sm:inline whitespace-nowrap">Download</span>
                                     </button>
 
-                                    {/* Copy button (hidden on mobile) */}
                                     <button
                                         onClick={handleCopy}
                                         disabled={selectedCount === 0}
                                         className={`hidden md:flex items-center gap-2 px-4 py-3 border-l border-[var(--border-primary)]/20 transition-all duration-150 font-sans text-sm ${selectedCount > 0
                                             ? (copied
                                                 ? 'text-emerald-400 font-medium'
-                                                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] active:scale-[0.97]')
+                                                : activeShortcut === 'y' ? 'bg-[var(--bg-hover)] opacity-80 scale-[0.97]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] active:scale-[0.97]')
                                             : 'text-[var(--text-muted)] opacity-50 cursor-not-allowed'
                                             }`}
                                         title="Copy Command (y)"

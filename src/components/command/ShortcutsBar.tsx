@@ -14,11 +14,7 @@ interface ShortcutsBarProps {
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
 }
 
-/**
- * Neovim-style statusline at the bottom.
- * Shows search, app count, AUR helper toggle, and keyboard shortcuts.
- * If you use vim, you'll feel right at home.
- */
+// Bottom statusbar with controls and shortcuts.
 export function ShortcutsBar({
     searchQuery,
     onSearchChange,
@@ -42,9 +38,7 @@ export function ShortcutsBar({
         <div className="bg-[var(--bg-tertiary)] border-l-4 font-mono text-xs overflow-hidden"
             style={{ borderLeftColor: distroColor }}>
             <div className="flex items-stretch justify-between">
-                {/* LEFT SECTION */}
                 <div className="flex items-stretch">
-                    {/* Mode Badge - like nvim NORMAL/INSERT (hidden on mobile) */}
                     <div
                         className="hidden md:flex text-white px-3 py-1 font-bold items-center whitespace-nowrap"
                         style={{ backgroundColor: distroColor }}
@@ -52,7 +46,6 @@ export function ShortcutsBar({
                         {distroName.toUpperCase()}
                     </div>
 
-                    {/* Search Section */}
                     <div className="flex items-center gap-1.5 px-3 py-1 bg-[var(--bg-secondary)] border-r border-[var(--border-primary)]/30">
                         <span className="text-[var(--text-muted)]">/</span>
                         <input
@@ -80,14 +73,12 @@ export function ShortcutsBar({
                         )}
                     </div>
 
-                    {/* App count */}
                     {selectedCount > 0 && (
                         <div className="flex items-center px-3 py-1 text-[var(--text-muted)] border-r border-[var(--border-primary)]/30 whitespace-nowrap">
                             [{selectedCount} app{selectedCount !== 1 ? 's' : ''}]
                         </div>
                     )}
 
-                    {/* AUR Helper Switch */}
                     {showAur && (
                         <div className="flex items-stretch border-r border-[var(--border-primary)]/30">
                             <button
@@ -108,13 +99,10 @@ export function ShortcutsBar({
                     )}
                 </div>
 
-                {/* RIGHT SECTION - Compact Shortcuts (hidden on mobile) */}
                 <div className="hidden md:flex items-stretch">
                     <div className="hidden sm:flex items-center gap-3 px-3 py-1 text-[var(--text-muted)] text-[10px] border-l border-[var(--border-primary)]/30">
-                        {/* Navigation */}
                         <span className="hidden lg:inline"><b className="text-[var(--text-secondary)]">←↓↑→ </b>/<b className="text-[var(--text-secondary)]"> hjkl</b> Navigation</span>
                         <span className="hidden lg:inline opacity-30">·</span>
-                        {/* Actions */}
                         <span><b className="text-[var(--text-secondary)]">/</b> search</span>
                         <span className="opacity-30">·</span>
                         <span><b className="text-[var(--text-secondary)]">Space</b> toggle</span>
@@ -124,7 +112,6 @@ export function ShortcutsBar({
                         <span><b className="text-[var(--text-secondary)]">?</b> help</span>
                     </div>
 
-                    {/* End badge - like nvim line:col */}
                     <div
                         className="text-white px-3 py-1 flex items-center font-bold text-xs tracking-wider"
                         style={{ backgroundColor: distroColor }}

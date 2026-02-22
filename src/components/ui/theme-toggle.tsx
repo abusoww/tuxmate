@@ -14,11 +14,6 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     const { theme, toggle } = useTheme()
     const [mounted, setMounted] = useState(false)
 
-    /**
-     * Classic hydration mismatch avoidance. Server has no idea what
-     * localStorage says, so we render a placeholder first.
-     * Yes, there's probably a better way. No, I don't want to hear about it.
-     */
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setMounted(true)
@@ -26,12 +21,11 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
 
     const isDark = theme === "dark"
 
-    // Render placeholder with same dimensions during SSR
     if (!mounted) {
         return (
             <div
                 className={cn(
-                    "flex w-20 h-10 p-1 rounded-md",
+                    "flex w-20 h-10 p-1 rounded-full",
                     "bg-[var(--bg-secondary)] border border-[var(--border-primary)]",
                     className
                 )}
@@ -42,7 +36,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
     return (
         <div
             className={cn(
-                "flex w-20 h-10 p-1 rounded-md cursor-pointer transition-[background-color,box-shadow] duration-300",
+                "flex w-20 h-10 p-1 rounded-full cursor-pointer transition-[background-color,box-shadow] duration-300",
                 "bg-[var(--bg-secondary)] border border-[var(--border-primary)]",
                 className
             )}
@@ -56,7 +50,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             <div className="flex justify-between items-center w-full">
                 <div
                     className={cn(
-                        "flex justify-center items-center w-8 h-8 rounded-sm transition-transform duration-300",
+                        "flex justify-center items-center w-8 h-8 rounded-full transition-transform duration-300",
                         isDark ? "transform translate-x-0" : "transform translate-x-10",
                         "bg-[var(--bg-tertiary)]"
                     )}
@@ -75,7 +69,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
                 </div>
                 <div
                     className={cn(
-                        "flex justify-center items-center w-8 h-8 rounded-sm transition-transform duration-300",
+                        "flex justify-center items-center w-8 h-8 rounded-full transition-transform duration-300",
                         isDark
                             ? "bg-transparent"
                             : "transform -translate-x-10"

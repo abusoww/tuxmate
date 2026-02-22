@@ -7,10 +7,7 @@ import { distros, type DistroId } from '@/lib/data';
 import { analytics } from '@/lib/analytics';
 import { DistroIcon } from './DistroIcon';
 
-/**
- * Distro picker dropdown. Uses portal rendering so the dropdown isn't
- * clipped by parent overflow. Learned that lesson the hard way.
- */
+// Distro picker dropdown.
 export function DistroSelector({
     selectedDistro,
     onSelect
@@ -43,11 +40,8 @@ export function DistroSelector({
         setIsOpen(!isOpen);
     };
 
-    // Portal the dropdown to body so it's not affected by parent styles.
-    // The positioning math looks scary but it's just "anchor to button bottom-right".
     const dropdown = isOpen && mounted ? (
         <>
-            {/* Backdrop with subtle blur */}
             <div
                 onClick={() => setIsOpen(false)}
                 className="backdrop-blur-[2px]"
@@ -58,7 +52,6 @@ export function DistroSelector({
                     background: 'rgba(0,0,0,0.05)',
                 }}
             />
-            {/* Dropdown - AccessGuide style: rectangular with left border */}
             <div
                 className="distro-dropdown bg-[var(--bg-secondary)] border-l-4 rounded-md"
                 style={{
@@ -74,7 +67,6 @@ export function DistroSelector({
                     animation: 'distroDropdownOpen 0.25s ease-out',
                 }}
             >
-                {/* Distro List */}
                 <div>
                     {distros.map((distro, i) => (
                         <button

@@ -5,10 +5,7 @@ import { createPortal } from 'react-dom';
 import { HelpCircle, X } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 
-/**
- * Help modal with keyboard shortcuts and getting started guide.
- * Opens with "?" key - because that's what you'd naturally press.
- */
+// Help modal.
 export function HowItWorks() {
     const [isOpen, setIsOpen] = useState(false);
     const [isClosing, setIsClosing] = useState(false);
@@ -24,7 +21,6 @@ export function HowItWorks() {
     const handleClose = () => {
         setIsClosing(true);
         analytics.helpClosed();
-        // Wait for exit animation to finish
         setTimeout(() => {
             setIsOpen(false);
             setIsClosing(false);
@@ -36,7 +32,6 @@ export function HowItWorks() {
         setMounted(true);
     }, []);
 
-    // Lock body scroll when modal is open
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -48,13 +43,10 @@ export function HowItWorks() {
         };
     }, [isOpen]);
 
-    // Global keyboard shortcut: ? to toggle modal
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            // Ignore if typing in input
             if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
 
-            // Skip if Ctrl/Alt/Meta are pressed (Shift is allowed for ?)
             if (e.ctrlKey || e.altKey || e.metaKey) return;
 
             if (e.key === '?' || (e.shiftKey && e.key === '/')) {
@@ -66,7 +58,6 @@ export function HowItWorks() {
                 }
             }
 
-            // Close on Escape
             if (e.key === 'Escape' && isOpen) {
                 handleClose();
             }
@@ -78,7 +69,6 @@ export function HowItWorks() {
 
     const modal = (
         <>
-            {/* Backdrop with blur */}
             <div
                 className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[99998]"
                 onClick={handleClose}
@@ -89,18 +79,15 @@ export function HowItWorks() {
                 }}
             />
 
-            {/* Modal - AccessGuide style: rectangular with left border accent */}
             <div
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="how-it-works-title"
-                className="fixed bg-[var(--bg-primary)] border-l-4 z-[99999]"
+                className="fixed bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl z-[99999]"
                 style={{
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    borderRadius: '0 4px 4px 0',
-                    borderLeftColor: 'var(--accent)',
                     width: '620px',
                     maxWidth: 'calc(100vw - 32px)',
                     maxHeight: 'min(85vh, 720px)',
@@ -110,11 +97,10 @@ export function HowItWorks() {
                         ? 'modalSlideOut 0.2s ease-out forwards'
                         : 'modalSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                     overflow: 'hidden',
-                    boxShadow: '0 16px 48px -8px rgba(0, 0, 0, 0.25)',
+                    boxShadow: '0 16px 48px -8px rgba(0, 0, 0, 0.3)',
                 }}
             >
-                {/* Header */}
-                <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-secondary)]">
+                <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-primary)]/15">
                     <h3 id="how-it-works-title" className="text-base font-semibold text-[var(--text-primary)]">
                         Help
                     </h3>
@@ -126,12 +112,10 @@ export function HowItWorks() {
                     </button>
                 </div>
 
-                {/* Content */}
                 <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6" style={{ scrollbarGutter: 'stable' }}>
 
-                    {/* Shortcuts - AccessGuide style */}
                     <section>
-                        <h4 className="text-sm font-medium text-[var(--text-primary)] mb-4 pl-3 border-l-2 border-[var(--accent)]">Keyboard Shortcuts</h4>
+                        <h4 className="text-sm font-medium text-[var(--text-primary)] mb-4 pl-3 border-l-2 border-[var(--text-muted)]/30">Keyboard Shortcuts</h4>
                         <div className="grid grid-cols-2 gap-x-8 gap-y-2">
                             {[
                                 ['↑↓←→', 'Navigate through apps'],
@@ -148,7 +132,7 @@ export function HowItWorks() {
                                 ['1 / 2', 'Switch AUR helper (yay/paru)'],
                             ].map(([key, desc]) => (
                                 <div key={key} className="flex items-center gap-3 text-sm">
-                                    <kbd className="inline-flex items-center justify-center min-w-[52px] px-2 py-1 bg-[var(--bg-secondary)] border-l-2 border-[var(--accent)] text-xs font-mono text-[var(--text-secondary)]">
+                                    <kbd className="inline-flex items-center justify-center min-w-[52px] px-2 py-1 bg-[var(--bg-secondary)] border border-[var(--border-primary)]/20 rounded text-xs font-mono text-[var(--text-secondary)]">
                                         {key}
                                     </kbd>
                                     <span className="text-[var(--text-muted)]">{desc}</span>
@@ -157,9 +141,8 @@ export function HowItWorks() {
                         </div>
                     </section>
 
-                    {/* Getting Started - AccessGuide style */}
                     <section>
-                        <h4 className="text-sm font-medium text-[var(--text-primary)] mb-3 pl-3 border-l-2 border-[var(--accent)]">Getting Started</h4>
+                        <h4 className="text-sm font-medium text-[var(--text-primary)] mb-3 pl-3 border-l-2 border-[var(--text-muted)]/30">Getting Started</h4>
                         <ol className="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
                             <li>
                                 <strong className="text-[var(--text-secondary)]">1. Pick your distro</strong> — Select your Linux distribution from the dropdown at the top. This determines which package manager commands TuxMate generates for you.
@@ -176,9 +159,8 @@ export function HowItWorks() {
                         </ol>
                     </section>
 
-                    {/* Notes - AccessGuide style */}
                     <section>
-                        <h4 className="text-sm font-medium text-[var(--text-primary)] mb-3 pl-3 border-l-2 border-[var(--accent)]">Good to Know</h4>
+                        <h4 className="text-sm font-medium text-[var(--text-primary)] mb-3 pl-3 border-l-2 border-[var(--text-muted)]/30">Good to Know</h4>
                         <ul className="space-y-2 text-sm text-[var(--text-muted)] leading-relaxed">
                             <li>
                                 <strong className="text-[var(--text-secondary)]">Greyed out apps</strong> aren&apos;t available in your distro&apos;s official repositories. Try switching to Flatpak or Snap in the dropdown, or hover the info icon next to the app for alternative installation methods.
@@ -196,7 +178,7 @@ export function HowItWorks() {
                                 <strong className="text-[var(--text-secondary)]">NixOS</strong> — Generates `environment.systemPackages`. If you pick unfree apps, the download includes comments showing exactly what to whitelist with `allowUnfree`.
                             </li>
                             <li>
-                                <strong className="text-[var(--text-secondary)]">Script Safety</strong> — Downloaded scripts are robust and idempotent. They include error handling, network retries, and system checks. Run them with <code className="px-1 py-0.5 bg-[var(--bg-secondary)] border-l-2 border-[var(--accent)] text-xs font-mono">bash tuxmate-*.sh</code> to safely install your selection.
+                                <strong className="text-[var(--text-secondary)]">Script Safety</strong> — Downloaded scripts are robust and idempotent. They include error handling, network retries, and system checks. Run them with <code className="px-1 py-0.5 bg-[var(--bg-secondary)] border border-[var(--border-primary)]/20 rounded text-xs font-mono">bash tuxmate-*.sh</code> to safely install your selection.
                             </li>
                         </ul>
                     </section>

@@ -8,12 +8,7 @@ interface AurDrawerSettingsProps {
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
 }
 
-/**
- * AUR package settings panel for Arch users.
- * Lets you pick between yay and paru, and whether to install the helper.
- * The naming of hasYayInstalled is a bit misleading - it actually means
- * "user already has an AUR helper" regardless of which one. Tech debt, I know.
- */
+// AUR package settings panel.
 export function AurDrawerSettings({
     aurAppNames,
     hasYayInstalled,
@@ -23,8 +18,8 @@ export function AurDrawerSettings({
     distroColor,
 }: AurDrawerSettingsProps & { distroColor: string }) {
     return (
-        <div className="mb-4 rounded-lg border border-[var(--border-primary)] bg-[var(--bg-secondary)] overflow-hidden">
-            <div className="px-4 py-3 border-b border-[var(--border-primary)]/50 flex">
+        <div className="mb-4 rounded-lg bg-[var(--bg-secondary)]/30 border border-[var(--border-primary)]/20 overflow-hidden">
+            <div className="px-4 py-3 border-b border-[var(--border-primary)]/10 flex">
                 <span className="text-xs font-medium text-[var(--text-secondary)] whitespace-nowrap mr-2">AUR Packages:</span>
                 <span className="text-xs text-[var(--text-muted)] truncate">{aurAppNames.join(', ')}</span>
             </div>
@@ -32,7 +27,7 @@ export function AurDrawerSettings({
             <div className="p-4 grid grid-cols-2 gap-4 text-sm">
                 <div className="flex flex-col gap-2">
                     <span className="text-[var(--text-secondary)] font-medium">AUR Helper</span>
-                    <div className="flex w-full bg-[var(--bg-primary)] rounded-md border border-[var(--border-primary)] p-1 h-10">
+                    <div className="flex w-full bg-[var(--bg-tertiary)]/40 rounded-md border border-[var(--border-primary)]/30 p-1 h-10">
                         <button
                             onClick={() => setSelectedHelper('yay')}
                             className={`flex-1 rounded-sm font-medium transition-all ${selectedHelper === 'yay' ? 'bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
@@ -52,7 +47,7 @@ export function AurDrawerSettings({
 
                 <div className="flex flex-col gap-2">
                     <span className="text-[var(--text-secondary)] font-medium">Install helper?</span>
-                    <div className="flex w-full bg-[var(--bg-primary)] rounded-md border border-[var(--border-primary)] p-1 h-10">
+                    <div className="flex w-full bg-[var(--bg-tertiary)]/40 rounded-md border border-[var(--border-primary)]/30 p-1 h-10">
                         <button
                             onClick={() => setHasYayInstalled(true)}
                             className={`flex-1 rounded-sm font-medium transition-all ${hasYayInstalled ? 'bg-[var(--bg-secondary)] text-[var(--text-primary)] shadow-sm' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}

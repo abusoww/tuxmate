@@ -10,11 +10,10 @@ interface TooltipProps {
     setRef?: (el: HTMLDivElement | null) => void;
 }
 
-/**
- * Follow-cursor tooltip that appears on hover.
- * Desktop only - mobile users don't have a cursor to follow.
- * Supports markdown-ish formatting: **bold**, `code`, and [links](url).
- */
+const TOOLTIP_WIDTH = 300;
+const ARROW_SIZE = 12;
+
+// Tooltip component.
 export function Tooltip({ tooltip, onMouseEnter, onMouseLeave, setRef }: TooltipProps) {
     const [current, setCurrent] = useState<TooltipState | null>(null);
     const [visible, setVisible] = useState(false);
@@ -66,15 +65,34 @@ export function Tooltip({ tooltip, onMouseEnter, onMouseLeave, setRef }: Tooltip
         });
     };
 
-    const isRightAnchored = typeof window !== 'undefined' && (current.x + 300 > window.innerWidth);
-    const contentTransform = isRightAnchored ? 'translateX(-278px)' : 'translateX(-22px)';
+    const zoom = typeof window !== 'undefined' ? (parseFloat(getComputedStyle(document.documentElement).zoom) || 1) : 1;
+    const viewportWidth = typeof window !== 'undefined' ? window.innerWidth / zoom : 1920;
+    const mouseX = current.x;
+
+    const tooltipLeftNormal = mouseX - 22;
+    const overflowsRight = tooltipLeftNormal + TOOLTIP_WIDTH > viewportWidth - 12;
+
+    let tooltipLeft: number;
+    let arrowLeft: number;
+
+    if (overflowsRight) {
+        tooltipLeft = mouseX - TOOLTIP_WIDTH + 22;
+        if (tooltipLeft < 12) tooltipLeft = 12;
+        arrowLeft = mouseX - tooltipLeft - ARROW_SIZE / 2;
+    } else {
+        tooltipLeft = tooltipLeftNormal;
+        if (tooltipLeft < 12) tooltipLeft = 12;
+        arrowLeft = mouseX - tooltipLeft - ARROW_SIZE / 2;
+    }
+
+    arrowLeft = Math.max(8, Math.min(arrowLeft, TOOLTIP_WIDTH - 20));
 
     return (
         <div
             ref={setRef}
             role="tooltip"
             className="fixed hidden md:block pointer-events-auto z-[9999]"
-            style={{ left: current.x, top: current.y - 12 }} // Moved up slightly to clear cursor
+            style={{ left: tooltipLeft, top: current.y - 12 }}
             onMouseEnter={onMouseEnter}
             onMouseLeave={onMouseLeave}
         >
@@ -83,16 +101,13 @@ export function Tooltip({ tooltip, onMouseEnter, onMouseLeave, setRef }: Tooltip
                 transition-opacity duration-75
                 ${visible ? 'opacity-100' : 'opacity-0 pointer-events-none'}
             `}>
-                {/* AccessGuide-style tooltip - rectangular with left border accent */}
                 <div
                     className="px-3.5 py-2.5 shadow-lg overflow-hidden border-l-4 relative"
                     style={{
-                        minWidth: '300px',
-                        maxWidth: '300px',
+                        width: `${TOOLTIP_WIDTH}px`,
                         backgroundColor: 'var(--bg-secondary)',
                         borderLeftColor: 'var(--accent)',
                         boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-                        transform: contentTransform, // Shift tooltip so arrow aligns with mouse
                     }}
                 >
                     <p className="text-[13px] leading-[1.55] text-[var(--text-secondary)] break-words" style={{ wordBreak: 'break-word' }}>
@@ -100,9 +115,10 @@ export function Tooltip({ tooltip, onMouseEnter, onMouseLeave, setRef }: Tooltip
                     </p>
                 </div>
 
-                {/* Arrow aligned to mouse position */}
-                {/* Arrow at left: 16px matches the visual design, so we shift wrapper -22px to align 16px + 6px(half arrow) approx to 0 */}
-                <div className="absolute left-0 -bottom-[6px]" style={{ transform: 'translateX(-6px)' }}>
+                <div
+                    className="absolute -bottom-[6px]"
+                    style={{ left: `${arrowLeft}px` }}
+                >
                     <div
                         className="w-3 h-3 rotate-45"
                         style={{

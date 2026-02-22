@@ -6,7 +6,6 @@ import {
     Network, Lock, Share2, Cpu, type LucideIcon
 } from 'lucide-react';
 
-// Map category names to their icons. If you add a category, add an icon here.
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
     'Web Browsers': Globe,
     'Communication': MessageCircle,
@@ -25,7 +24,6 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
     'System': Cpu,
 };
 
-// Tailwind colors as hex
 const COLOR_MAP: Record<string, string> = {
     'orange': '#f97316',
     'blue': '#3b82f6',
@@ -44,10 +42,7 @@ const COLOR_MAP: Record<string, string> = {
     'gray': '#6b7280',
 };
 
-/**
- * Collapsible category header with icon, chevron, and selection badge.
- * Uses color-mix for dynamic tinting because we're fancy like that.
- */
+// Category header.
 export function CategoryHeader({
     category,
     isExpanded,
@@ -74,33 +69,32 @@ export function CategoryHeader({
             tabIndex={-1}
             aria-expanded={isExpanded}
             aria-label={`${category} category, ${selectedCount} apps selected`}
-            // AccessGuide-style: subtle bg with colored left border accent
-            className={`category-header group w-full h-8 flex items-center gap-2 text-sm font-semibold
+            className={`category-header group w-full py-2 flex items-center gap-2.5 text-[15px] font-semibold
         border-l-4
-        px-3 mb-3
+        px-3 mb-2
         transition-all duration-200 outline-none
         hover:bg-[color-mix(in_srgb,var(--header-color),transparent_80%)]`}
             style={{
                 color: 'var(--text-primary)',
                 borderColor: hexColor,
                 backgroundColor: isFocused
-                    ? `color-mix(in srgb, ${hexColor}, transparent 75%)` // 25% opacity for focus
-                    : `color-mix(in srgb, ${hexColor}, transparent 90%)`, // 10% opacity for default
+                    ? `color-mix(in srgb, ${hexColor}, transparent 75%)`
+                    : `color-mix(in srgb, ${hexColor}, transparent 90%)`,
                 '--header-color': hexColor,
             } as React.CSSProperties}
         >
             <ChevronRight
-                className={`w-4 h-4 transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
+                className={`w-[18px] h-[18px] transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
                 style={{ color: hexColor }}
             />
             {(() => {
                 const Icon = CATEGORY_ICONS[category] || Terminal;
-                return <Icon className="w-4 h-4" style={{ color: hexColor }} />;
+                return <Icon className="w-[18px] h-[18px]" style={{ color: hexColor }} />;
             })()}
             <span className="flex-1 text-left">{category}</span>
             {selectedCount > 0 && (
                 <span
-                    className="text-xs font-bold ml-1.5 px-1.5 py-0.5 rounded"
+                    className="text-sm font-bold ml-1.5 px-2 py-0.5 rounded"
                     style={{
                         transition: 'color 0.5s',
                         color: hexColor,

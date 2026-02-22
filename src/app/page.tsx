@@ -3,22 +3,19 @@
 import { useState, useMemo, useCallback, useRef, useLayoutEffect, useEffect } from 'react';
 import gsap from 'gsap';
 
-// Hooks
 import { useLinuxInit } from '@/hooks/useLinuxInit';
 import { useTooltip } from '@/hooks/useTooltip';
 import { useKeyboardNavigation, type NavItem } from '@/hooks/useKeyboardNavigation';
 import { useVerification } from '@/hooks/useVerification';
-
-// Data
 import { categories, getAppsByCategory } from '@/lib/data';
 
-// Components
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { HowItWorks, GitHubLink, ContributeLink } from '@/components/header';
 import { DistroSelector } from '@/components/distro';
 import { CategorySection } from '@/components/app';
 import { CommandFooter } from '@/components/command';
 import { Tooltip, GlobalStyles, LoadingSkeleton } from '@/components/common';
+import { Sidebar } from '@/components/sidebar';
 
 export default function Home() {
 
@@ -44,40 +41,104 @@ export default function Home() {
         unfreeAppNames,
     } = useLinuxInit();
 
-    // Search state
     const [searchQuery, setSearchQuery] = useState('');
     const searchInputRef = useRef<HTMLInputElement>(null);
 
-    // Verification status for Flatpak/Snap apps
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [drawerClosing, setDrawerClosing] = useState(false);
+
+    const closeDrawer = useCallback(() => {
+        setDrawerClosing(true);
+        setTimeout(() => {
+            setDrawerOpen(false);
+            setDrawerClosing(false);
+        }, 250);
+    }, []);
+
+    const openDrawer = useCallback(() => {
+        if (selectedCount > 0) setDrawerOpen(true);
+    }, [selectedCount]);
+
+    const [activeShortcut, setActiveShortcut] = useState<string | null>(null);
+
+    const toggleThemeWithFlash = useCallback(() => {
+        document.body.classList.add('theme-flash');
+        setTimeout(() => document.body.classList.remove('theme-flash'), 150);
+        const themeBtn = document.querySelector('[aria-label="Toggle theme"]') as HTMLButtonElement;
+        if (themeBtn) themeBtn.click();
+    }, []);
+
     const { isVerified, getVerificationSource } = useVerification();
 
-    // Handle "/" key to focus search
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            // Skip if already in input
-            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+            if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement || e.target instanceof HTMLSelectElement) return;
 
-            // Skip if modifier keys are pressed (prevents conflicts with browser shortcuts)
             if (e.ctrlKey || e.altKey || e.metaKey) return;
 
             if (e.key === '/') {
                 e.preventDefault();
-                searchInputRef.current?.focus();
+                const inputs = document.querySelectorAll<HTMLInputElement>('input[placeholder="Search apps..."]');
+                const visibleInput = Array.from(inputs).find(input => input.offsetParent !== null);
+                if (visibleInput) visibleInput.focus();
+                return;
+            }
+
+            const alwaysEnabled = ['t', 'c', '?'];
+            if (selectedCount === 0 && !alwaysEnabled.includes(e.key)) return;
+
+            switch (e.key) {
+                case 'y':
+                    setActiveShortcut('y');
+                    setTimeout(() => setActiveShortcut(null), 150);
+                    const copyBtns = document.querySelectorAll<HTMLButtonElement>('[data-action="copy"]');
+                    const visibleCopyBtn = Array.from(copyBtns).find(b => b.offsetParent !== null);
+                    if (visibleCopyBtn) visibleCopyBtn.click();
+                    break;
+                case 'd':
+                    setActiveShortcut('d');
+                    setTimeout(() => setActiveShortcut(null), 150);
+                    const dlBtns = document.querySelectorAll<HTMLButtonElement>('[data-action="download"]');
+                    const visibleDlBtn = Array.from(dlBtns).find(b => b.offsetParent !== null);
+                    if (visibleDlBtn) visibleDlBtn.click();
+                    break;
+                case 't':
+                    setActiveShortcut('t');
+                    setTimeout(() => setActiveShortcut(null), 150);
+                    toggleThemeWithFlash();
+                    break;
+                case 'c':
+                    setActiveShortcut('c');
+                    setTimeout(() => setActiveShortcut(null), 150);
+                    clearAll();
+                    break;
+                case '1':
+                    if (hasAurPackages) setSelectedHelper('yay');
+                    break;
+                case '2':
+                    if (hasAurPackages) setSelectedHelper('paru');
+                    break;
+                case 'Tab':
+                    e.preventDefault();
+                    if (selectedCount > 0) {
+                        if (drawerOpen) {
+                            closeDrawer();
+                        } else {
+                            openDrawer();
+                        }
+                    }
+                    break;
             }
         };
 
-        window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [selectedCount, clearAll, hasAurPackages, setSelectedHelper, drawerOpen, closeDrawer, openDrawer, toggleThemeWithFlash]);
 
-
-    // Distribute apps into a nice grid
     const allCategoriesWithApps = useMemo(() => {
         const query = searchQuery.toLowerCase().trim();
         return categories
             .map(cat => {
                 const categoryApps = getAppsByCategory(cat);
-                // Filter apps if there's a search query (match name or id only)
                 const filteredApps = query
                     ? categoryApps.filter(app =>
                         app.name.toLowerCase().includes(query) ||
@@ -89,10 +150,8 @@ export default function Home() {
             .filter(c => c.apps.length > 0);
     }, [searchQuery]);
 
-    // 5 columns looks good on most screens
-    const COLUMN_COUNT = 5;
+    const COLUMN_COUNT = 4;
 
-    // Pack categories into shortest column while preserving order
     const columns = useMemo(() => {
         const cols: Array<typeof allCategoriesWithApps> = Array.from({ length: COLUMN_COUNT }, () => []);
         const heights = Array(COLUMN_COUNT).fill(0);
@@ -105,9 +164,6 @@ export default function Home() {
 
         return cols;
     }, [allCategoriesWithApps]);
-
-    // Category expansion - all open by default because hiding stuff is annoying
-    // ========================================================================
 
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => new Set(categories));
 
@@ -123,8 +179,6 @@ export default function Home() {
         });
     }, []);
 
-
-    // Build nav items for keyboard navigation
     const navItems = useMemo(() => {
         const items: NavItem[][] = [];
         columns.forEach((colCategories) => {
@@ -146,9 +200,6 @@ export default function Home() {
         toggleApp
     );
 
-    // Header animation - makes the logo look fancy on first load
-    // ========================================================================
-
     const headerRef = useRef<HTMLElement>(null);
 
     useLayoutEffect(() => {
@@ -158,7 +209,6 @@ export default function Home() {
         const title = header.querySelector('.header-animate');
         const controls = header.querySelector('.header-controls');
 
-        // Fancy clip-path reveal for the logo
         gsap.fromTo(title,
             { clipPath: 'inset(0 100% 0 0)' },
             {
@@ -172,7 +222,6 @@ export default function Home() {
             }
         );
 
-        // Animate controls with fade-in
         gsap.fromTo(controls,
             { opacity: 0, y: -10 },
             {
@@ -185,16 +234,9 @@ export default function Home() {
         );
     }, [isHydrated]);
 
-
-    // Don't render until we've loaded from localStorage (avoids flash)
-
-    // Show loading skeleton until localStorage is hydrated
     if (!isHydrated) {
         return <LoadingSkeleton />;
     }
-
-    // Finally, the actual page
-    // ========================================================================
 
     return (
         <div
@@ -205,14 +247,30 @@ export default function Home() {
             <GlobalStyles />
             <Tooltip tooltip={tooltip} onMouseEnter={tooltipMouseEnter} onMouseLeave={tooltipMouseLeave} setRef={setTooltipRef} />
 
-            {/* Header */}
-            <header ref={headerRef} className="pt-8 sm:pt-12 pb-8 sm:pb-10 px-4 sm:px-6 relative" style={{ zIndex: 1 }}>
+            <Sidebar
+                selectedDistro={selectedDistro}
+                onDistroSelect={setSelectedDistro}
+                selectedApps={selectedApps}
+                selectedCount={selectedCount}
+                clearAll={clearAll}
+                command={generatedCommand}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                searchInputRef={searchInputRef}
+                hasAurPackages={hasAurPackages}
+                aurAppNames={aurAppNames}
+                selectedHelper={selectedHelper}
+                setSelectedHelper={setSelectedHelper}
+                hasUnfreePackages={hasUnfreePackages}
+                unfreeAppNames={unfreeAppNames}
+                onOpenDrawer={openDrawer}
+            />
+
+            <header ref={headerRef} className="lg:hidden pt-8 sm:pt-12 pb-8 sm:pb-10 px-4 sm:px-6 relative" style={{ zIndex: 1 }}>
                 <div className="max-w-7xl mx-auto">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                        {/* Logo & Title */}
                         <div className="header-animate">
                             <div className="flex items-center gap-4">
-                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
                                     src="/tuxmate.png"
                                     alt="TuxMate Logo"
@@ -235,11 +293,9 @@ export default function Home() {
                             </div>
                         </div>
 
-                        {/* Header Controls */}
                         <div className="header-controls flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
                             {/* Left side on mobile: Help + Links */}
                             <div className="flex items-center gap-3 sm:gap-4">
-                                {/* Help - mobile only here, desktop is in title area */}
                                 <div className="sm:hidden">
                                     <HowItWorks />
                                 </div>
@@ -247,7 +303,6 @@ export default function Home() {
                                 <ContributeLink />
                             </div>
 
-                            {/* Right side: Theme + Distro (with separator on desktop) */}
                             <div className="flex items-center gap-2 pl-2 sm:pl-3 border-l border-[var(--border-primary)]">
                                 <ThemeToggle />
                                 <DistroSelector selectedDistro={selectedDistro} onSelect={setSelectedDistro} />
@@ -257,13 +312,10 @@ export default function Home() {
                 </div>
             </header>
 
-            {/* App Grid */}
-            <main className="px-4 sm:px-6 pb-40 relative" style={{ zIndex: 1 }}>
-                <div className="max-w-7xl mx-auto">
-                    {/* Mobile: 2-column grid with balanced distribution */}
-                    <div className="grid grid-cols-2 gap-x-4 md:hidden items-start">
+            <main className="main-with-sidebar px-4 sm:px-6 pb-40 relative" style={{ zIndex: 1 }}>
+                <div className="max-w-7xl mx-auto lg:pt-8">
+                    <div className="grid grid-cols-2 gap-x-4 lg:hidden items-start">
                         {(() => {
-                            // Pack into 2 columns on mobile
                             const mobileColumns: Array<typeof allCategoriesWithApps> = [[], []];
                             const heights = [0, 0];
                             allCategoriesWithApps.forEach(catData => {
@@ -300,16 +352,13 @@ export default function Home() {
                         })()}
                     </div>
 
-                    {/* Desktop: Grid with Tetris packing */}
-                    <div className="hidden md:grid md:grid-cols-4 lg:grid-cols-5 gap-x-8 items-start">
+                    <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-x-8 items-start">
                         {columns.map((columnCategories, colIdx) => {
-                            // Calculate starting index for this column (for staggered animation)
                             let globalIdx = 0;
                             for (let c = 0; c < colIdx; c++) {
                                 globalIdx += columns[c].length;
                             }
 
-                            // Generate stable key based on column content to ensure proper reconciliation
                             const columnKey = `col-${colIdx}-${columnCategories.map(c => c.category).join('-')}`;
 
                             return (
@@ -343,7 +392,6 @@ export default function Home() {
                 </div>
             </main>
 
-            {/* Command Footer */}
             <CommandFooter
                 command={generatedCommand}
                 selectedCount={selectedCount}
@@ -361,6 +409,11 @@ export default function Home() {
                 setSelectedHelper={setSelectedHelper}
                 hasUnfreePackages={hasUnfreePackages}
                 unfreeAppNames={unfreeAppNames}
+                drawerOpen={drawerOpen}
+                drawerClosing={drawerClosing}
+                onDrawerOpen={() => setDrawerOpen(true)}
+                onDrawerClose={closeDrawer}
+                activeShortcut={activeShortcut}
             />
         </div>
     );

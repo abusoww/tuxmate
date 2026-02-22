@@ -12,11 +12,7 @@ interface AurFloatingCardProps {
     setSelectedHelper: (helper: 'yay' | 'paru') => void;
 }
 
-/**
- * Floating card wizard for Arch users with AUR packages.
- * Asks whether they have an AUR helper, then which one.
- * The yay vs paru debate is the real holy war of our time.
- */
+// AUR setup prompt.
 export function AurFloatingCard({
     show,
     aurAppNames,
@@ -27,14 +23,11 @@ export function AurFloatingCard({
     const [dismissed, setDismissed] = useState(false);
     const [isExiting, setIsExiting] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
-    // Track if user has answered the first question
     const [hasAnswered, setHasAnswered] = useState<boolean | null>(null);
-    // Track if user has selected a helper (completed flow)
     const [helperChosen, setHelperChosen] = useState(false);
-    // Tracks if user has answered - use ref to survive re-renders
     const userInteractedRef = useRef(false);
 
-    // Reset when new AUR packages appear, BUT ONLY if user hasn't interacted yet
+    // Reset on new AUR packages if no interaction
     useEffect(() => {
         if (show && aurAppNames.length > 0 && !userInteractedRef.current) {
             // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -56,9 +49,8 @@ export function AurFloatingCard({
     const handleHelperSelect = (helper: 'yay' | 'paru') => {
         setSelectedHelper(helper);
         setHelperChosen(true);
-        userInteractedRef.current = true; // Don't ask again
+        userInteractedRef.current = true;
 
-        // Start exit animation after a brief moment
         setTimeout(() => {
             setIsExiting(true);
             setTimeout(() => {
@@ -68,7 +60,7 @@ export function AurFloatingCard({
     };
 
     const handleDismiss = () => {
-        userInteractedRef.current = true; // Don't ask again
+        userInteractedRef.current = true;
         setIsExiting(true);
         setTimeout(() => {
             setDismissed(true);
@@ -76,9 +68,7 @@ export function AurFloatingCard({
         }, 200);
     };
 
-    // Show confirmation message after selecting helper, auto-dismiss after 3s
     if (showConfirmation) {
-        // Auto dismiss after 3 seconds
         setTimeout(() => {
             setDismissed(true);
         }, 3000);
@@ -97,20 +87,19 @@ export function AurFloatingCard({
         );
     }
 
-    // Hide cards while exiting
     if (isExiting && helperChosen) {
         return (
             <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-30 flex flex-col gap-3 items-center md:items-end">
                 <div
-                    className="w-72 bg-[var(--bg-secondary)] backdrop-blur-xl border-l-4 shadow-lg overflow-hidden"
-                    style={{ borderLeftColor: 'var(--accent)', animation: 'slideOutToRight 0.25s ease-out forwards' }}
+                    className="w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg overflow-hidden"
+                    style={{ animation: 'slideOutToRight 0.25s ease-out forwards' }}
                 >
                     <div className="p-4" />
                 </div>
                 {hasAnswered !== null && (
                     <div
-                        className="w-72 bg-[var(--bg-secondary)] backdrop-blur-xl border-l-4 shadow-lg overflow-hidden"
-                        style={{ borderLeftColor: 'var(--accent)', animation: 'slideOutToRight 0.2s ease-out forwards' }}
+                        className="w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg overflow-hidden"
+                        style={{ animation: 'slideOutToRight 0.2s ease-out forwards' }}
                     >
                         <div className="p-4" />
                     </div>
@@ -121,22 +110,18 @@ export function AurFloatingCard({
 
     return (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 z-30 flex flex-col gap-3 items-center md:items-end">
-            {/* Card 1: Do you have an AUR helper? - AccessGuide style */}
             <div
                 className={`
-                    w-72 bg-[var(--bg-secondary)] backdrop-blur-xl 
-                    border-l-4 shadow-lg
+                    w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg
                     overflow-hidden
                     transition-[box-shadow] duration-200
                 `}
                 style={{
-                    borderLeftColor: 'var(--accent)',
                     animation: isExiting
                         ? 'slideOutToRight 0.2s ease-out forwards'
                         : 'slideInFromRight 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards'
                 }}
             >
-                {/* Header */}
                 <div className="px-4 py-3 flex items-start justify-between gap-3">
                     <div className="flex-1">
                         <p className="text-[11px] text-[var(--text-muted)] tracking-wide uppercase mb-1">
@@ -155,16 +140,15 @@ export function AurFloatingCard({
                     </button>
                 </div>
 
-                {/* Buttons */}
                 <div className="px-4 pb-3 flex gap-2">
                     <button
                         onClick={() => handleFirstAnswer(true)}
                         className={`
-                            flex-1 py-2 px-4 text-sm font-medium 
+                            flex-1 py-2 px-4 rounded-lg text-sm font-medium 
                             transition-[background-color,color] duration-200 ease-out
                             ${hasAnswered === true
-                                ? 'bg-[var(--accent)]/20 text-[var(--text-primary)] border-l-2 border-l-[var(--accent)]'
-                                : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
+                                ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                             }
                         `}
                     >
@@ -173,11 +157,11 @@ export function AurFloatingCard({
                     <button
                         onClick={() => handleFirstAnswer(false)}
                         className={`
-                            flex-1 py-2 px-4 text-sm font-medium 
+                            flex-1 py-2 px-4 rounded-lg text-sm font-medium 
                             transition-[background-color,color] duration-200 ease-out
                             ${hasAnswered === false
-                                ? 'bg-[var(--accent)]/20 text-[var(--text-primary)] border-l-2 border-l-[var(--accent)]'
-                                : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
+                                ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                             }
                         `}
                     >
@@ -185,7 +169,6 @@ export function AurFloatingCard({
                     </button>
                 </div>
 
-                {/* Hint */}
                 <div className="px-4 pb-3 -mt-1">
                     <p className="text-[10px] text-[var(--text-muted)]/50 leading-relaxed">
                         Change anytime in preview window
@@ -193,23 +176,19 @@ export function AurFloatingCard({
                 </div>
             </div>
 
-            {/* Card 2: Which helper? (appears after first answer) - AccessGuide style */}
             {hasAnswered !== null && (
                 <div
                     className={`
-                        w-72 bg-[var(--bg-secondary)] backdrop-blur-xl 
-                        border-l-4 shadow-lg
+                        w-72 bg-[var(--bg-primary)] border border-[var(--border-primary)]/30 rounded-xl shadow-lg
                         overflow-hidden
                     `}
                     style={{
-                        borderLeftColor: 'var(--accent)',
                         animation: isExiting
                             ? 'slideOutToRight 0.15s ease-out forwards'
                             : 'slideInFromRightSecond 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards',
                         opacity: 0
                     }}
                 >
-                    {/* Header */}
                     <div className="px-4 py-3 flex items-center justify-between gap-3">
                         <p className="text-[15px] text-[var(--text-primary)] font-medium">
                             {hasAnswered
@@ -226,16 +205,15 @@ export function AurFloatingCard({
                         </button>
                     </div>
 
-                    {/* Helper selection */}
                     <div className="px-4 pb-4 flex gap-2">
                         <button
                             onClick={() => handleHelperSelect('yay')}
                             className={`
-                                flex-1 py-2.5 px-4 text-sm font-medium 
+                                flex-1 py-2.5 px-4 rounded-lg text-sm font-medium 
                                 transition-[background-color,color] duration-200 ease-out
                                 ${selectedHelper === 'yay' && helperChosen
-                                    ? 'bg-[var(--accent)]/20 text-[var(--text-primary)] border-l-2 border-l-[var(--accent)]'
-                                    : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
+                                    ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                    : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                                 }
                             `}
                         >
@@ -247,11 +225,11 @@ export function AurFloatingCard({
                         <button
                             onClick={() => handleHelperSelect('paru')}
                             className={`
-                                flex-1 py-2.5 px-4 text-sm font-medium 
+                                flex-1 py-2.5 px-4 rounded-lg text-sm font-medium 
                                 transition-[background-color,color] duration-200 ease-out
                                 ${selectedHelper === 'paru' && helperChosen
-                                    ? 'bg-[var(--accent)]/20 text-[var(--text-primary)] border-l-2 border-l-[var(--accent)]'
-                                    : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
+                                    ? 'bg-[var(--bg-secondary)] border border-[var(--border-primary)]/40 text-[var(--text-primary)] shadow-sm'
+                                    : 'bg-[var(--bg-tertiary)]/70 text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
                                 }
                             `}
                         >

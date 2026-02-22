@@ -8,12 +8,7 @@ export interface TooltipState {
     y: number;
 }
 
-/**
- * Tooltip that stays open while hovering trigger or tooltip.
- * - 450ms delay before showing
- * - Stays open once shown (until mouse leaves both trigger and tooltip)
- * - Dismiss on click/scroll/escape
- */
+// Tooltip hook.
 export function useTooltip() {
     const [tooltip, setTooltip] = useState<TooltipState | null>(null);
     const showTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -22,7 +17,6 @@ export function useTooltip() {
     const isOverTooltip = useRef(false);
     const tooltipRef = useRef<HTMLDivElement | null>(null);
 
-    // Allow setting the tooltip element ref from the Tooltip component
     const setTooltipRef = useCallback((el: HTMLDivElement | null) => {
         tooltipRef.current = el;
     }, []);
@@ -40,7 +34,6 @@ export function useTooltip() {
 
     const tryHide = useCallback(() => {
         cancel();
-        // Only hide if mouse is not over trigger or tooltip
         hideTimeout.current = setTimeout(() => {
             if (!isOverTrigger.current && !isOverTooltip.current) {
                 setTooltip(null);
@@ -54,13 +47,15 @@ export function useTooltip() {
         cancel();
 
         const rect = target.getBoundingClientRect();
-        const clientX = e.clientX; // Capture mouse X position
+        const clientX = e.clientX;
+
+        const zoom = parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
 
         showTimeout.current = setTimeout(() => {
             setTooltip({
                 content,
-                x: clientX, // Use mouse X instead of element center
-                y: rect.top,
+                x: clientX / zoom,
+                y: rect.top / zoom,
             });
         }, 450);
     }, [cancel]);
@@ -82,7 +77,6 @@ export function useTooltip() {
 
     useEffect(() => {
         const dismiss = (e: MouseEvent) => {
-            // Don't dismiss if clicking inside the tooltip
             if (tooltipRef.current && tooltipRef.current.contains(e.target as Node)) {
                 return;
             }

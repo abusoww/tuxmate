@@ -5,11 +5,7 @@ import { distros, apps, type DistroId } from '@/lib/data';
 import { isAurPackage } from '@/lib/aur';
 import { isUnfreePackage } from '@/lib/nixUnfree';
 
-// Re-export for backwards compatibility
 export { isAurPackage, AUR_PATTERNS, KNOWN_AUR_PACKAGES } from '@/lib/aur';
-
-// Everything the app needs to work
-
 export interface UseLinuxInitReturn {
     selectedDistro: DistroId;
     selectedApps: Set<string>;
@@ -22,7 +18,6 @@ export interface UseLinuxInitReturn {
     generatedCommand: string;
     selectedCount: number;
     availableCount: number;
-    // Arch/AUR specific
     hasYayInstalled: boolean;
     setHasYayInstalled: (value: boolean) => void;
     selectedHelper: 'yay' | 'paru';
@@ -30,10 +25,8 @@ export interface UseLinuxInitReturn {
     hasAurPackages: boolean;
     aurPackageNames: string[];
     aurAppNames: string[];
-    // Nix unfree specific
     hasUnfreePackages: boolean;
     unfreeAppNames: string[];
-    // Hydration state
     isHydrated: boolean;
 }
 
@@ -49,7 +42,6 @@ export function useLinuxInit(): UseLinuxInitReturn {
     const [selectedHelper, setSelectedHelper] = useState<'yay' | 'paru'>('yay');
     const [hydrated, setHydrated] = useState(false);
 
-    // Load saved preferences from localStorage
     useEffect(() => {
         try {
             const savedDistro = localStorage.getItem(STORAGE_KEY_DISTRO) as DistroId | null;
@@ -64,7 +56,6 @@ export function useLinuxInit(): UseLinuxInitReturn {
 
             if (savedApps) {
                 const appIds = JSON.parse(savedApps) as string[];
-                // Filter to only valid app IDs that are available on the distro
                 const validApps = appIds.filter(id => {
                     const app = apps.find(a => a.id === id);
                     if (!app) return false;
@@ -82,12 +73,10 @@ export function useLinuxInit(): UseLinuxInitReturn {
                 setSelectedHelper('paru');
             }
         } catch {
-            // Ignore localStorage errors
         }
         setHydrated(true);
     }, []);
 
-    // Save to localStorage whenever state changes (but not on first render)
     useEffect(() => {
         if (!hydrated) return;
         try {
@@ -96,11 +85,9 @@ export function useLinuxInit(): UseLinuxInitReturn {
             localStorage.setItem(STORAGE_KEY_YAY, hasYayInstalled.toString());
             localStorage.setItem(STORAGE_KEY_HELPER, selectedHelper);
         } catch {
-            // Ignore localStorage errors
         }
     }, [selectedDistro, selectedApps, hasYayInstalled, selectedHelper, hydrated]);
 
-    // Compute AUR package info for Arch
     const aurPackageInfo = useMemo(() => {
         if (selectedDistro !== 'arch') {
             return { hasAur: false, packages: [] as string[], appNames: [] as string[] };
@@ -122,7 +109,6 @@ export function useLinuxInit(): UseLinuxInitReturn {
         return { hasAur: aurPkgs.length > 0, packages: aurPkgs, appNames: aurAppNames };
     }, [selectedDistro, selectedApps]);
 
-    // Compute unfree package info for Nix
     const unfreePackageInfo = useMemo(() => {
         if (selectedDistro !== 'nix') {
             return { hasUnfree: false, appNames: [] as string[] };
@@ -173,7 +159,6 @@ export function useLinuxInit(): UseLinuxInitReturn {
     }, []);
 
     const toggleApp = useCallback((appId: string) => {
-        // Check availability inline to avoid stale closure
         const app = apps.find(a => a.id === appId);
         if (!app) return;
         const pkg = app.targets[selectedDistro];
@@ -230,7 +215,6 @@ export function useLinuxInit(): UseLinuxInitReturn {
 
         if (packageNames.length === 0) return '# No packages selected';
 
-        // Nix: show declarative config (no unfree warning in preview - that's in download)
         if (selectedDistro === 'nix') {
             const sortedPkgs = packageNames.filter(p => p.trim()).sort();
             const pkgList = sortedPkgs.map(p => `    ${p}`).join('\n');
@@ -238,36 +222,26 @@ export function useLinuxInit(): UseLinuxInitReturn {
         }
 
         if (selectedDistro === 'snap') {
-            // Snap needs separate commands for --classic packages
             if (packageNames.length === 1) {
                 return `${distro.installPrefix} ${packageNames[0]}`;
             }
-            // For multiple snap packages, we chain them with &&
-            // Note: snap doesn't support installing multiple packages in one command like apt
             return packageNames.map(p => `sudo snap install ${p}`).join(' && ');
         }
 
-        // Arch with AUR packages - this is where it gets fun
         if (selectedDistro === 'arch' && aurPackageInfo.hasAur) {
             if (!hasYayInstalled) {
-                // User doesn't have current helper installed - prepend installation
                 const helperName = selectedHelper; // yay or paru
 
-                // Common setup: sudo pacman -S --needed git base-devel
-                // Then clone, make, install
                 const installHelperCmd = `sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/${helperName}.git /tmp/${helperName} && cd /tmp/${helperName} && makepkg -si --noconfirm && cd - && rm -rf /tmp/${helperName}`;
 
-                // Install packages using the helper
                 const installCmd = `${helperName} -S --needed --noconfirm ${packageNames.join(' ')}`;
 
                 return `${installHelperCmd} && ${installCmd}`;
             } else {
-                // User has helper installed - use it for ALL packages
                 return `${selectedHelper} -S --needed --noconfirm ${packageNames.join(' ')}`;
             }
         }
 
-        // Handle Homebrew: separate formulae and casks into separate commands
         if (selectedDistro === 'homebrew') {
             const formulae = packageNames.filter(p => !p.startsWith('--cask '));
             const casks = packageNames.filter(p => p.startsWith('--cask ')).map(p => p.replace('--cask ', ''));
@@ -296,7 +270,6 @@ export function useLinuxInit(): UseLinuxInitReturn {
         generatedCommand,
         selectedCount: selectedApps.size,
         availableCount,
-        // Arch/AUR specific
         hasYayInstalled,
         setHasYayInstalled,
         selectedHelper,
@@ -304,10 +277,8 @@ export function useLinuxInit(): UseLinuxInitReturn {
         hasAurPackages: aurPackageInfo.hasAur,
         aurPackageNames: aurPackageInfo.packages,
         aurAppNames: aurPackageInfo.appNames,
-        // Nix unfree specific
         hasUnfreePackages: unfreePackageInfo.hasUnfree,
         unfreeAppNames: unfreePackageInfo.appNames,
-        // Hydration state
         isHydrated: hydrated,
     };
 }
