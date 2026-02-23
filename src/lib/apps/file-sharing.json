@@ -1,0 +1,186 @@
+[
+    {
+        "id": "syncthing",
+        "name": "Syncthing",
+        "description": "Decentralized peer-to-peer file synchronization",
+        "category": "File Sharing",
+        "targets": {
+            "ubuntu": "syncthing",
+            "debian": "syncthing",
+            "arch": "syncthing",
+            "fedora": "syncthing",
+            "opensuse": "syncthing",
+            "nix": "syncthing",
+            "flatpak": "me.kozec.syncthingtk",
+            "homebrew": "syncthing"
+        },
+        "unavailableReason": "Syncthing GTK is available on [Flatpak](https://flathub.org/apps/me.kozec.syncthingtk). Not available as Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "syncthing",
+            "color": "#0CB7E4"
+        }
+    },
+    {
+        "id": "qbittorrent",
+        "name": "qBittorrent",
+        "description": "Open-source BitTorrent client, uTorrent alternative",
+        "category": "File Sharing",
+        "targets": {
+            "ubuntu": "qbittorrent",
+            "debian": "qbittorrent",
+            "arch": "qbittorrent",
+            "fedora": "qbittorrent",
+            "opensuse": "qbittorrent",
+            "nix": "qbittorrent",
+            "flatpak": "org.qbittorrent.qBittorrent",
+            "snap": "qbittorrent-desktop-tak",
+            "homebrew": "--cask qbittorrent"
+        },
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "qbittorrent",
+            "color": "#2F67BA"
+        }
+    },
+    {
+        "id": "transmission",
+        "name": "Transmission",
+        "description": "Lightweight BitTorrent client",
+        "category": "File Sharing",
+        "targets": {
+            "ubuntu": "transmission",
+            "debian": "transmission",
+            "arch": "transmission-gtk",
+            "fedora": "transmission",
+            "opensuse": "transmission",
+            "nix": "transmission_4-gtk",
+            "flatpak": "com.transmissionbt.Transmission",
+            "homebrew": "--cask transmission"
+        },
+        "unavailableReason": "Transmission is not available as a Snap package. Use [Flatpak](https://flathub.org/apps/com.transmissionbt.Transmission).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "transmission",
+            "color": "#D70000"
+        }
+    },
+    {
+        "id": "localsend",
+        "name": "LocalSend",
+        "description": "Cross-platform AirDrop alternative for local sharing",
+        "category": "File Sharing",
+        "targets": {
+            "arch": "localsend-bin",
+            "nix": "localsend",
+            "flatpak": "org.localsend.localsend_app",
+            "homebrew": "--cask localsend"
+        },
+        "unavailableReason": "Only available via [AUR](https://aur.archlinux.org/packages/localsend-bin) or [Flatpak](https://flathub.org/apps/org.localsend.localsend_app). Download from [localsend.org](https://localsend.org/download).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "localsend",
+            "color": "#FCA73C"
+        }
+    },
+    {
+        "id": "filezilla",
+        "name": "FileZilla",
+        "description": "Cross-platform FTP, FTPS and SFTP client",
+        "category": "File Sharing",
+        "targets": {
+            "ubuntu": "filezilla",
+            "debian": "filezilla",
+            "arch": "filezilla",
+            "fedora": "filezilla",
+            "opensuse": "filezilla",
+            "nix": "filezilla",
+            "flatpak": "org.filezillaproject.Filezilla"
+        },
+        "unavailableReason": "FileZilla is not available as a Snap package.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "filezilla",
+            "color": "#BF0000"
+        }
+    },
+    {
+        "id": "nextcloud",
+        "name": "Nextcloud",
+        "description": "Self-hosted cloud storage sync client",
+        "category": "File Sharing",
+        "targets": {
+            "ubuntu": "nextcloud-desktop",
+            "debian": "nextcloud-desktop",
+            "arch": "nextcloud-client",
+            "fedora": "nextcloud-client",
+            "opensuse": "nextcloud-desktop",
+            "nix": "nextcloud-client",
+            "flatpak": "com.nextcloud.desktopclient.nextcloud",
+            "snap": "nextcloud-desktop-client",
+            "homebrew": "--cask nextcloud"
+        },
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "nextcloud",
+            "color": "#0082C9"
+        }
+    },
+    {
+        "id": "dropbox",
+        "name": "Dropbox",
+        "description": "Popular cloud file storage and sync service",
+        "category": "File Sharing",
+        "targets": {
+            "arch": "dropbox",
+            "nix": "dropbox",
+            "flatpak": "com.dropbox.Client",
+            "homebrew": "--cask dropbox"
+        },
+        "unavailableReason": "Only available via [AUR](https://aur.archlinux.org/packages/dropbox) or [Flatpak](https://flathub.org/apps/com.dropbox.Client). See [dropbox.com/install-linux](https://www.dropbox.com/install-linux) for other methods.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "dropbox",
+            "color": "#0061FF"
+        }
+    },
+    {
+        "id": "abdownloadmanager",
+        "name": "AB Download Manager",
+        "description": "Modern download manager with browser integration",
+        "category": "File Sharing",
+        "targets": {
+            "arch": "ab-download-manager-bin"
+        },
+        "unavailableReason": "Only available via [AUR](https://aur.archlinux.org/packages/ab-download-manager-bin). Download from [abdownloadmanager.com](https://abdownloadmanager.com/).",
+        "icon": {
+            "type": "iconify",
+            "set": "mdi",
+            "name": "download-box",
+            "color": "#4CAF50"
+        }
+    },
+    {
+        "id": "fdm",
+        "name": "Free Download Manager",
+        "description": "Feature-rich download manager with BitTorrent",
+        "category": "File Sharing",
+        "targets": {
+            "arch": "freedownloadmanager-bin",
+            "homebrew": "--cask free-download-manager",
+            "flatpak": "org.freedownloadmanager.Manager"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak version](https://flathub.org/en/apps/org.freedownloadmanager.Manager) or see [the official website](https://www.freedownloadmanager.org/) or  for other methods.",
+        "icon": {
+            "type": "url",
+            "url": "https://hexmos.com/freedevtools/svg_icons/reader/free_download_manager.svg"
+        }
+    }
+]

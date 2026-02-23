@@ -1,0 +1,166 @@
+[
+    {
+        "id": "discord",
+        "name": "Discord",
+        "description": "Popular voice, video, and text chat platform",
+        "category": "Communication",
+        "targets": {
+            "arch": "discord",
+            "opensuse": "discord",
+            "nix": "discord",
+            "flatpak": "com.discordapp.Discord",
+            "snap": "discord",
+            "homebrew": "--cask discord"
+        },
+        "unavailableReason": "Not in official repos. Install via [Flatpak](https://flathub.org/en/apps/com.discordapp.Discord) or download from [discord.com/download](https://discord.com/download).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "discord",
+            "color": "#5865F2"
+        }
+    },
+    {
+        "id": "vesktop",
+        "name": "Vesktop",
+        "description": "Discord client with Vencord mods built-in",
+        "category": "Communication",
+        "targets": {
+            "arch": "vesktop-bin",
+            "nix": "vesktop",
+            "flatpak": "dev.vencord.Vesktop",
+            "homebrew": "--cask vesktop"
+        },
+        "unavailableReason": "Not available in official repos. Check it on [Flatpak](https://flathub.org/en/apps/dev.vencord.Vesktop) or Download from [vesktop.dev/install/linux](https://vesktop.dev/install/linux/).",
+        "icon": {
+            "type": "url",
+            "url": "https://avatars.githubusercontent.com/u/113042587?s=200&v=4"
+        }
+    },
+    {
+        "id": "telegram",
+        "name": "Telegram",
+        "description": "Fast cloud-based messaging with file sharing",
+        "category": "Communication",
+        "targets": {
+            "arch": "telegram-desktop",
+            "opensuse": "telegram-desktop",
+            "nix": "telegram-desktop",
+            "flatpak": "org.telegram.desktop",
+            "snap": "telegram-desktop",
+            "homebrew": "--cask telegram"
+        },
+        "unavailableReason": "Recommended to use [Flatpak](https://flathub.org/apps/org.telegram.desktop) for the latest version. Debian 12 (Bookworm) has an older version (4.6.5) via `sudo apt install -y telegram-desktop`. Debian 13 (Trixie) removed the package entirely. Ubuntu 24.04/25.04 repos have outdated versions — use Flatpak or Snap for current releases. Fedora requires [RPM Fusion](https://rpmfusion.org/) repos.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "telegram",
+            "color": "#26A5E4"
+        }
+    },
+    {
+        "id": "signal",
+        "name": "Signal",
+        "description": "Secure end-to-end encrypted messaging app",
+        "category": "Communication",
+        "targets": {
+            "arch": "signal-desktop",
+            "opensuse": "signal-desktop",
+            "nix": "signal-desktop",
+            "flatpak": "org.signal.Signal",
+            "snap": "signal-desktop",
+            "homebrew": "--cask signal"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/org.signal.Signal)/[Snap](https://snapcraft.io/signal-desktop) or follow instructions at [signal.org/download/linux](https://signal.org/download/linux/).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "signal",
+            "color": "#3A76F0"
+        }
+    },
+    {
+        "id": "slack",
+        "name": "Slack",
+        "description": "Team collaboration and business messaging",
+        "category": "Communication",
+        "targets": {
+            "arch": "slack-desktop",
+            "nix": "slack",
+            "flatpak": "com.slack.Slack",
+            "snap": "slack",
+            "homebrew": "--cask slack"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.slack.Slack)/[Snap](https://snapcraft.io/slack) or download from [slack.com/downloads/linux](https://slack.com/downloads/linux).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "slack",
+            "color": "#4A154B"
+        }
+    },
+    {
+        "id": "zoom",
+        "name": "Zoom",
+        "description": "Popular video conferencing and meetings",
+        "category": "Communication",
+        "targets": {
+            "arch": "zoom",
+            "nix": "zoom-us",
+            "flatpak": "us.zoom.Zoom",
+            "snap": "zoom-client",
+            "homebrew": "--cask zoom"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/us.zoom.Zoom)/[Snap](https://snapcraft.io/zoom-client) or download from [zoom.us/download/linux](https://zoom.us/download/linux).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "zoom",
+            "color": "#0B5CFF"
+        }
+    },
+    {
+        "id": "thunderbird",
+        "name": "Thunderbird",
+        "description": "Free email client by Mozilla with calendar",
+        "category": "Communication",
+        "targets": {
+            "ubuntu": "thunderbird",
+            "debian": "thunderbird",
+            "arch": "thunderbird",
+            "fedora": "thunderbird",
+            "opensuse": "MozillaThunderbird",
+            "nix": "thunderbird",
+            "flatpak": "org.mozilla.Thunderbird",
+            "snap": "thunderbird",
+            "homebrew": "--cask thunderbird"
+        },
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "thunderbird",
+            "color": "#0A84FF"
+        }
+    },
+    {
+        "id": "element",
+        "name": "Element",
+        "description": "Decentralized Matrix chat client with E2E encryption",
+        "category": "Communication",
+        "targets": {
+            "arch": "element-desktop",
+            "opensuse": "element-desktop",
+            "nix": "element-desktop",
+            "flatpak": "im.riot.Riot",
+            "snap": "element-desktop",
+            "homebrew": "--cask element"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/im.riot.Riot)/[Snap](https://snapcraft.io/element-desktop) or follow instructions at [element.io/download#linux](https://element.io/en/download#linux).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "element",
+            "color": "#0DBD8B"
+        }
+    }
+]

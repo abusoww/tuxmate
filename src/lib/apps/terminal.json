@@ -1,0 +1,207 @@
+[
+    {
+        "id": "zsh",
+        "name": "Zsh",
+        "description": "Powerful shell with advanced completion features",
+        "category": "Terminal",
+        "targets": {
+            "ubuntu": "zsh",
+            "debian": "zsh",
+            "arch": "zsh",
+            "fedora": "zsh",
+            "opensuse": "zsh",
+            "nix": "zsh",
+            "homebrew": "zsh"
+        },
+        "unavailableReason": "Zsh is a system shell and not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "zsh",
+            "color": "#F15A24"
+        }
+    },
+    {
+        "id": "ohmyzsh",
+        "name": "Oh My Zsh",
+        "description": "Zsh configuration framework with plugins/themes",
+        "category": "Terminal",
+        "targets": {
+            "nix": "oh-my-zsh"
+        },
+        "unavailableReason": "Install via `sh -c \"$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\"`. See [ohmyzsh wiki](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "zsh",
+            "color": "#F15A24"
+        }
+    },
+    {
+        "id": "fish",
+        "name": "Fish",
+        "description": "Smart and user-friendly interactive shell",
+        "category": "Terminal",
+        "targets": {
+            "ubuntu": "fish",
+            "debian": "fish",
+            "arch": "fish",
+            "fedora": "fish",
+            "opensuse": "fish",
+            "nix": "fish",
+            "homebrew": "fish"
+        },
+        "unavailableReason": "Fish is a system shell and not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "vscode-icons",
+            "name": "file-type-shell"
+        }
+    },
+    {
+        "id": "starship",
+        "name": "Starship",
+        "description": "Cross-shell customizable command prompt",
+        "category": "Terminal",
+        "targets": {
+            "ubuntu": "starship",
+            "debian": "starship",
+            "arch": "starship",
+            "opensuse": "starship",
+            "nix": "starship",
+            "homebrew": "starship"
+        },
+        "unavailableReason": "Not in Fedora repos. Install via `curl -sS https://starship.rs/install.sh | sh` or see [starship.rs](https://starship.rs/).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "starship",
+            "color": "#DD0B78"
+        }
+    },
+    {
+        "id": "alacritty",
+        "name": "Alacritty",
+        "description": "Blazing fast GPU-accelerated terminal emulator",
+        "category": "Terminal",
+        "targets": {
+            "ubuntu": "alacritty",
+            "debian": "alacritty",
+            "arch": "alacritty",
+            "fedora": "alacritty",
+            "opensuse": "alacritty",
+            "nix": "alacritty",
+            "snap": "alacritty --classic",
+            "homebrew": "--cask alacritty"
+        },
+        "unavailableReason": "Alacritty is not available as a Flatpak package.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "alacritty",
+            "color": "#F46D01"
+        }
+    },
+    {
+        "id": "kitty",
+        "name": "Kitty",
+        "description": "Fast GPU-based terminal with advanced features",
+        "category": "Terminal",
+        "targets": {
+            "ubuntu": "kitty",
+            "debian": "kitty",
+            "arch": "kitty",
+            "fedora": "kitty",
+            "opensuse": "kitty",
+            "nix": "kitty",
+            "homebrew": "--cask kitty"
+        },
+        "unavailableReason": "Kitty is not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "mdi",
+            "name": "cat",
+            "color": "#ea5e5e"
+        }
+    },
+    {
+        "id": "wezterm",
+        "name": "WezTerm",
+        "description": "GPU-accelerated terminal with Lua configuration",
+        "category": "Terminal",
+        "targets": {
+            "arch": "wezterm",
+            "opensuse": "wezterm",
+            "nix": "wezterm",
+            "flatpak": "org.wezfurlong.wezterm",
+            "homebrew": "--cask wezterm"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/org.wezfurlong.wezterm) or follow instructions at [wezfurlong.org/wezterm/install](https://wezfurlong.org/wezterm/install/linux.html).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "wezterm",
+            "color": "#4E49EE"
+        }
+    },
+    {
+        "id": "foot",
+        "name": "Foot",
+        "description": "Lightweight Wayland-native terminal emulator",
+        "category": "Terminal",
+        "targets": {
+            "ubuntu": "foot",
+            "debian": "foot",
+            "arch": "foot",
+            "fedora": "foot",
+            "opensuse": "foot",
+            "nix": "foot",
+            "homebrew": "foot"
+        },
+        "unavailableReason": "Foot is a Wayland-only terminal and not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "wayland",
+            "color": "#FFBC00"
+        }
+    },
+    {
+        "id": "ghostty",
+        "name": "Ghostty",
+        "description": "Native GPU-accelerated terminal by Mitchell Hashimoto",
+        "category": "Terminal",
+        "targets": {
+            "arch": "ghostty",
+            "nix": "ghostty",
+            "homebrew": "--cask ghostty"
+        },
+        "unavailableReason": "Not in most repos. See [official binaries](https://ghostty.org/docs/install/binary#linux-(official)) or build from source.",
+        "icon": {
+            "type": "iconify",
+            "set": "mdi",
+            "name": "ghost-outline",
+            "color": "#6E56CF"
+        }
+    },
+    {
+        "id": "ptyxis",
+        "name": "Ptyxis",
+        "description": "Modern terminal emulator optimized for containerized workflows",
+        "category": "Terminal",
+        "targets": {
+            "debian": "ptyxis",
+            "ubuntu": "ptyxis",
+            "arch": "ptyxis",
+            "fedora": "ptyxis",
+            "opensuse": "ptyxis",
+            "nix": "ptyxis",
+            "flatpak": "app.devsuite.Ptyxis"
+        },
+        "unavailableReason": "Not available via Snap or Homebrew. Use [Flatpak Version](https://flathub.org/en/apps/app.devsuite.Ptyxis) ",
+        "icon": {
+            "type": "url",
+            "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Ptyxis.svg"
+        }
+    }
+]

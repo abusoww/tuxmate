@@ -1,0 +1,231 @@
+[
+    {
+        "id": "libreoffice",
+        "name": "LibreOffice",
+        "description": "Full-featured open-source office suite",
+        "category": "Office",
+        "targets": {
+            "ubuntu": "libreoffice",
+            "debian": "libreoffice",
+            "arch": "libreoffice-fresh",
+            "fedora": "libreoffice",
+            "opensuse": "libreoffice",
+            "nix": "libreoffice",
+            "flatpak": "org.libreoffice.LibreOffice",
+            "snap": "libreoffice",
+            "homebrew": "--cask libreoffice"
+        },
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "libreoffice",
+            "color": "#0369A1"
+        }
+    },
+    {
+        "id": "onlyoffice",
+        "name": "OnlyOffice",
+        "description": "Modern office suite with MS Office compatibility",
+        "category": "Office",
+        "targets": {
+            "arch": "onlyoffice-bin",
+            "nix": "onlyoffice-bin",
+            "flatpak": "org.onlyoffice.desktopeditors",
+            "snap": "onlyoffice-desktopeditors",
+            "homebrew": "--cask onlyoffice"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/org.onlyoffice.desktopeditors) or [Snap](https://snapcraft.io/onlyoffice-desktopeditors) or download from [onlyoffice.com/desktop](https://www.onlyoffice.com/desktop.aspx).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "onlyoffice",
+            "color": "#FF6F3D"
+        }
+    },
+    {
+        "id": "obsidian",
+        "name": "Obsidian",
+        "description": "Popular Markdown-based knowledge management app",
+        "category": "Office",
+        "targets": {
+            "arch": "obsidian",
+            "nix": "obsidian",
+            "flatpak": "md.obsidian.Obsidian",
+            "snap": "obsidian --classic",
+            "homebrew": "--cask obsidian"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/md.obsidian.Obsidian) or [Snap](https://snapcraft.io/obsidian) or download from [obsidian.md/download](https://obsidian.md/download).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "obsidian",
+            "color": "#7C3AED"
+        }
+    },
+    {
+        "id": "logseq",
+        "name": "Logseq",
+        "description": "Open-source outliner for knowledge management",
+        "category": "Office",
+        "targets": {
+            "arch": "logseq-desktop-bin",
+            "nix": "logseq",
+            "flatpak": "com.logseq.Logseq",
+            "snap": "logseq",
+            "homebrew": "--cask logseq"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.logseq.Logseq) or [Snap](https://snapcraft.io/logseq) or download from [logseq.com](https://logseq.com/downloads).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "logseq",
+            "color": "#06D5D5"
+        }
+    },
+    {
+        "id": "joplin",
+        "name": "Joplin",
+        "description": "Open-source note-taking with sync and encryption",
+        "category": "Office",
+        "targets": {
+            "arch": "joplin-appimage",
+            "nix": "joplin-desktop",
+            "flatpak": "net.cozic.joplin_desktop",
+            "snap": "joplin-desktop",
+            "homebrew": "--cask joplin"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/net.cozic.joplin_desktop) or [Snap](https://snapcraft.io/joplin-desktop) or install from [joplinapp.org](https://joplinapp.org/help/install/).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "joplin",
+            "color": "#1471B7"
+        }
+    },
+    {
+        "id": "okular",
+        "name": "Okular",
+        "description": "Universal document viewer by KDE",
+        "category": "Office",
+        "targets": {
+            "ubuntu": "okular",
+            "debian": "okular",
+            "arch": "okular",
+            "fedora": "okular",
+            "opensuse": "okular",
+            "nix": "okular",
+            "flatpak": "org.kde.okular",
+            "snap": "okular"
+        },
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "kde",
+            "color": "#338BDB"
+        }
+    },
+    {
+        "id": "zathura",
+        "name": "Zathura",
+        "description": "Vim-style minimal PDF/document viewer",
+        "category": "Office",
+        "targets": {
+            "ubuntu": "zathura",
+            "debian": "zathura",
+            "arch": "zathura",
+            "fedora": "zathura",
+            "opensuse": "zathura",
+            "nix": "zathura"
+        },
+        "unavailableReason": "Zathura is not available via Flatpak or Snap.",
+        "icon": {
+            "type": "url",
+            "url": "https://raw.githubusercontent.com/TrixieUA/MoreWaita-copr-trixieua/e5bed029d63d4c14f1aba811152f3f0bf473a4bc/scalable/apps/zathura.svg"
+        }
+    },
+    {
+        "id": "calibre",
+        "name": "Calibre",
+        "description": "Complete e-book library management solution",
+        "category": "Office",
+        "targets": {
+            "ubuntu": "calibre",
+            "debian": "calibre",
+            "arch": "calibre",
+            "fedora": "calibre",
+            "opensuse": "calibre",
+            "nix": "calibre",
+            "flatpak": "com.calibre_ebook.calibre",
+            "homebrew": "--cask calibre"
+        },
+        "unavailableReason": "Calibre is not available as a Snap package.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "calibreweb",
+            "color": "#ECA315"
+        }
+    },
+    {
+        "id": "xournalpp",
+        "name": "Xournal++",
+        "description": "Handwriting and PDF annotation app",
+        "category": "Office",
+        "targets": {
+            "ubuntu": "xournalpp",
+            "debian": "xournalpp",
+            "arch": "xournalpp",
+            "fedora": "xournalpp",
+            "opensuse": "xournalpp",
+            "nix": "xournalpp",
+            "flatpak": "com.github.xournalpp.xournalpp",
+            "homebrew": "--cask xournal++"
+        },
+        "unavailableReason": "Xournal++ is not available as a Snap package.",
+        "icon": {
+            "type": "iconify",
+            "set": "vscode-icons",
+            "name": "file-type-pdf2"
+        }
+    },
+    {
+        "id": "zotero",
+        "name": "Zotero",
+        "description": "Research reference manager and citation tool",
+        "category": "Office",
+        "targets": {
+            "arch": "zotero-bin",
+            "opensuse": "zotero",
+            "nix": "zotero",
+            "flatpak": "org.zotero.Zotero",
+            "snap": "zotero-snap",
+            "homebrew": "--cask zotero"
+        },
+        "unavailableReason": "Not in official Ubuntu/Debian repos. Use [Flatpak](https://flathub.org/apps/org.zotero.Zotero)/[Snap](https://snapcraft.io/zotero-snap) or download from [zotero.org](https://www.zotero.org/download/).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "zotero",
+            "color": "#CC2936"
+        }
+    },
+    {
+        "id": "trilium",
+        "name": "Trilium Notes",
+        "description": "Hierarchical note-taking app with powerful features",
+        "category": "Office",
+        "targets": {
+            "arch": "trilium-bin",
+            "nix": "trilium-desktop",
+            "flatpak": "com.github.zadam.trilium",
+            "homebrew": "--cask trilium-notes"
+        },
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/com.github.zadam.trilium) or download from [github.com/zadam/trilium](https://github.com/zadam/trilium/releases).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "trilium",
+            "color": "#51A52D"
+        }
+    }
+]

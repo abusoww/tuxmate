@@ -1,0 +1,274 @@
+[
+    {
+        "id": "python3",
+        "name": "Python 3",
+        "description": "Popular beginner-friendly programming language",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "python3",
+            "debian": "python3",
+            "arch": "python",
+            "fedora": "python3",
+            "opensuse": "python3",
+            "nix": "python3",
+            "homebrew": "python@3.12"
+        },
+        "unavailableReason": "Python 3 is a system package and not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "python",
+            "color": "#3776AB"
+        }
+    },
+    {
+        "id": "nodejs",
+        "name": "Node.js",
+        "description": "Server-side JavaScript runtime environment",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "nodejs",
+            "debian": "nodejs",
+            "arch": "nodejs",
+            "fedora": "nodejs",
+            "opensuse": "nodejs",
+            "nix": "nodejs",
+            "snap": "node --classic",
+            "homebrew": "node"
+        },
+        "unavailableReason": "Node.js is not available as a Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "nodedotjs",
+            "color": "#5FA04E"
+        }
+    },
+    {
+        "id": "go",
+        "name": "Go",
+        "description": "Fast compiled programming language by Google",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "golang",
+            "debian": "golang",
+            "arch": "go",
+            "fedora": "golang",
+            "opensuse": "go",
+            "nix": "go",
+            "snap": "go --classic",
+            "homebrew": "go"
+        },
+        "unavailableReason": "Go is not available as a Flatpak package.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "go",
+            "color": "#00ADD8"
+        }
+    },
+    {
+        "id": "rust",
+        "name": "Rust",
+        "description": "Memory-safe systems programming language",
+        "category": "Dev: Languages",
+        "targets": {
+            "arch": "rustup",
+            "fedora": "rustup",
+            "opensuse": "rustup",
+            "nix": "rustup",
+            "snap": "rustup --classic",
+            "homebrew": "rust"
+        },
+        "unavailableReason": "Install via [rustup.rs](https://rustup.rs) on Ubuntu and Debian.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "rust",
+            "color": "#F74C00"
+        }
+    },
+    {
+        "id": "ruby",
+        "name": "Ruby",
+        "description": "Dynamic language known for elegant syntax",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "ruby",
+            "debian": "ruby",
+            "arch": "ruby",
+            "fedora": "ruby",
+            "opensuse": "ruby",
+            "nix": "ruby",
+            "snap": "ruby --classic",
+            "homebrew": "ruby"
+        },
+        "unavailableReason": "Ruby is a system package and not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "ruby",
+            "color": "#CC342D"
+        }
+    },
+    {
+        "id": "php",
+        "name": "PHP",
+        "description": "Popular web server-side scripting language",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "php",
+            "debian": "php",
+            "arch": "php",
+            "fedora": "php",
+            "opensuse": "php8",
+            "nix": "php",
+            "homebrew": "php"
+        },
+        "unavailableReason": "PHP is a system package and not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "php",
+            "color": "#777BB4"
+        }
+    },
+    {
+        "id": "openjdk",
+        "name": "OpenJDK",
+        "description": "Open-source Java Development Kit",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "openjdk-21-jdk",
+            "debian": "openjdk-17-jdk",
+            "arch": "jdk-openjdk",
+            "fedora": "java-21-openjdk",
+            "opensuse": "java-21-openjdk",
+            "nix": "openjdk",
+            "homebrew": "openjdk"
+        },
+        "unavailableReason": "System package — not available via Flatpak or Snap. Debian 12 (Bookworm) only has OpenJDK 17: `sudo apt install -y openjdk-17-jdk`. Debian 13 (Trixie) has OpenJDK 21 and 25: `sudo apt install -y openjdk-21-jdk`. Ubuntu 24.04 has versions 8, 11, 17, 21, and 25 available.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "openjdk",
+            "color": "#437291"
+        }
+    },
+    {
+        "id": "deno",
+        "name": "Deno",
+        "description": "Secure TypeScript/JavaScript runtime by Node creator",
+        "category": "Dev: Languages",
+        "targets": {
+            "arch": "deno",
+            "opensuse": "deno",
+            "nix": "deno",
+            "homebrew": "deno"
+        },
+        "unavailableReason": "Install via `curl -fsSL https://deno.land/install.sh | sh` on other distros.",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "deno",
+            "color": "#70FFAF"
+        }
+    },
+    {
+        "id": "bun",
+        "name": "Bun",
+        "description": "Ultra-fast JavaScript runtime and bundler",
+        "category": "Dev: Languages",
+        "targets": {
+            "arch": "bun",
+            "nix": "bun",
+            "homebrew": "bun"
+        },
+        "unavailableReason": "Not in most package managers. Install via official script: `curl -fsSL https://bun.sh/install | bash`. More info at [bun.sh](https://bun.sh/).",
+        "icon": {
+            "type": "iconify",
+            "set": "logos",
+            "name": "bun"
+        }
+    },
+    {
+        "id": "npm",
+        "name": "npm",
+        "description": "JavaScript package manager",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "npm",
+            "debian": "npm",
+            "arch": "npm",
+            "fedora": "nodejs-npm",
+            "opensuse": "npm24",
+            "nix": "nodejs",
+            "snap": "node --classic",
+            "homebrew": "node"
+        },
+        "unavailableReason": "Usually installed with Node.js. See [nodejs.org](https://nodejs.org/).",
+        "icon": {
+            "type": "iconify",
+            "set": "logos",
+            "name": "npm"
+        }
+    },
+    {
+        "id": "pnpm",
+        "name": "pnpm",
+        "description": "Fast, disk space efficient package manager",
+        "category": "Dev: Languages",
+        "targets": {
+            "arch": "pnpm",
+            "fedora": "pnpm",
+            "opensuse": "pnpm",
+            "nix": "pnpm",
+            "homebrew": "pnpm"
+        },
+        "unavailableReason": "Install via `curl -fsSL https://get.pnpm.io/install.sh | sh`. See [pnpm.io](https://pnpm.io/installation).",
+        "icon": {
+            "type": "iconify",
+            "set": "logos",
+            "name": "pnpm"
+        }
+    },
+    {
+        "id": "yarn",
+        "name": "yarn",
+        "description": "JavaScript package manager",
+        "category": "Dev: Languages",
+        "targets": {
+            "ubuntu": "yarnpkg",
+            "debian": "yarnpkg",
+            "arch": "yarn",
+            "fedora": "yarnpkg",
+            "opensuse": "yarn",
+            "nix": "yarn",
+            "homebrew": "yarn"
+        },
+        "unavailableReason": "Install via `npm install --global yarn`. See [yarnpkg.com](https://yarnpkg.com/getting-started/install).",
+        "icon": {
+            "type": "iconify",
+            "set": "logos",
+            "name": "yarn"
+        }
+    },
+    {
+        "id": "uv",
+        "name": "uv",
+        "description": "Fast Python package manager",
+        "category": "Dev: Languages",
+        "targets": {
+            "arch": "uv",
+            "nix": "uv",
+            "homebrew": "uv"
+        },
+        "unavailableReason": "Install via `curl -LsSf https://astral.sh/uv/install.sh | sh`. See [installation guide](https://docs.astral.sh/uv/getting-started/installation/).",
+        "icon": {
+            "type": "iconify",
+            "set": "simple-icons",
+            "name": "astral",
+            "color": "#5C4EE5"
+        }
+    }
+]

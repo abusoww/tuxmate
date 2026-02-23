@@ -104,7 +104,8 @@ src/
 │   ├── useTooltip.ts
 │   └── useDelayedTooltip.ts
 ├── lib/
-│   ├── data.ts             # Apps, distros, icons
+│   ├── apps/               # JSON application files by category
+│   ├── data.ts             # Categories, distros, and app unifier
 │   ├── aur.ts              # AUR package detection
 │   ├── analytics.ts        # Umami tracking
 │   ├── utils.ts            # Utility functions
