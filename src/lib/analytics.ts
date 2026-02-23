@@ -1,5 +1,4 @@
-// Umami Analytics Utility
-// https://umami.is/docs/track-events
+
 
 declare global {
     interface Window {
@@ -9,7 +8,6 @@ declare global {
     }
 }
 
-// Safe wrapper - works even if Umami hasn't loaded yet
 export function track(
     eventName: string,
     eventData?: Record<string, string | number | boolean>
@@ -19,33 +17,24 @@ export function track(
     }
 }
 
-// Event names for the Umami dashboard
-
 export const EVENTS = {
-    // Distro Selection
     DISTRO_SELECTED: 'Distro Selected',
 
-    // App Interactions
     APP_SELECTED: 'App Selected',
     APP_DESELECTED: 'App Deselected',
 
-    // Command Actions
     COMMAND_COPIED: 'Command Copied',
     SCRIPT_DOWNLOADED: 'Script Downloaded',
 
-    // Navigation
     GITHUB_CLICKED: 'GitHub Clicked',
     CONTRIBUTE_CLICKED: 'Contribute Clicked',
 
-    // UI Interactions
     HELP_OPENED: 'How It Works Opened',
     HELP_CLOSED: 'How It Works Closed',
     THEME_CHANGED: 'Theme Changed',
     CATEGORY_EXPANDED: 'Category Expanded',
     CATEGORY_COLLAPSED: 'Category Collapsed',
 } as const;
-
-// Helper functions so we don't have to remember event names
 
 export const analytics = {
     distroSelected: (distro: string) => {

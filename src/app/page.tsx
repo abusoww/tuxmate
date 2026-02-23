@@ -272,6 +272,7 @@ export default function Home() {
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div className="header-animate">
                             <div className="flex items-center gap-4">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
                                     src="/tuxmate.png"
                                     alt="TuxMate Logo"

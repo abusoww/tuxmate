@@ -1,22 +1,17 @@
-// Nix unfree package detection - these require allowUnfree = true
+import nixUnfreeList from './nix-unfree.json';
 
-import unfreeData from './nix-unfree.json';
 
-// Loaded from JSON source
-export const KNOWN_UNFREE_PACKAGES = new Set(unfreeData.packages);
+
+const UNFREE_PACKAGES = new Set(nixUnfreeList.packages);
 
 export function isUnfreePackage(pkg: string): boolean {
     const cleanPkg = pkg.trim().toLowerCase();
 
-    // Direct match
-    if (KNOWN_UNFREE_PACKAGES.has(cleanPkg)) return true;
+    if (UNFREE_PACKAGES.has(cleanPkg)) return true;
 
-    // Nested packages like jetbrains.idea-ultimate
-    // We iterate because the set is small (matches original logic)
-    for (const unfree of KNOWN_UNFREE_PACKAGES) {
-        if (cleanPkg.includes(unfree)) return true;
+    for (const unfreePkg of Array.from(UNFREE_PACKAGES)) {
+        if (cleanPkg.includes(unfreePkg)) return true;
     }
 
     return false;
 }
-

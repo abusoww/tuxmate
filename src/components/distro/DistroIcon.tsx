@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-// Shows distro icon, falls back to first letter if image fails
 export function DistroIcon({ url, name, size = 20 }: { url: string; name: string; size?: number }) {
     const [error, setError] = useState(false);
 

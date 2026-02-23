@@ -419,7 +419,6 @@ export function Sidebar({
                 <div className="flex items-center justify-between">
                     <ThemeToggle />
 
-                    {/* Links */}
                     <div className="flex items-center gap-0.5">
                         <a
                             href="https://github.com/abusoww/tuxmate"

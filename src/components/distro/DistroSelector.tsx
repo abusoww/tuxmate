@@ -7,7 +7,6 @@ import { distros, type DistroId } from '@/lib/data';
 import { analytics } from '@/lib/analytics';
 import { DistroIcon } from './DistroIcon';
 
-// Distro picker dropdown.
 export function DistroSelector({
     selectedDistro,
     onSelect

@@ -1,4 +1,4 @@
-// Re-exports all distro script generators
+
 
 export { escapeShellString, getSelectedPackages, type PackageInfo } from './shared';
 export { generateUbuntuScript } from './ubuntu';

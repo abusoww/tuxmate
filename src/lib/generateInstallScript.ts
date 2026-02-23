@@ -1,6 +1,3 @@
-// Main entry point for generating install scripts.
-// Each distro has its own module - keeps things sane.
-
 import { distros, type DistroId } from './data';
 import {
     getSelectedPackages,
@@ -15,14 +12,13 @@ import {
     generateHomebrewScript,
 } from './scripts';
 
-interface ScriptOptions {
+interface GenerateOptions {
     distroId: DistroId;
     selectedAppIds: Set<string>;
     helper?: 'yay' | 'paru';
 }
 
-// Full install script for download. Nix gets a config file, others get shell scripts.
-export function generateInstallScript(options: ScriptOptions): string {
+export function generateInstallScript(options: GenerateOptions): string {
     const { distroId, selectedAppIds, helper = 'yay' } = options;
     const distro = distros.find(d => d.id === distroId);
 
@@ -45,8 +41,8 @@ export function generateInstallScript(options: ScriptOptions): string {
     }
 }
 
-// Quick one-liner for copy-paste warriors
-export function generateSimpleCommand(selectedAppIds: Set<string>, distroId: DistroId): string {
+export function generateCommandline(options: GenerateOptions): string {
+    const { selectedAppIds, distroId } = options;
     const packages = getSelectedPackages(selectedAppIds, distroId);
     if (packages.length === 0) return '# No packages selected';
 
