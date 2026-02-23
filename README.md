@@ -263,6 +263,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 - **[LinuxToys](https://github.com/psygreg/linuxtoys)** – User-friendly collection of tools for Linux with an intuitive interface
 - **[Nixite](https://github.com/aspizu/nixite)** – Generates bash scripts to install Linux software, inspired by Ninite
 - **[tuxmate-cli](https://github.com/Gururagavendra/tuxmate-cli)** – CLI companion for tuxmate, uses tuxmate's package database
+- **[xpm](https://github.com/verseles/xpm)** – Universal package manager for any unix-like distro including macOS
 
 </details>
 
