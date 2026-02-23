@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 
-// App icon with lazy loading, falls back to first letter if it fails
 export function AppIcon({ url, name }: { url: string; name: string }) {
     const [error, setError] = useState(false);
 

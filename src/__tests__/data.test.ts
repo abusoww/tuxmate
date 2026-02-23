@@ -41,7 +41,8 @@ describe('Data Module', () => {
                 expect(app.name).toBeTruthy();
                 expect(app.description).toBeTruthy();
                 expect(app.category).toBeTruthy();
-                expect(app.iconUrl).toBeTruthy();
+                expect(app.icon).toBeDefined();
+                expect(app.icon.type).toBeTruthy();
                 expect(app.targets).toBeDefined();
             });
         });

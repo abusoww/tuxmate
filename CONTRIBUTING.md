@@ -33,7 +33,8 @@
 
 ## Project Overview
 
-*   `src/lib/data.ts`: Main registry for applications and distributions.
+*   `src/lib/apps/*.json`: Main registry for applications (split by category).
+*   `src/lib/data.ts`: Main registry for distributions, categories, and Typescript types.
 *   `src/lib/aur-packages.json`: Whitelist for AUR packages that lack standard suffixes.
 *   `src/lib/nix-unfree.json`: Registry for unfree Nix packages.
 *   `src/lib/verified-flatpaks.json`: Auto-generated list of verified Flathub apps. **Do not edit.**
@@ -100,7 +101,7 @@ docker run -it --rm fedora:latest bash -c "dnf check-update; bash"
 
 ## Adding Applications
 
-All applications are defined in [`src/lib/data.ts`](src/lib/data.ts).
+All applications are defined in category-specific JSON files within [`src/lib/apps/`](src/lib/apps/).
 
 ### 1. Mandatory Research Protocol
 
@@ -122,22 +123,26 @@ All applications are defined in [`src/lib/data.ts`](src/lib/data.ts).
 
 ### 2. Entry Structure
 
-```typescript
+```json
 {
-  id: 'app-id',                        // Unique, lowercase, kebab-case
-  name: 'App Name',                    // Official display name
-  description: 'Short description',    // Max ~60 characters
-  category: 'Category',                // Must match valid categories
-  iconUrl: si('icon-slug', '#color'),  // See Icon System section
-  targets: {
-    ubuntu: 'exact-package-name',      // apt package (official repos ONLY)
-    arch: 'exact-package-name',        // pacman OR AUR package name
-    flatpak: 'com.vendor.AppId',       // FULL Flatpak App ID (reverse DNS)
-    snap: 'snap-name',                 // Add --classic if needed
-    homebrew: 'formula-name',          // Formula (CLI) or '--cask name' (GUI)
-    // ... add other distros
+  "id": "app-id",                      // Unique, lowercase, kebab-case
+  "name": "App Name",                  // Official display name
+  "description": "Short description",  // Max ~60 characters
+  "category": "Category",              // Must match valid categories
+  "icon": {                            // See Icon System section
+    "type": "iconify",
+    "set": "simple-icons",
+    "name": "python",
+    "color": "#3776AB"
   },
-  unavailableReason?: 'Markdown install instructions'
+  "targets": {
+    "ubuntu": "exact-package-name",    // apt package (official repos ONLY)
+    "arch": "exact-package-name",      // pacman OR AUR package name
+    "flatpak": "com.vendor.AppId",     // FULL Flatpak App ID (reverse DNS)
+    "snap": "snap-name",               // Add --classic if needed
+    "homebrew": "formula-name"         // Formula (CLI) or '--cask name' (GUI)
+  },
+  "unavailableReason": "Markdown install instructions"
 }
 ```
 
@@ -171,7 +176,7 @@ This field renders Markdown when a target is missing. It serves as the manual fa
 Nixpkgs requires explicit user consent for unfree software.
 1.  Check the license on [search.nixos.org](https://search.nixos.org/packages).
 2.  If the license is unfree, add it to `src/lib/nix-unfree.json` if missing.
-3.  Add the package to `data.ts` normally.
+3.  Add the package to the appropriate JSON file in `src/lib/apps/` normally.
 
 #### Ubuntu/Debian
 **Strict Repository Policy**: The generation scripts do **not** enable extra repositories (like PPAs or `non-free` by default). Packages must be available in the standard enabled repositories.
@@ -214,18 +219,40 @@ Homebrew (macOS/Linux) has two package types. Check [formulae.brew.sh](https://f
 
 ### 5. Icon System
 
-We use [Iconify](https://iconify.design/).
+Every app needs an icon! Our JSON format makes it super simple to add icons using [Iconify](https://iconify.design/). 
 
-**Helper Functions:**
-*   `si('slug', '#color')` for **Simple Icons** (Brands).
-*   `lo('slug')` for **Logos** (Multi-colored).
-*   `mdi('name', '#color')` for **Material Design**.
+We store icons as structured objects in the JSON. You just need to provide the set, name, and color:
+```json
+"icon": {
+  "type": "iconify",
+  "set": "simple-icons",
+  "name": "python",
+  "color": "#3776AB"
+}
+```
 
-**External URLs Rules:**
-If an icon is missing from Iconify:
-1.  Use a **Direct SVG URL** (preferred) or high-res PNG (min 64x64).
-2.  Must be hosted on a **stable domain** (Wikimedia, GitHub Raw, Official Site).
-3.  Do not use temporary URLs or hotlink-protected sites.
+#### The 3 Main Icon Sets We Use:
+1.  **Simple Icons** (`"set": "simple-icons"`)
+    *   Used for major brands and single-color logos (like Discord or Python).
+    *   *You must provide a hex `"color"` for these.*
+2.  **Logos** (`"set": "logos"`)
+    *   Used when an app has a multi-colored, official logo. 
+    *   *You don't need a `"color"` for these.*
+3.  **Material Design** (`"set": "mdi"`)
+    *   Used for generic utilities (like a terminal or a magnifying glass).
+    *   *You must provide a hex `"color"` for these.*
+
+#### Can't find it on Iconify?
+If an app's icon isn't on Iconify, you can use a direct link to an image (SVG preferred, or a high-res PNG).
+Just change the `"type"` to `"url"`:
+```json
+"icon": {
+  "type": "url",
+  "url": "https://raw.githubusercontent.com/..."
+}
+```
+*   ✅ **DO:** Use a stable link (like the app's official GitHub repo raw image, or Wikimedia).
+*   ❌ **DON'T:** Use temporary image hosts (like Imgur) or hotlink-protected websites.
 
 ### 6. Valid Categories
 

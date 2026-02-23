@@ -2,10 +2,9 @@
 
 import { memo } from 'react';
 import { Check } from 'lucide-react';
-import { distros, type DistroId, type AppData } from '@/lib/data';
+import { distros, getIconUrl, type DistroId, type AppData } from '@/lib/data';
 import { isAurPackage } from '@/lib/aur';
 import { AppIcon } from './AppIcon';
-// Individual app item.
 const COLOR_MAP: Record<string, string> = {
     'orange': '#f97316',
     'blue': '#3b82f6',
@@ -98,7 +97,7 @@ export const AppItem = memo(function AppItem({
             >
                 {isSelected && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
             </div>
-            <AppIcon url={app.iconUrl} name={app.name} />
+            <AppIcon url={getIconUrl(app.icon)} name={app.name} />
             <div className="flex-1 flex items-baseline gap-1.5 min-w-0 overflow-hidden">
                 <span
                     className={`truncate cursor-help ${!isAvailable ? 'text-[var(--text-muted)]' : isSelected ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}
