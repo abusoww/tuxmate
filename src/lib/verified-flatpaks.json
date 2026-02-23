@@ -1,8 +1,8 @@
 {
   "meta": {
-    "fetchedAt": "2026-02-22T09:54:12.215Z"
+    "fetchedAt": "2026-02-23T09:27:17.164Z"
   },
-  "count": 697,
+  "count": 695,
   "apps": [
     "ai.jan.Jan",
     "app.bluebubbles.BlueBubbles",
@@ -225,7 +225,6 @@
     "fr.handbrake.ghb",
     "garden.jamie.Morphosis",
     "gg.minion.Minion",
-    "gg.norisk.NoRiskClientLauncherV3",
     "hu.irl.cameractrls",
     "im.bernard.Nostalgia",
     "im.dino.Dino",
@@ -342,7 +341,6 @@
     "io.github.nozwock.Packet",
     "io.github.nroduit.Weasis",
     "io.github.nuttyartist.notes",
-    "io.github.olaproeis.Ferrite",
     "io.github.onionware_github.onionmedia",
     "io.github.pantheon_tweaks.pantheon-tweaks",
     "io.github.peazip.PeaZip",
@@ -399,7 +397,6 @@
     "io.gitlab.theevilskeleton.Upscaler",
     "io.kapsa.drive",
     "io.kinvolk.Headlamp",
-    "io.m51.Gelly",
     "io.missioncenter.MissionCenter",
     "io.openrct2.OpenRCT2",
     "io.podman_desktop.PodmanDesktop",
@@ -456,6 +453,7 @@
     "org.altlinux.Tuner",
     "org.azahar_emu.Azahar",
     "org.bunkus.mkvtoolnix-gui",
+    "org.chessmd.chessmd",
     "org.cloudcompare.CloudCompare",
     "org.cockpit_project.CockpitClient",
     "org.contourterminal.Contour",
@@ -630,7 +628,6 @@
     "org.openrgb.OpenRGB",
     "org.openscad.OpenSCAD",
     "org.opensurge2d.OpenSurge",
-    "org.pencil2d.Pencil2D",
     "org.photoqt.PhotoQt",
     "org.pitivi.Pitivi",
     "org.ppsspp.PPSSPP",
@@ -673,6 +670,7 @@
     "page.codeberg.libre_menu_editor.LibreMenuEditor",
     "page.codeberg.lo_vely.Nucleus",
     "page.codeberg.tahoso.azul-box",
+    "page.codeberg.vendillah.GamepadMirror",
     "page.kramo.Cartridges",
     "page.tesk.Refine",
     "re.fossplant.songrec",

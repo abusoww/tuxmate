@@ -1,5 +1,3 @@
-// Stuff shared across all distro script generators
-
 import { apps, type DistroId, type AppData } from '../data';
 
 export interface PackageInfo {
@@ -7,14 +5,13 @@ export interface PackageInfo {
     pkg: string;
 }
 
-// Don't let anyone sneak shell commands through app names :)
 export function escapeShellString(str: string): string {
     return str
-        .replace(/\\/g, '\\\\')   // Escape backslashes first
-        .replace(/"/g, '\\"')     // Escape double quotes
-        .replace(/\$/g, '\\$')    // Escape dollar signs
-        .replace(/`/g, '\\`')     // Escape backticks
-        .replace(/!/g, '\\!');    // Escape history expansion
+        .replace(/\\/g, '\\\\')
+        .replace(/"/g, '\\"')
+        .replace(/\$/g, '\\$')
+        .replace(/`/g, '\\`')
+        .replace(/!/g, '\\!');
 }
 
 export function getSelectedPackages(selectedAppIds: Set<string>, distroId: DistroId): PackageInfo[] {
@@ -42,114 +39,116 @@ export function generateAsciiHeader(distroName: string, pkgCount: number): strin
 #  Packages: ${pkgCount}
 #  Generated: ${date}
 #
-# ─────────────────────────────────────────────────────────────────────────────
+# ---------------------------------------------------------------------------
 
 set -euo pipefail
+
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+export LC_ALL=C
+umask 077
 
 `;
 }
 
-export function generateSharedUtils(total: number): string {
-    return `# ─────────────────────────────────────────────────────────────────────────────
-#  Colors & Utilities
-# ─────────────────────────────────────────────────────────────────────────────
+export function generateSharedUtils(distroName: string, total: number): string {
+    return `# ---------------------------------------------------------------------------
+#  Logging & Colors
+# ---------------------------------------------------------------------------
 
-if [ -t 1 ]; then
+LOG="/tmp/tuxmate-${distroName.toLowerCase().replace(/\s+/g, '-')}-$(date +%Y%m%d-%H%M%S).log"
+# Save original stdout to FD 3
+exec 3>&1
+# Redirect script's stdout & stderr to the log file to keep TTY clean
+exec > "$LOG" 2>&1
+
+if [ -t 3 ]; then
     RED='\\033[0;31m' GREEN='\\033[0;32m' YELLOW='\\033[1;33m'
     BLUE='\\033[0;34m' CYAN='\\033[0;36m' BOLD='\\033[1m' DIM='\\033[2m' NC='\\033[0m'
 else
     RED='' GREEN='' YELLOW='' BLUE='' CYAN='' BOLD='' DIM='' NC=''
 fi
 
-info()    { echo -e "\${BLUE}::\${NC} $1"; }
-success() { echo -e "\${GREEN}✓\${NC} $1"; }
-warn()    { echo -e "\${YELLOW}!\${NC} $1"; }
-error()   { echo -e "\${RED}✗\${NC} $1" >&2; }
-skip()    { echo -e "\${DIM}○\${NC} $1 \${DIM}(already installed)\${NC}"; }
-timing()  { echo -e "\${GREEN}✓\${NC} $1 \${DIM}($2s)\${NC}"; }
+# Print visually to FD 3 (the user's terminal)
+info()    { echo -e "\${BLUE}::\${NC} $1" >&3; echo ":: $1"; }
+success() {
+    if [ -n "\${2:-}" ]; then
+        echo -e "\${GREEN}[+]\${NC} $1 \${DIM}(\$2)\${NC}" >&3
+        echo "[+] $1 (\$2)"
+    else
+        echo -e "\${GREEN}[+]\${NC} $1" >&3
+        echo "[+] $1"
+    fi
+}
+warn()    { echo -e "\${YELLOW}[!]\${NC} $1" >&3; echo "[!] $1"; }
+error()   { echo -e "\${RED}[x]\${NC} $1" >&3; echo "[x] $1" >&2; }
+skip()    {
+    local reason="\${2:-already installed}"
+    echo -e "\${DIM}[-]\${NC} $1 \${DIM}(\$reason)\${NC}" >&3
+    echo "[-] $1 (\$reason)"
+}
 
-# Graceful exit on Ctrl+C
-trap 'printf "\\n"; warn "Installation cancelled by user"; print_summary; exit 130' INT
+trap 'printf "\\n" >&3; warn "Cancelled by user"; print_summary; exit 130' INT
 
 TOTAL=${total}
 CURRENT=0
 FAILED=()
 SUCCEEDED=()
 SKIPPED=()
-INSTALL_TIMES=()
 START_TIME=$(date +%s)
-AVG_TIME=8  # Initial estimate: 8 seconds per package
 
-show_progress() {
-    local current=$1 total=$2 name=$3
-    local percent=$((current * 100 / total))
-    local filled=$((percent / 5))
-    local empty=$((20 - filled))
+animate_progress() {
+    local name=$1 pid=$2
+    local start=$(date +%s)
+    local spinstr='|/-\\'
+    local spin_idx=0
     
-    # Calculate ETA
-    local remaining=$((total - current))
-    local eta=$((remaining * AVG_TIME))
-    local eta_str=""
-    if [ $eta -ge 60 ]; then
-        eta_str="~$((eta / 60))m"
-    else
-        eta_str="~\${eta}s"
-    fi
-    
-    printf "\\r\\033[K[\${CYAN}"
-    printf "%\${filled}s" | tr ' ' '█'
-    printf "\${NC}"
-    printf "%\${empty}s" | tr ' ' '░'
-    printf "] %3d%% (%d/%d) \${BOLD}%s\${NC} \${DIM}%s left\${NC}" "$percent" "$current" "$total" "$name" "$eta_str"
+    while kill -0 $pid 2>/dev/null; do
+        local elapsed=$(($(date +%s) - start))
+        local percent=$((CURRENT * 100 / TOTAL))
+        local filled=$((percent / 5))
+        local empty=$((20 - filled))
+        
+        local hash="####################"
+        local dash="--------------------"
+        local bar="\${CYAN}\${hash:0:filled}\${NC}\${dash:0:empty}"
+        local spin_char="\${spinstr:$spin_idx:1}"
+        spin_idx=$(( (spin_idx + 1) % 4 ))
+        
+        printf "\\r\\033[K[%b] %3d%% (%d/%d) \${BOLD}%s\${NC} [%c] %ds" "$bar" "$percent" "$CURRENT" "$TOTAL" "$name" "$spin_char" "$elapsed" >&3
+        
+        sleep 0.1
+    done
+    wait $pid
+    return $?
 }
 
-# Update average install time
-update_avg_time() {
-    local new_time=$1
-    if [ \${#INSTALL_TIMES[@]} -eq 0 ]; then
-        AVG_TIME=$new_time
-    else
-        local sum=$new_time
-        for t in "\${INSTALL_TIMES[@]}"; do
-            sum=$((sum + t))
-        done
-        AVG_TIME=$((sum / (\${#INSTALL_TIMES[@]} + 1)))
-    fi
-    INSTALL_TIMES+=($new_time)
-}
-
-# Safe command executor (no eval)
-run_cmd() {
-    "$@" 2>&1
-}
-
-# Network retry wrapper - uses run_cmd for safety
 with_retry() {
-    local max_attempts=3
-    local attempt=1
-    local delay=5
-    
-    while [ $attempt -le $max_attempts ]; do
-        if output=$(run_cmd "$@"); then
-            echo "$output"
-            return 0
+    local attempt=1 max=3 delay=5
+    while [ $attempt -le $max ]; do
+        echo "=== Executing (Attempt $attempt/$max): $* ==="
+        if "$@"; then return 0; fi
+        echo "=== Command failed ==="
+        if [ $attempt -lt $max ]; then
+            echo "Retrying in \${delay}s..."
+            sleep $delay
+            delay=$((delay * 2))
         fi
-        
-        # Check for network errors
-        if echo "$output" | grep -qiE "network|connection|timeout|unreachable|resolve"; then
-            if [ $attempt -lt $max_attempts ]; then
-                warn "Network error, retrying in \${delay}s... (attempt $attempt/$max_attempts)"
-                sleep $delay
-                delay=$((delay * 2))
-                attempt=$((attempt + 1))
-                continue
-            fi
-        fi
-        
-        echo "$output"
-        return 1
+        attempt=$((attempt + 1))
     done
     return 1
+}
+
+wait_for_lock() {
+    local file=$1 timeout=60 elapsed=0
+    while [ -f "$file" ] || fuser "$file" >/dev/null 2>&1; do
+        if [ $elapsed -ge $timeout ]; then
+            error "Lock timeout after \${timeout}s: $file"
+            exit 1
+        fi
+        warn "Waiting for lock: $file"
+        sleep 2
+        elapsed=$((elapsed + 2))
+    done
 }
 
 print_summary() {
@@ -157,28 +156,29 @@ print_summary() {
     local duration=$((end_time - START_TIME))
     local mins=$((duration / 60))
     local secs=$((duration % 60))
-    
-    echo
-    echo "─────────────────────────────────────────────────────────────────────────────"
+
+    echo >&3
+    echo "---------------------------------------------------------------------------" >&3
     local installed=\${#SUCCEEDED[@]}
     local skipped_count=\${#SKIPPED[@]}
     local failed_count=\${#FAILED[@]}
-    
+
     if [ $failed_count -eq 0 ]; then
         if [ $skipped_count -gt 0 ]; then
-            echo -e "\${GREEN}✓\${NC} Done! $installed installed, $skipped_count already installed \${DIM}(\${mins}m \${secs}s)\${NC}"
+            echo -e "\${GREEN}[+]\${NC} Done: $installed installed, $skipped_count already present \${DIM}(\${mins}m \${secs}s)\${NC}" >&3
         else
-            echo -e "\${GREEN}✓\${NC} All $TOTAL packages installed! \${DIM}(\${mins}m \${secs}s)\${NC}"
+            echo -e "\${GREEN}[+]\${NC} All $TOTAL packages installed \${DIM}(\${mins}m \${secs}s)\${NC}" >&3
         fi
     else
-        echo -e "\${YELLOW}!\${NC} $installed installed, $skipped_count skipped, $failed_count failed \${DIM}(\${mins}m \${secs}s)\${NC}"
-        echo
-        echo -e "\${RED}Failed:\${NC}"
+        echo -e "\${YELLOW}[!]\${NC} $installed installed, $skipped_count skipped, $failed_count failed \${DIM}(\${mins}m \${secs}s)\${NC}" >&3
+        echo >&3
+        echo -e "\${RED}Failed:\${NC}" >&3
         for pkg in "\${FAILED[@]}"; do
-            echo "  • $pkg"
+            echo "  - $pkg" >&3
         done
     fi
-    echo "─────────────────────────────────────────────────────────────────────────────"
+    echo "---------------------------------------------------------------------------" >&3
+    echo -e "\${DIM}Log: $LOG\${NC}" >&3
 }
 
 `;
