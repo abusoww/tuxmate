@@ -270,7 +270,7 @@
       "flatpak": "org.geany.Geany",
       "homebrew": "--cask geany"
     },
-    "unavailableReason": "Snap is unmaintained, download from [Geany](https://www.geany.org/download/releases/) or use [Flatpak](https://flathub.org/en/apps/org.geany.Geany)",
+    "unavailableReason": "Snap is unmaintained, download from [Geany](https://www.geany.org/download/releases/) or use [Flatpak](https://flathub.org/en/apps/org.geany.Geany).",
     "icon": {
       "type": "url",
       "url": "https://www.geany.org/static/img/geany.svg"
