@@ -205,7 +205,7 @@
     "targets": {
       "arch": "nyxt",
       "flatpak": "engineer.atlas.Nyxt",
-      "nix": "nyx",
+      "nix": "nyxt",
       "opensuse": "nyxt"
     },
     "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/engineer.atlas.Nyxt).",
