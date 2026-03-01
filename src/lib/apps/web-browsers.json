@@ -11,6 +11,7 @@
       "fedora": "firefox",
       "opensuse": "MozillaFirefox",
       "nix": "firefox",
+      "void": "firefox",
       "flatpak": "org.mozilla.firefox",
       "snap": "firefox",
       "homebrew": "--cask firefox"
@@ -34,6 +35,7 @@
       "fedora": "chromium",
       "opensuse": "chromium",
       "nix": "chromium",
+      "void": "chromium",
       "flatpak": "org.chromium.Chromium",
       "snap": "chromium",
       "homebrew": "--cask chromium"
@@ -95,6 +97,7 @@
       "fedora": "torbrowser-launcher",
       "opensuse": "torbrowser-launcher",
       "nix": "tor-browser",
+      "void": "torbrowser-launcher",
       "flatpak": "org.torproject.torbrowser-launcher",
       "homebrew": "--cask tor-browser"
     },
@@ -206,7 +209,8 @@
       "arch": "nyxt",
       "flatpak": "engineer.atlas.Nyxt",
       "nix": "nyxt",
-      "opensuse": "nyxt"
+      "opensuse": "nyxt",
+      "void": "nyxt"
     },
     "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/engineer.atlas.Nyxt).",
     "icon": {
