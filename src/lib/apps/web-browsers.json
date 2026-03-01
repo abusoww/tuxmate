@@ -213,5 +213,22 @@
       "type": "url",
       "url": "https://nyxt.atlas.engineer/image/nyxt_square_corner_128x128.png"
     }
+  },
+  {
+    "id": "floorp",
+    "name": "Floorp",
+    "description": "A highly-customizable fork of Firefox.",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "floorp-bin",
+      "flatpak": "one.ablaze.floorp",
+      "homebrew": "--cask floorp",
+      "nix": "floorp"
+    },
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/one.ablaze.floorp) or see [floorp.app](https://floorp.app/download).",
+    "icon": {
+      "type": "url",
+      "url": "https://avatars.githubusercontent.com/u/94953125?s=200&v=4"
+    }
   }
 ]
