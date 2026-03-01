@@ -208,7 +208,7 @@
       "nix": "nyxt",
       "opensuse": "nyxt"
     },
-    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/engineer.atlas.Nyxt).",
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/engineer.atlas.Nyxt) or see [nyxt-browser.com](https://nyxt-browser.com/download)",
     "icon": {
       "type": "url",
       "url": "https://nyxt.atlas.engineer/image/nyxt_square_corner_128x128.png"
