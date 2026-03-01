@@ -213,5 +213,41 @@
       "type": "url",
       "url": "https://nyxt.atlas.engineer/image/nyxt_square_corner_128x128.png"
     }
+  },
+  {
+    "id": "floorp",
+    "name": "Floorp",
+    "description": "A highly-customizable fork of Firefox.",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "floorp-bin",
+      "flatpak": "one.ablaze.floorp",
+      "homebrew": "--cask floorp",
+      "nix": "floorp"
+    },
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/one.ablaze.floorp) or see [floorp.app](https://floorp.app/download).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "floorp",
+      "color": "#4B42FF"
+    }
+  },
+  {
+    "id": "mullvad-browser",
+    "name": "Mullvad Browser",
+    "description": "Privacy-focused browser made in collaboration with the Tor Project.",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "mullvad-browser-bin",
+      "flatpak": "net.mullvad.MullvadBrowser",
+      "homebrew": "--cask mullvad-browser",
+      "nix": "mullvad-browser"
+    },
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/net.mullvad.MullvadBrowser) or see [mullvad.net](https://mullvad.net/en/download/browser/linux).",
+    "icon": {
+      "type": "url",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Mullvad_Browser_logo.svg"
+    }
   }
 ]
