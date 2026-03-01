@@ -1,315 +1,324 @@
 [
-    {
-        "id": "vscode",
-        "name": "VS Code",
-        "description": "Most popular extensible code editor by Microsoft",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "code",
-            "nix": "vscode",
-            "flatpak": "com.visualstudio.code",
-            "snap": "code --classic",
-            "homebrew": "--cask visual-studio-code"
-        },
-        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.visualstudio.code)/[Snap](https://snapcraft.io/code) or download from [code.visualstudio.com](https://code.visualstudio.com/Download).",
-        "icon": {
-            "type": "iconify",
-            "set": "logos",
-            "name": "visual-studio-code"
-        }
+  {
+    "id": "vscode",
+    "name": "VS Code",
+    "description": "Most popular extensible code editor by Microsoft",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "code",
+      "nix": "vscode",
+      "void": "vscode",
+      "flatpak": "com.visualstudio.code",
+      "snap": "code --classic",
+      "homebrew": "--cask visual-studio-code"
     },
-    {
-        "id": "vscodium",
-        "name": "VSCodium",
-        "description": "Community-built VS Code without Microsoft telemetry",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "vscodium-bin",
-            "nix": "vscodium",
-            "flatpak": "com.vscodium.codium",
-            "snap": "codium --classic",
-            "homebrew": "--cask vscodium"
-        },
-        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.vscodium.codium)/[Snap](https://snapcraft.io/codium) or follow instructions at [vscodium.com](https://vscodium.com/#install).",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "vscodium",
-            "color": "#2F80ED"
-        }
-    },
-    {
-        "id": "vim",
-        "name": "Vim",
-        "description": "The classic modal text editor that started it all",
-        "category": "Dev: Editors",
-        "targets": {
-            "ubuntu": "vim",
-            "debian": "vim",
-            "arch": "vim",
-            "fedora": "vim-enhanced",
-            "opensuse": "vim",
-            "nix": "vim",
-            "flatpak": "org.vim.Vim",
-            "snap": "vim-editor",
-            "homebrew": "vim"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "vim",
-            "color": "#019733"
-        }
-    },
-    {
-        "id": "neovim",
-        "name": "Neovim",
-        "description": "Modernized Vim with better extensibility",
-        "category": "Dev: Editors",
-        "targets": {
-            "ubuntu": "neovim",
-            "debian": "neovim",
-            "arch": "neovim",
-            "fedora": "neovim",
-            "opensuse": "neovim",
-            "nix": "neovim",
-            "flatpak": "com.neovim.Neovim",
-            "snap": "nvim --classic",
-            "homebrew": "neovim"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "neovim",
-            "color": "#57A143"
-        }
-    },
-    {
-        "id": "helix",
-        "name": "Helix",
-        "description": "Modal editor with LSP and tree-sitter built-in",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "helix",
-            "fedora": "helix",
-            "opensuse": "helix",
-            "nix": "helix",
-            "flatpak": "com.helix-editor.Helix",
-            "snap": "helix --classic",
-            "homebrew": "helix"
-        },
-        "unavailableReason": "Not in official Debian/Ubuntu repos. For Ubuntu, add the PPA: `sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt update && sudo apt install helix`. For Debian, download .deb from [GitHub releases](https://github.com/helix-editor/helix/releases).",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "dna",
-            "color": "#4E2F7F"
-        }
-    },
-    {
-        "id": "micro",
-        "name": "Micro",
-        "description": "Easy-to-use terminal text editor like nano",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "micro",
-            "ubuntu": "micro",
-            "debian": "micro",
-            "fedora": "micro",
-            "opensuse": "micro-editor",
-            "nix": "micro-editor",
-            "flatpak": "io.github.zyedidia.micro",
-            "snap": "micro --classic",
-            "homebrew": "micro"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "microeditor",
-            "color": "#2E3192"
-        }
-    },
-    {
-        "id": "zed",
-        "name": "Zed",
-        "description": "High-performance editor with real-time collaboration",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "zed",
-            "nix": "zed-editor",
-            "flatpak": "dev.zed.Zed",
-            "homebrew": "--cask zed"
-        },
-        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/dev.zed.Zed) or see [zed.dev/docs/linux](https://zed.dev/docs/linux#other-ways-to-install-zed-on-linux) for other methods.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "zedindustries",
-            "color": "#084CCF"
-        }
-    },
-    {
-        "id": "sublime",
-        "name": "Sublime Text",
-        "description": "Lightning-fast proprietary text editor",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "sublime-text-4",
-            "nix": "sublime",
-            "flatpak": "com.sublimetext.three",
-            "snap": "sublime-text --classic",
-            "homebrew": "--cask sublime-text"
-        },
-        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.sublimetext.three)/[Snap](https://snapcraft.io/sublime-text) or follow instructions at [sublimetext.com/docs/linux_repositories](https://www.sublimetext.com/docs/linux_repositories.html).",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "sublimetext",
-            "color": "#FF9800"
-        }
-    },
-    {
-        "id": "arduino",
-        "name": "Arduino IDE",
-        "description": "IDE for Arduino microcontroller development",
-        "category": "Dev: Editors",
-        "targets": {
-            "ubuntu": "arduino",
-            "debian": "arduino",
-            "arch": "arduino",
-            "fedora": "arduino",
-            "nix": "arduino-ide",
-            "flatpak": "cc.arduino.IDE2",
-            "snap": "arduino",
-            "homebrew": "--cask arduino-ide"
-        },
-        "unavailableReason": "Arduino IDE is not in official openSUSE repos. Use [Flatpak](https://flathub.org/en/apps/cc.arduino.IDE2) or [Snap](https://snapcraft.io/arduino) instead.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "arduino",
-            "color": "#00878F"
-        }
-    },
-    {
-        "id": "cursor",
-        "name": "Cursor",
-        "description": "AI-powered code editor based on VS Code",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "cursor-bin",
-            "nix": "code-cursor",
-            "homebrew": "--cask cursor"
-        },
-        "unavailableReason": "Only available via [AUR](https://aur.archlinux.org/packages/cursor-bin) or Nix. Download from [cursor.com/download](https://cursor.com/download).",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "cursor",
-            "color": "#232020ff"
-        }
-    },
-    {
-        "id": "kate",
-        "name": "Kate",
-        "description": "Feature-rich text editor by KDE with syntax highlighting",
-        "category": "Dev: Editors",
-        "targets": {
-            "ubuntu": "kate",
-            "debian": "kate",
-            "arch": "kate",
-            "fedora": "kate",
-            "opensuse": "kate",
-            "nix": "kdePackages.kate",
-            "flatpak": "org.kde.kate",
-            "snap": "kate --classic",
-            "homebrew": "--cask kate"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "kde",
-            "color": "#1D99F3"
-        }
-    },
-    {
-        "id": "emacs",
-        "name": "Emacs",
-        "description": "Extensible, customizable, free/libre text editor",
-        "category": "Dev: Editors",
-        "targets": {
-            "ubuntu": "emacs",
-            "debian": "emacs",
-            "arch": "emacs",
-            "fedora": "emacs",
-            "opensuse": "emacs",
-            "nix": "emacs",
-            "flatpak": "org.gnu.emacs",
-            "snap": "emacs --classic",
-            "homebrew": "--cask emacs-app"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "gnuemacs",
-            "color": "#7F5AB6"
-        }
-    },
-    {
-        "id": "intellij-idea",
-        "name": "Intellij IDEA",
-        "description": "IDE for Java and Kotlin developers by Jetbrains",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "intellij-idea-ultimate-edition",
-            "nix": "jetbrains.idea",
-            "flatpak": "com.jetbrains.IntelliJ-IDEA-Ultimate",
-            "homebrew": "--cask intellij-idea",
-            "snap": "intellij-idea --classic"
-        },
-        "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/idea/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.IntelliJ-IDEA-Ultimate) / [Snap](https://snapcraft.io/intellij-idea).",
-        "icon": {
-            "type": "iconify",
-            "set": "logos",
-            "name": "intellij-idea"
-        }
-    },
-    {
-        "id": "pycharm",
-        "name": "Pycharm",
-        "description": "IDE for Python developers and Data scientists by Jetbrains",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "pycharm",
-            "flatpak": "com.jetbrains.PyCharm-Professional",
-            "homebrew": "--cask pycharm",
-            "snap": "pycharm --classic",
-            "nix": "jetbrains.pycharm"
-        },
-        "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/pycharm/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.PyCharm-Professional) / [Snap](https://snapcraft.io/pycharm).",
-        "icon": {
-            "type": "iconify",
-            "set": "logos",
-            "name": "pycharm"
-        }
-    },
-    {
-        "id": "clion",
-        "name": "CLion",
-        "description": "IDE for C and C++ developers by Jetbrains",
-        "category": "Dev: Editors",
-        "targets": {
-            "arch": "clion",
-            "flatpak": "com.jetbrains.CLion",
-            "homebrew": "--cask clion",
-            "snap": "clion --classic",
-            "nix": "jetbrains.clion"
-        },
-        "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/clion/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.CLion) / [Snap](https://snapcraft.io/clion).",
-        "icon": {
-            "type": "iconify",
-            "set": "logos",
-            "name": "clion"
-        }
+    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.visualstudio.code)/[Snap](https://snapcraft.io/code) or download from [code.visualstudio.com](https://code.visualstudio.com/Download).",
+    "icon": {
+      "type": "iconify",
+      "set": "logos",
+      "name": "visual-studio-code"
     }
+  },
+  {
+    "id": "vscodium",
+    "name": "VSCodium",
+    "description": "Community-built VS Code without Microsoft telemetry",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "vscodium-bin",
+      "nix": "vscodium",
+      "flatpak": "com.vscodium.codium",
+      "snap": "codium --classic",
+      "homebrew": "--cask vscodium"
+    },
+    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.vscodium.codium)/[Snap](https://snapcraft.io/codium) or follow instructions at [vscodium.com](https://vscodium.com/#install).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "vscodium",
+      "color": "#2F80ED"
+    }
+  },
+  {
+    "id": "vim",
+    "name": "Vim",
+    "description": "The classic modal text editor that started it all",
+    "category": "Dev: Editors",
+    "targets": {
+      "ubuntu": "vim",
+      "debian": "vim",
+      "arch": "vim",
+      "fedora": "vim-enhanced",
+      "opensuse": "vim",
+      "nix": "vim",
+      "void": "vim",
+      "flatpak": "org.vim.Vim",
+      "snap": "vim-editor",
+      "homebrew": "vim"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "vim",
+      "color": "#019733"
+    }
+  },
+  {
+    "id": "neovim",
+    "name": "Neovim",
+    "description": "Modernized Vim with better extensibility",
+    "category": "Dev: Editors",
+    "targets": {
+      "ubuntu": "neovim",
+      "debian": "neovim",
+      "arch": "neovim",
+      "fedora": "neovim",
+      "opensuse": "neovim",
+      "nix": "neovim",
+      "void": "neovim",
+      "flatpak": "com.neovim.Neovim",
+      "snap": "nvim --classic",
+      "homebrew": "neovim"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "neovim",
+      "color": "#57A143"
+    }
+  },
+  {
+    "id": "helix",
+    "name": "Helix",
+    "description": "Modal editor with LSP and tree-sitter built-in",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "helix",
+      "fedora": "helix",
+      "opensuse": "helix",
+      "nix": "helix",
+      "void": "helix",
+      "flatpak": "com.helix-editor.Helix",
+      "snap": "helix --classic",
+      "homebrew": "helix"
+    },
+    "unavailableReason": "Not in official Debian/Ubuntu repos. For Ubuntu, add the PPA: `sudo add-apt-repository ppa:maveonair/helix-editor && sudo apt update && sudo apt install helix`. For Debian, download .deb from [GitHub releases](https://github.com/helix-editor/helix/releases).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "dna",
+      "color": "#4E2F7F"
+    }
+  },
+  {
+    "id": "micro",
+    "name": "Micro",
+    "description": "Easy-to-use terminal text editor like nano",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "micro",
+      "ubuntu": "micro",
+      "debian": "micro",
+      "fedora": "micro",
+      "opensuse": "micro-editor",
+      "nix": "micro-editor",
+      "void": "micro",
+      "flatpak": "io.github.zyedidia.micro",
+      "snap": "micro --classic",
+      "homebrew": "micro"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "microeditor",
+      "color": "#2E3192"
+    }
+  },
+  {
+    "id": "zed",
+    "name": "Zed",
+    "description": "High-performance editor with real-time collaboration",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "zed",
+      "nix": "zed-editor",
+      "flatpak": "dev.zed.Zed",
+      "homebrew": "--cask zed"
+    },
+    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/dev.zed.Zed) or see [zed.dev/docs/linux](https://zed.dev/docs/linux#other-ways-to-install-zed-on-linux) for other methods.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "zedindustries",
+      "color": "#084CCF"
+    }
+  },
+  {
+    "id": "sublime",
+    "name": "Sublime Text",
+    "description": "Lightning-fast proprietary text editor",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "sublime-text-4",
+      "nix": "sublime",
+      "void": "sublime-text4",
+      "flatpak": "com.sublimetext.three",
+      "snap": "sublime-text --classic",
+      "homebrew": "--cask sublime-text"
+    },
+    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.sublimetext.three)/[Snap](https://snapcraft.io/sublime-text) or follow instructions at [sublimetext.com/docs/linux_repositories](https://www.sublimetext.com/docs/linux_repositories.html).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "sublimetext",
+      "color": "#FF9800"
+    }
+  },
+  {
+    "id": "arduino",
+    "name": "Arduino IDE",
+    "description": "IDE for Arduino microcontroller development",
+    "category": "Dev: Editors",
+    "targets": {
+      "ubuntu": "arduino",
+      "debian": "arduino",
+      "arch": "arduino",
+      "fedora": "arduino",
+      "nix": "arduino-ide",
+      "void": "arduino",
+      "flatpak": "cc.arduino.IDE2",
+      "snap": "arduino",
+      "homebrew": "--cask arduino-ide"
+    },
+    "unavailableReason": "Arduino IDE is not in official openSUSE repos. Use [Flatpak](https://flathub.org/en/apps/cc.arduino.IDE2) or [Snap](https://snapcraft.io/arduino) instead.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "arduino",
+      "color": "#00878F"
+    }
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "description": "AI-powered code editor based on VS Code",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "cursor-bin",
+      "nix": "code-cursor",
+      "homebrew": "--cask cursor"
+    },
+    "unavailableReason": "Only available via [AUR](https://aur.archlinux.org/packages/cursor-bin) or Nix. Download from [cursor.com/download](https://cursor.com/download).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "cursor",
+      "color": "#232020ff"
+    }
+  },
+  {
+    "id": "kate",
+    "name": "Kate",
+    "description": "Feature-rich text editor by KDE with syntax highlighting",
+    "category": "Dev: Editors",
+    "targets": {
+      "ubuntu": "kate",
+      "debian": "kate",
+      "arch": "kate",
+      "fedora": "kate",
+      "opensuse": "kate",
+      "nix": "kdePackages.kate",
+      "void": "kate",
+      "flatpak": "org.kde.kate",
+      "snap": "kate --classic",
+      "homebrew": "--cask kate"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "kde",
+      "color": "#1D99F3"
+    }
+  },
+  {
+    "id": "emacs",
+    "name": "Emacs",
+    "description": "Extensible, customizable, free/libre text editor",
+    "category": "Dev: Editors",
+    "targets": {
+      "ubuntu": "emacs",
+      "debian": "emacs",
+      "arch": "emacs",
+      "fedora": "emacs",
+      "opensuse": "emacs",
+      "nix": "emacs",
+      "void": "emacs",
+      "flatpak": "org.gnu.emacs",
+      "snap": "emacs --classic",
+      "homebrew": "--cask emacs-app"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "gnuemacs",
+      "color": "#7F5AB6"
+    }
+  },
+  {
+    "id": "intellij-idea",
+    "name": "Intellij IDEA",
+    "description": "IDE for Java and Kotlin developers by Jetbrains",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "intellij-idea-ultimate-edition",
+      "nix": "jetbrains.idea",
+      "flatpak": "com.jetbrains.IntelliJ-IDEA-Ultimate",
+      "homebrew": "--cask intellij-idea",
+      "snap": "intellij-idea --classic"
+    },
+    "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/idea/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.IntelliJ-IDEA-Ultimate) / [Snap](https://snapcraft.io/intellij-idea).",
+    "icon": {
+      "type": "iconify",
+      "set": "logos",
+      "name": "intellij-idea"
+    }
+  },
+  {
+    "id": "pycharm",
+    "name": "Pycharm",
+    "description": "IDE for Python developers and Data scientists by Jetbrains",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "pycharm",
+      "flatpak": "com.jetbrains.PyCharm-Professional",
+      "homebrew": "--cask pycharm",
+      "snap": "pycharm --classic",
+      "nix": "jetbrains.pycharm"
+    },
+    "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/pycharm/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.PyCharm-Professional) / [Snap](https://snapcraft.io/pycharm).",
+    "icon": {
+      "type": "iconify",
+      "set": "logos",
+      "name": "pycharm"
+    }
+  },
+  {
+    "id": "clion",
+    "name": "CLion",
+    "description": "IDE for C and C++ developers by Jetbrains",
+    "category": "Dev: Editors",
+    "targets": {
+      "arch": "clion",
+      "flatpak": "com.jetbrains.CLion",
+      "homebrew": "--cask clion",
+      "snap": "clion --classic",
+      "nix": "jetbrains.clion"
+    },
+    "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/clion/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.CLion) / [Snap](https://snapcraft.io/clion).",
+    "icon": {
+      "type": "iconify",
+      "set": "logos",
+      "name": "clion"
+    }
+  }
 ]
