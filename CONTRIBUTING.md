@@ -117,6 +117,7 @@ All applications are defined in category-specific JSON files within [`src/lib/ap
 | **Fedora** | Official Repos | [packages.fedoraproject.org](https://packages.fedoraproject.org/) |
 | **OpenSUSE** | Official Repos | [software.opensuse.org](https://software.opensuse.org/) |
 | **Nix** | Nixpkgs | [search.nixos.org](https://search.nixos.org/packages) |
+| **Void** | Official Repos | [voidlinux.org/packages](https://voidlinux.org/packages/) |
 | **Flathub** | Flatpaks | [flathub.org](https://flathub.org/) |
 | **Snapcraft** | Snaps | [snapcraft.io](https://snapcraft.io/) |
 | **Homebrew** | CLI & Casks | [formulae.brew.sh](https://formulae.brew.sh/) |
