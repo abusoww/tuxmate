@@ -1,431 +1,450 @@
 [
-    {
-        "id": "btop",
-        "name": "btop",
-        "description": "Beautiful terminal resource monitor with graphs",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "btop",
-            "debian": "btop",
-            "arch": "btop",
-            "fedora": "btop",
-            "opensuse": "btop",
-            "nix": "btop",
-            "homebrew": "btop"
-        },
-        "unavailableReason": "btop is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "monitor-dashboard",
-            "color": "#FF6B6B"
-        }
+  {
+    "id": "btop",
+    "name": "btop",
+    "description": "Beautiful terminal resource monitor with graphs",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "btop",
+      "debian": "btop",
+      "arch": "btop",
+      "fedora": "btop",
+      "opensuse": "btop",
+      "nix": "btop",
+      "void": "btop",
+      "homebrew": "btop"
     },
-    {
-        "id": "htop",
-        "name": "htop",
-        "description": "Interactive process viewer and system monitor",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "htop",
-            "debian": "htop",
-            "arch": "htop",
-            "fedora": "htop",
-            "opensuse": "htop",
-            "nix": "htop",
-            "snap": "htop",
-            "homebrew": "htop"
-        },
-        "unavailableReason": "htop is a CLI tool and not available as a Flatpak.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "chart-bar",
-            "color": "#4CE026"
-        }
-    },
-    {
-        "id": "fastfetch",
-        "name": "fastfetch",
-        "description": "Fast neofetch-like system info tool",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "fastfetch",
-            "debian": "fastfetch",
-            "fedora": "fastfetch",
-            "arch": "fastfetch",
-            "opensuse": "fastfetch",
-            "nix": "fastfetch",
-            "homebrew": "fastfetch"
-        },
-        "unavailableReason": "CLI-only (no Flatpak/Snap).",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "console",
-            "color": "#57F287"
-        }
-    },
-    {
-        "id": "eza",
-        "name": "eza",
-        "description": "Modern ls replacement with colors and icons",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "eza",
-            "debian": "eza",
-            "arch": "eza",
-            "opensuse": "eza",
-            "nix": "eza",
-            "homebrew": "eza"
-        },
-        "unavailableReason": "Unmaintained on Fedora; removed from repos. CLI-only (no Flatpak/Snap).",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "format-list-bulleted",
-            "color": "#F9E64F"
-        }
-    },
-    {
-        "id": "bat",
-        "name": "bat",
-        "description": "Cat clone with syntax highlighting and git integration",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "bat",
-            "debian": "bat",
-            "arch": "bat",
-            "fedora": "bat",
-            "opensuse": "bat",
-            "nix": "bat",
-            "homebrew": "bat"
-        },
-        "unavailableReason": "bat is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "file-code-outline",
-            "color": "#A6E22E"
-        }
-    },
-    {
-        "id": "fzf",
-        "name": "fzf",
-        "description": "Lightning-fast command-line fuzzy finder",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "fzf",
-            "debian": "fzf",
-            "arch": "fzf",
-            "fedora": "fzf",
-            "opensuse": "fzf",
-            "nix": "fzf",
-            "homebrew": "fzf"
-        },
-        "unavailableReason": "fzf is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "magnify",
-            "color": "#FF0055"
-        }
-    },
-    {
-        "id": "ripgrep",
-        "name": "ripgrep",
-        "description": "Ultra-fast recursive search respecting .gitignore",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "ripgrep",
-            "debian": "ripgrep",
-            "arch": "ripgrep",
-            "fedora": "ripgrep",
-            "opensuse": "ripgrep",
-            "nix": "ripgrep",
-            "homebrew": "ripgrep"
-        },
-        "unavailableReason": "ripgrep is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "text-search",
-            "color": "#C0C0C0"
-        }
-    },
-    {
-        "id": "zoxide",
-        "name": "zoxide",
-        "description": "Smart cd that learns your habits",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "zoxide",
-            "debian": "zoxide",
-            "arch": "zoxide",
-            "fedora": "zoxide",
-            "opensuse": "zoxide",
-            "nix": "zoxide",
-            "homebrew": "zoxide"
-        },
-        "unavailableReason": "zoxide is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "folder-move-outline",
-            "color": "#FF9F43"
-        }
-    },
-    {
-        "id": "tldr",
-        "name": "tldr",
-        "description": "Simplified community-driven man pages",
-        "category": "CLI Tools",
-        "targets": {
-            "arch": "tldr",
-            "fedora": "tldr",
-            "nix": "tldr",
-            "homebrew": "tldr"
-        },
-        "unavailableReason": "tldr is a CLI tool and not available on openSUSE, Flatpak, or Snap. For Debian 12 (Bookworm) or older and Ubuntu 24.04 or older use `sudo apt install -y tldr`",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "book-open-page-variant-outline",
-            "color": "#2D9CDB"
-        }
-    },
-    {
-        "id": "wget",
-        "name": "wget",
-        "description": "Command-line file downloader for HTTP/FTP",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "wget",
-            "debian": "wget",
-            "arch": "wget",
-            "fedora": "wget",
-            "opensuse": "wget",
-            "nix": "wget",
-            "homebrew": "wget"
-        },
-        "unavailableReason": "wget is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "download",
-            "color": "#3FA75E"
-        }
-    },
-    {
-        "id": "curl",
-        "name": "curl",
-        "description": "Command-line tool for transferring data via URLs",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "curl",
-            "debian": "curl",
-            "arch": "curl",
-            "fedora": "curl",
-            "opensuse": "curl",
-            "nix": "curl",
-            "homebrew": "curl"
-        },
-        "unavailableReason": "curl is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "curl",
-            "color": "#073551"
-        }
-    },
-    {
-        "id": "aria2",
-        "name": "aria2",
-        "description": "Multi-protocol, multi-source download accelerator",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "aria2",
-            "debian": "aria2",
-            "arch": "aria2",
-            "fedora": "aria2",
-            "opensuse": "aria2",
-            "nix": "aria2",
-            "homebrew": "aria2"
-        },
-        "unavailableReason": "aria2 is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "download-multiple",
-            "color": "#F94144"
-        }
-    },
-    {
-        "id": "yazi",
-        "name": "yazi",
-        "description": "Blazing fast terminal file manager in Rust",
-        "category": "CLI Tools",
-        "targets": {
-            "arch": "yazi",
-            "opensuse": "yazi",
-            "nix": "yazi",
-            "homebrew": "yazi"
-        },
-        "unavailableReason": "Not in most repos. Install via [cargo](https://crates.io/crates/yazi) or download from [github.com/sxyazi/yazi](https://github.com/sxyazi/yazi/releases).",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "folder-table-outline",
-            "color": "#F3B329"
-        }
-    },
-    {
-        "id": "ranger",
-        "name": "ranger",
-        "description": "Vim-inspired terminal file manager with previews",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "ranger",
-            "debian": "ranger",
-            "arch": "ranger",
-            "fedora": "ranger",
-            "opensuse": "ranger",
-            "nix": "ranger",
-            "homebrew": "ranger"
-        },
-        "unavailableReason": "ranger is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "folder-key-outline",
-            "color": "#FFFFFF"
-        }
-    },
-    {
-        "id": "ncdu",
-        "name": "ncdu",
-        "description": "NCurses-based disk usage analyzer",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "ncdu",
-            "debian": "ncdu",
-            "arch": "ncdu",
-            "fedora": "ncdu",
-            "opensuse": "ncdu",
-            "nix": "ncdu",
-            "homebrew": "ncdu"
-        },
-        "unavailableReason": "ncdu is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "chart-arc",
-            "color": "#00ADEE"
-        }
-    },
-    {
-        "id": "fd",
-        "name": "fd",
-        "description": "Simple, fast alternative to find command",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "fd-find",
-            "debian": "fd-find",
-            "arch": "fd",
-            "fedora": "fd-find",
-            "opensuse": "fd",
-            "nix": "fd",
-            "homebrew": "fd"
-        },
-        "unavailableReason": "fd is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "file-search-outline",
-            "color": "#56BE89"
-        }
-    },
-    {
-        "id": "tmux",
-        "name": "tmux",
-        "description": "Terminal session manager and multiplexer",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "tmux",
-            "debian": "tmux",
-            "arch": "tmux",
-            "fedora": "tmux",
-            "opensuse": "tmux",
-            "nix": "tmux",
-            "homebrew": "tmux"
-        },
-        "unavailableReason": "tmux is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "tmux",
-            "color": "#1BB91F"
-        }
-    },
-    {
-        "id": "zellij",
-        "name": "Zellij",
-        "description": "Modern terminal multiplexer with layout system",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "zellij",
-            "arch": "zellij",
-            "fedora": "zellij",
-            "opensuse": "zellij",
-            "nix": "zellij",
-            "homebrew": "zellij"
-        },
-        "unavailableReason": "Not in Debian repos. Install via `cargo install zellij` or see [zellij.dev](https://zellij.dev/documentation/installation.html).",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "view-split-vertical",
-            "color": "#A48CF4"
-        }
-    },
-    {
-        "id": "superfile",
-        "name": "Superfile",
-        "description": "Modern terminal file manager with TUI",
-        "category": "CLI Tools",
-        "targets": {
-            "arch": "superfile",
-            "nix": "superfile",
-            "homebrew": "superfile"
-        },
-        "unavailableReason": "Install via `go install` or see [superfile.dev](https://superfile.dev/getting-started/installation/).",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "folder-multiple",
-            "color": "#FFD93D"
-        }
-    },
-    {
-        "id": "rsync",
-        "name": "rsync",
-        "description": "Fast incremental file transfer and sync tool",
-        "category": "CLI Tools",
-        "targets": {
-            "ubuntu": "rsync",
-            "debian": "rsync",
-            "arch": "rsync",
-            "fedora": "rsync",
-            "opensuse": "rsync",
-            "nix": "rsync",
-            "homebrew": "rsync"
-        },
-        "unavailableReason": "rsync is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "sync",
-            "color": "#2ECC71"
-        }
+    "unavailableReason": "btop is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "monitor-dashboard",
+      "color": "#FF6B6B"
     }
+  },
+  {
+    "id": "htop",
+    "name": "htop",
+    "description": "Interactive process viewer and system monitor",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "htop",
+      "debian": "htop",
+      "arch": "htop",
+      "fedora": "htop",
+      "opensuse": "htop",
+      "nix": "htop",
+      "void": "htop",
+      "snap": "htop",
+      "homebrew": "htop"
+    },
+    "unavailableReason": "htop is a CLI tool and not available as a Flatpak.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "chart-bar",
+      "color": "#4CE026"
+    }
+  },
+  {
+    "id": "fastfetch",
+    "name": "fastfetch",
+    "description": "Fast neofetch-like system info tool",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "fastfetch",
+      "debian": "fastfetch",
+      "fedora": "fastfetch",
+      "arch": "fastfetch",
+      "opensuse": "fastfetch",
+      "nix": "fastfetch",
+      "void": "fastfetch",
+      "homebrew": "fastfetch"
+    },
+    "unavailableReason": "CLI-only (no Flatpak/Snap).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "console",
+      "color": "#57F287"
+    }
+  },
+  {
+    "id": "eza",
+    "name": "eza",
+    "description": "Modern ls replacement with colors and icons",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "eza",
+      "debian": "eza",
+      "arch": "eza",
+      "opensuse": "eza",
+      "nix": "eza",
+      "void": "eza",
+      "homebrew": "eza"
+    },
+    "unavailableReason": "Unmaintained on Fedora; removed from repos. CLI-only (no Flatpak/Snap).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "format-list-bulleted",
+      "color": "#F9E64F"
+    }
+  },
+  {
+    "id": "bat",
+    "name": "bat",
+    "description": "Cat clone with syntax highlighting and git integration",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "bat",
+      "debian": "bat",
+      "arch": "bat",
+      "fedora": "bat",
+      "opensuse": "bat",
+      "nix": "bat",
+      "void": "bat",
+      "homebrew": "bat"
+    },
+    "unavailableReason": "bat is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "file-code-outline",
+      "color": "#A6E22E"
+    }
+  },
+  {
+    "id": "fzf",
+    "name": "fzf",
+    "description": "Lightning-fast command-line fuzzy finder",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "fzf",
+      "debian": "fzf",
+      "arch": "fzf",
+      "fedora": "fzf",
+      "opensuse": "fzf",
+      "nix": "fzf",
+      "void": "fzf",
+      "homebrew": "fzf"
+    },
+    "unavailableReason": "fzf is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "magnify",
+      "color": "#FF0055"
+    }
+  },
+  {
+    "id": "ripgrep",
+    "name": "ripgrep",
+    "description": "Ultra-fast recursive search respecting .gitignore",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "ripgrep",
+      "debian": "ripgrep",
+      "arch": "ripgrep",
+      "fedora": "ripgrep",
+      "opensuse": "ripgrep",
+      "nix": "ripgrep",
+      "void": "ripgrep",
+      "homebrew": "ripgrep"
+    },
+    "unavailableReason": "ripgrep is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "text-search",
+      "color": "#C0C0C0"
+    }
+  },
+  {
+    "id": "zoxide",
+    "name": "zoxide",
+    "description": "Smart cd that learns your habits",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "zoxide",
+      "debian": "zoxide",
+      "arch": "zoxide",
+      "fedora": "zoxide",
+      "opensuse": "zoxide",
+      "nix": "zoxide",
+      "void": "zoxide",
+      "homebrew": "zoxide"
+    },
+    "unavailableReason": "zoxide is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "folder-move-outline",
+      "color": "#FF9F43"
+    }
+  },
+  {
+    "id": "tldr",
+    "name": "tldr",
+    "description": "Simplified community-driven man pages",
+    "category": "CLI Tools",
+    "targets": {
+      "arch": "tldr",
+      "fedora": "tldr",
+      "nix": "tldr",
+      "void": "tldr",
+      "homebrew": "tldr"
+    },
+    "unavailableReason": "tldr is a CLI tool and not available on openSUSE, Flatpak, or Snap. For Debian 12 (Bookworm) or older and Ubuntu 24.04 or older use `sudo apt install -y tldr`",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "book-open-page-variant-outline",
+      "color": "#2D9CDB"
+    }
+  },
+  {
+    "id": "wget",
+    "name": "wget",
+    "description": "Command-line file downloader for HTTP/FTP",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "wget",
+      "debian": "wget",
+      "arch": "wget",
+      "fedora": "wget",
+      "opensuse": "wget",
+      "nix": "wget",
+      "void": "wget",
+      "homebrew": "wget"
+    },
+    "unavailableReason": "wget is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "download",
+      "color": "#3FA75E"
+    }
+  },
+  {
+    "id": "curl",
+    "name": "curl",
+    "description": "Command-line tool for transferring data via URLs",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "curl",
+      "debian": "curl",
+      "arch": "curl",
+      "fedora": "curl",
+      "opensuse": "curl",
+      "nix": "curl",
+      "void": "curl",
+      "homebrew": "curl"
+    },
+    "unavailableReason": "curl is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "curl",
+      "color": "#073551"
+    }
+  },
+  {
+    "id": "aria2",
+    "name": "aria2",
+    "description": "Multi-protocol, multi-source download accelerator",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "aria2",
+      "debian": "aria2",
+      "arch": "aria2",
+      "fedora": "aria2",
+      "opensuse": "aria2",
+      "nix": "aria2",
+      "void": "aria2",
+      "homebrew": "aria2"
+    },
+    "unavailableReason": "aria2 is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "download-multiple",
+      "color": "#F94144"
+    }
+  },
+  {
+    "id": "yazi",
+    "name": "yazi",
+    "description": "Blazing fast terminal file manager in Rust",
+    "category": "CLI Tools",
+    "targets": {
+      "arch": "yazi",
+      "opensuse": "yazi",
+      "nix": "yazi",
+      "void": "yazi",
+      "homebrew": "yazi"
+    },
+    "unavailableReason": "Not in most repos. Install via [cargo](https://crates.io/crates/yazi) or download from [github.com/sxyazi/yazi](https://github.com/sxyazi/yazi/releases).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "folder-table-outline",
+      "color": "#F3B329"
+    }
+  },
+  {
+    "id": "ranger",
+    "name": "ranger",
+    "description": "Vim-inspired terminal file manager with previews",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "ranger",
+      "debian": "ranger",
+      "arch": "ranger",
+      "fedora": "ranger",
+      "opensuse": "ranger",
+      "nix": "ranger",
+      "void": "ranger",
+      "homebrew": "ranger"
+    },
+    "unavailableReason": "ranger is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "folder-key-outline",
+      "color": "#FFFFFF"
+    }
+  },
+  {
+    "id": "ncdu",
+    "name": "ncdu",
+    "description": "NCurses-based disk usage analyzer",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "ncdu",
+      "debian": "ncdu",
+      "arch": "ncdu",
+      "fedora": "ncdu",
+      "opensuse": "ncdu",
+      "nix": "ncdu",
+      "void": "ncdu",
+      "homebrew": "ncdu"
+    },
+    "unavailableReason": "ncdu is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "chart-arc",
+      "color": "#00ADEE"
+    }
+  },
+  {
+    "id": "fd",
+    "name": "fd",
+    "description": "Simple, fast alternative to find command",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "fd-find",
+      "debian": "fd-find",
+      "arch": "fd",
+      "fedora": "fd-find",
+      "opensuse": "fd",
+      "nix": "fd",
+      "void": "fd",
+      "homebrew": "fd"
+    },
+    "unavailableReason": "fd is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "file-search-outline",
+      "color": "#56BE89"
+    }
+  },
+  {
+    "id": "tmux",
+    "name": "tmux",
+    "description": "Terminal session manager and multiplexer",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "tmux",
+      "debian": "tmux",
+      "arch": "tmux",
+      "fedora": "tmux",
+      "opensuse": "tmux",
+      "nix": "tmux",
+      "void": "tmux",
+      "homebrew": "tmux"
+    },
+    "unavailableReason": "tmux is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "tmux",
+      "color": "#1BB91F"
+    }
+  },
+  {
+    "id": "zellij",
+    "name": "Zellij",
+    "description": "Modern terminal multiplexer with layout system",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "zellij",
+      "arch": "zellij",
+      "fedora": "zellij",
+      "opensuse": "zellij",
+      "nix": "zellij",
+      "void": "zellij",
+      "homebrew": "zellij"
+    },
+    "unavailableReason": "Not in Debian repos. Install via `cargo install zellij` or see [zellij.dev](https://zellij.dev/documentation/installation.html).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "view-split-vertical",
+      "color": "#A48CF4"
+    }
+  },
+  {
+    "id": "superfile",
+    "name": "Superfile",
+    "description": "Modern terminal file manager with TUI",
+    "category": "CLI Tools",
+    "targets": {
+      "arch": "superfile",
+      "nix": "superfile",
+      "homebrew": "superfile"
+    },
+    "unavailableReason": "Install via `go install` or see [superfile.dev](https://superfile.dev/getting-started/installation/).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "folder-multiple",
+      "color": "#FFD93D"
+    }
+  },
+  {
+    "id": "rsync",
+    "name": "rsync",
+    "description": "Fast incremental file transfer and sync tool",
+    "category": "CLI Tools",
+    "targets": {
+      "ubuntu": "rsync",
+      "debian": "rsync",
+      "arch": "rsync",
+      "fedora": "rsync",
+      "opensuse": "rsync",
+      "nix": "rsync",
+      "void": "rsync",
+      "homebrew": "rsync"
+    },
+    "unavailableReason": "rsync is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "sync",
+      "color": "#2ECC71"
+    }
+  }
 ]

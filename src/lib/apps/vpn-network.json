@@ -1,166 +1,172 @@
 [
-    {
-        "id": "protonvpn",
-        "name": "Proton VPN",
-        "description": "Secure VPN by the makers of ProtonMail",
-        "category": "VPN & Network",
-        "targets": {
-            "arch": "proton-vpn-gtk-app",
-            "nix": "protonvpn-gui",
-            "flatpak": "com.protonvpn.www",
-            "homebrew": "--cask protonvpn"
-        },
-        "unavailableReason": "Not in official repos. Use Flatpak or follow instructions at [protonvpn.com/support/linux-vpn-setup](https://protonvpn.com/support/linux-vpn-setup/).",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "protonvpn",
-            "color": "#6D4AFF"
-        }
+  {
+    "id": "protonvpn",
+    "name": "Proton VPN",
+    "description": "Secure VPN by the makers of ProtonMail",
+    "category": "VPN & Network",
+    "targets": {
+      "arch": "proton-vpn-gtk-app",
+      "nix": "protonvpn-gui",
+      "flatpak": "com.protonvpn.www",
+      "homebrew": "--cask protonvpn"
     },
-    {
-        "id": "mullvad",
-        "name": "Mullvad VPN",
-        "description": "Privacy-focused VPN with no-logging policy",
-        "category": "VPN & Network",
-        "targets": {
-            "arch": "mullvad-vpn-bin",
-            "nix": "mullvad-vpn",
-            "homebrew": "--cask mullvad-vpn"
-        },
-        "unavailableReason": "Not in official repos. Use [AUR](https://aur.archlinux.org/packages/mullvad-vpn-bin) or see [official install guide](https://mullvad.net/en/help/install-mullvad-app-linux).",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "mullvad",
-            "color": "#44AD4D"
-        }
-    },
-    {
-        "id": "tailscale",
-        "name": "Tailscale",
-        "description": "Zero-config mesh VPN using WireGuard",
-        "category": "VPN & Network",
-        "targets": {
-            "arch": "tailscale",
-            "fedora": "tailscale",
-            "opensuse": "tailscale",
-            "nix": "tailscale",
-            "homebrew": "tailscale"
-        },
-        "unavailableReason": "Not in Debian or Ubuntu repos. Follow instructions at [tailscale.com/download/linux](https://tailscale.com/download/linux).",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "tailscale",
-            "color": "#797878"
-        }
-    },
-    {
-        "id": "wireguard",
-        "name": "WireGuard",
-        "description": "Fast, modern, secure VPN tunnel protocol",
-        "category": "VPN & Network",
-        "targets": {
-            "ubuntu": "wireguard",
-            "debian": "wireguard",
-            "arch": "wireguard-tools",
-            "fedora": "wireguard-tools",
-            "opensuse": "wireguard-tools",
-            "nix": "wireguard-tools",
-            "homebrew": "wireguard-tools"
-        },
-        "unavailableReason": "WireGuard is a kernel module and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "wireguard",
-            "color": "#88171A"
-        }
-    },
-    {
-        "id": "openvpn",
-        "name": "OpenVPN",
-        "description": "Full-featured SSL VPN solution",
-        "category": "VPN & Network",
-        "targets": {
-            "ubuntu": "openvpn",
-            "debian": "openvpn",
-            "arch": "openvpn",
-            "fedora": "openvpn",
-            "opensuse": "openvpn",
-            "nix": "openvpn",
-            "homebrew": "openvpn"
-        },
-        "unavailableReason": "OpenVPN is a system package and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "openvpn",
-            "color": "#EA7E20"
-        }
-    },
-    {
-        "id": "nmap",
-        "name": "Nmap",
-        "description": "Network discovery and security auditing tool",
-        "category": "VPN & Network",
-        "targets": {
-            "ubuntu": "nmap",
-            "debian": "nmap",
-            "arch": "nmap",
-            "fedora": "nmap",
-            "opensuse": "nmap",
-            "nix": "nmap",
-            "homebrew": "nmap"
-        },
-        "unavailableReason": "Nmap is a CLI tool and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "url",
-            "url": "https://raw.githubusercontent.com/bwks/vendor-icons-svg/702f2ac88acc71759ce623bc5000a596195e9db3/nmap-logo.svg"
-        }
-    },
-    {
-        "id": "openssh",
-        "name": "OpenSSH",
-        "description": "Secure remote login and file transfer via SSH",
-        "category": "VPN & Network",
-        "targets": {
-            "ubuntu": "openssh-client",
-            "debian": "openssh-client",
-            "arch": "openssh",
-            "fedora": "openssh-clients",
-            "opensuse": "openssh",
-            "nix": "openssh",
-            "homebrew": "openssh"
-        },
-        "unavailableReason": "OpenSSH is a system package and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "ssh",
-            "color": "#F5A623"
-        }
-    },
-    {
-        "id": "remmina",
-        "name": "Remmina",
-        "description": "Open-source remote desktop client for RDP, VNC, SSH and more",
-        "category": "VPN & Network",
-        "targets": {
-            "ubuntu": "remmina",
-            "debian": "remmina",
-            "arch": "remmina",
-            "fedora": "remmina",
-            "opensuse": "remmina",
-            "nix": "remmina",
-            "flatpak": "org.remmina.Remmina",
-            "snap": "remmina"
-        },
-        "unavailableReason": "Remmina is not available via Homebrew, use [Flatpak version](https://flathub.org/en/apps/org.remmina.Remmina) or [Snap version](https://snapcraft.io/remmina) instead.",
-        "icon": {
-            "type": "url",
-            "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Org.remmina.Remmina.svg"
-        }
+    "unavailableReason": "Not in official repos. Use Flatpak or follow instructions at [protonvpn.com/support/linux-vpn-setup](https://protonvpn.com/support/linux-vpn-setup/).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "protonvpn",
+      "color": "#6D4AFF"
     }
+  },
+  {
+    "id": "mullvad",
+    "name": "Mullvad VPN",
+    "description": "Privacy-focused VPN with no-logging policy",
+    "category": "VPN & Network",
+    "targets": {
+      "arch": "mullvad-vpn-bin",
+      "nix": "mullvad-vpn",
+      "homebrew": "--cask mullvad-vpn"
+    },
+    "unavailableReason": "Not in official repos. Use [AUR](https://aur.archlinux.org/packages/mullvad-vpn-bin) or see [official install guide](https://mullvad.net/en/help/install-mullvad-app-linux).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "mullvad",
+      "color": "#44AD4D"
+    }
+  },
+  {
+    "id": "tailscale",
+    "name": "Tailscale",
+    "description": "Zero-config mesh VPN using WireGuard",
+    "category": "VPN & Network",
+    "targets": {
+      "arch": "tailscale",
+      "fedora": "tailscale",
+      "opensuse": "tailscale",
+      "nix": "tailscale",
+      "void": "tailscale",
+      "homebrew": "tailscale"
+    },
+    "unavailableReason": "Not in Debian or Ubuntu repos. Follow instructions at [tailscale.com/download/linux](https://tailscale.com/download/linux).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "tailscale",
+      "color": "#797878"
+    }
+  },
+  {
+    "id": "wireguard",
+    "name": "WireGuard",
+    "description": "Fast, modern, secure VPN tunnel protocol",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "wireguard",
+      "debian": "wireguard",
+      "arch": "wireguard-tools",
+      "fedora": "wireguard-tools",
+      "opensuse": "wireguard-tools",
+      "nix": "wireguard-tools",
+      "void": "wireguard-tools",
+      "homebrew": "wireguard-tools"
+    },
+    "unavailableReason": "WireGuard is a kernel module and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "wireguard",
+      "color": "#88171A"
+    }
+  },
+  {
+    "id": "openvpn",
+    "name": "OpenVPN",
+    "description": "Full-featured SSL VPN solution",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "openvpn",
+      "debian": "openvpn",
+      "arch": "openvpn",
+      "fedora": "openvpn",
+      "opensuse": "openvpn",
+      "nix": "openvpn",
+      "void": "openvpn",
+      "homebrew": "openvpn"
+    },
+    "unavailableReason": "OpenVPN is a system package and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "openvpn",
+      "color": "#EA7E20"
+    }
+  },
+  {
+    "id": "nmap",
+    "name": "Nmap",
+    "description": "Network discovery and security auditing tool",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "nmap",
+      "debian": "nmap",
+      "arch": "nmap",
+      "fedora": "nmap",
+      "opensuse": "nmap",
+      "nix": "nmap",
+      "void": "nmap",
+      "homebrew": "nmap"
+    },
+    "unavailableReason": "Nmap is a CLI tool and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "url",
+      "url": "https://raw.githubusercontent.com/bwks/vendor-icons-svg/702f2ac88acc71759ce623bc5000a596195e9db3/nmap-logo.svg"
+    }
+  },
+  {
+    "id": "openssh",
+    "name": "OpenSSH",
+    "description": "Secure remote login and file transfer via SSH",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "openssh-client",
+      "debian": "openssh-client",
+      "arch": "openssh",
+      "fedora": "openssh-clients",
+      "opensuse": "openssh",
+      "nix": "openssh",
+      "void": "openssh",
+      "homebrew": "openssh"
+    },
+    "unavailableReason": "OpenSSH is a system package and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "ssh",
+      "color": "#F5A623"
+    }
+  },
+  {
+    "id": "remmina",
+    "name": "Remmina",
+    "description": "Open-source remote desktop client for RDP, VNC, SSH and more",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "remmina",
+      "debian": "remmina",
+      "arch": "remmina",
+      "fedora": "remmina",
+      "opensuse": "remmina",
+      "nix": "remmina",
+      "void": "remmina",
+      "flatpak": "org.remmina.Remmina",
+      "snap": "remmina"
+    },
+    "unavailableReason": "Remmina is not available via Homebrew, use [Flatpak version](https://flathub.org/en/apps/org.remmina.Remmina) or [Snap version](https://snapcraft.io/remmina) instead.",
+    "icon": {
+      "type": "url",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Org.remmina.Remmina.svg"
+    }
+  }
 ]

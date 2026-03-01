@@ -7,6 +7,7 @@
     "targets": {
       "arch": "code",
       "nix": "vscode",
+      "void": "vscode",
       "flatpak": "com.visualstudio.code",
       "snap": "code --classic",
       "homebrew": "--cask visual-studio-code"
@@ -50,6 +51,7 @@
       "fedora": "vim-enhanced",
       "opensuse": "vim",
       "nix": "vim",
+      "void": "vim",
       "flatpak": "org.vim.Vim",
       "snap": "vim-editor",
       "homebrew": "vim"
@@ -73,6 +75,7 @@
       "fedora": "neovim",
       "opensuse": "neovim",
       "nix": "neovim",
+      "void": "neovim",
       "flatpak": "com.neovim.Neovim",
       "snap": "nvim --classic",
       "homebrew": "neovim"
@@ -94,6 +97,7 @@
       "fedora": "helix",
       "opensuse": "helix",
       "nix": "helix",
+      "void": "helix",
       "flatpak": "com.helix-editor.Helix",
       "snap": "helix --classic",
       "homebrew": "helix"
@@ -118,6 +122,7 @@
       "fedora": "micro",
       "opensuse": "micro-editor",
       "nix": "micro-editor",
+      "void": "micro",
       "flatpak": "io.github.zyedidia.micro",
       "snap": "micro --classic",
       "homebrew": "micro"
@@ -156,6 +161,7 @@
     "targets": {
       "arch": "sublime-text-4",
       "nix": "sublime",
+      "void": "sublime-text4",
       "flatpak": "com.sublimetext.three",
       "snap": "sublime-text --classic",
       "homebrew": "--cask sublime-text"
@@ -179,6 +185,7 @@
       "arch": "arduino",
       "fedora": "arduino",
       "nix": "arduino-ide",
+      "void": "arduino",
       "flatpak": "cc.arduino.IDE2",
       "snap": "arduino",
       "homebrew": "--cask arduino-ide"
@@ -221,6 +228,7 @@
       "fedora": "kate",
       "opensuse": "kate",
       "nix": "kdePackages.kate",
+      "void": "kate",
       "flatpak": "org.kde.kate",
       "snap": "kate --classic",
       "homebrew": "--cask kate"
@@ -244,6 +252,7 @@
       "fedora": "emacs",
       "opensuse": "emacs",
       "nix": "emacs",
+      "void": "emacs",
       "flatpak": "org.gnu.emacs",
       "snap": "emacs --classic",
       "homebrew": "--cask emacs-app"
@@ -267,6 +276,7 @@
       "fedora": "geany",
       "opensuse": "geany",
       "nix": "geany",
+      "void": "geany",
       "flatpak": "org.geany.Geany",
       "homebrew": "--cask geany"
     },

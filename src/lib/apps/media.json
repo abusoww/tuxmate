@@ -1,327 +1,339 @@
 [
-    {
-        "id": "vlc",
-        "name": "VLC",
-        "description": "Universal media player that plays any format",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "vlc",
-            "debian": "vlc",
-            "arch": "vlc",
-            "fedora": "vlc",
-            "opensuse": "vlc",
-            "nix": "vlc",
-            "flatpak": "org.videolan.VLC",
-            "snap": "vlc",
-            "homebrew": "--cask vlc"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "vlcmediaplayer",
-            "color": "#FF8800"
-        }
+  {
+    "id": "vlc",
+    "name": "VLC",
+    "description": "Universal media player that plays any format",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "vlc",
+      "debian": "vlc",
+      "arch": "vlc",
+      "fedora": "vlc",
+      "opensuse": "vlc",
+      "nix": "vlc",
+      "void": "vlc",
+      "flatpak": "org.videolan.VLC",
+      "snap": "vlc",
+      "homebrew": "--cask vlc"
     },
-    {
-        "id": "mpv",
-        "name": "mpv",
-        "description": "Lightweight and highly configurable media player",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "mpv",
-            "debian": "mpv",
-            "arch": "mpv",
-            "fedora": "mpv",
-            "opensuse": "mpv",
-            "nix": "mpv",
-            "flatpak": "io.mpv.Mpv",
-            "snap": "mpv",
-            "homebrew": "mpv"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "mpv",
-            "color": "#691F69"
-        }
-    },
-    {
-        "id": "celluloid",
-        "name": "Celluloid",
-        "description": "Simple GTK frontend for the mpv player",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "celluloid",
-            "debian": "celluloid",
-            "arch": "celluloid",
-            "fedora": "celluloid",
-            "opensuse": "celluloid",
-            "nix": "celluloid",
-            "flatpak": "io.github.celluloid_player.Celluloid"
-        },
-        "unavailableReason": "Celluloid is not available as a Snap package.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "gnome",
-            "color": "#4A86CF"
-        }
-    },
-    {
-        "id": "strawberry",
-        "name": "Strawberry",
-        "description": "Music player for local audio collection",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "strawberry",
-            "debian": "strawberry",
-            "arch": "strawberry",
-            "fedora": "strawberry",
-            "opensuse": "strawberry",
-            "nix": "strawberry",
-            "flatpak": "org.strawberrymusicplayer.strawberry"
-        },
-        "unavailableReason": "Strawberry is not available as a Snap package.",
-        "icon": {
-            "type": "url",
-            "url": "https://www.strawberrymusicplayer.org/pictures/strawberry64.png"
-        }
-    },
-    {
-        "id": "spotify",
-        "name": "Spotify",
-        "description": "Popular music streaming service",
-        "category": "Media",
-        "targets": {
-            "arch": "spotify",
-            "nix": "spotify",
-            "flatpak": "com.spotify.Client",
-            "snap": "spotify",
-            "homebrew": "--cask spotify"
-        },
-        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.spotify.Client) or [Snap](https://snapcraft.io/spotify) or follow instructions at [spotify.com/download/linux](https://www.spotify.com/download/linux/).",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "spotify",
-            "color": "#1DB954"
-        }
-    },
-    {
-        "id": "audacity",
-        "name": "Audacity",
-        "description": "Free open-source audio editor and recorder",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "audacity",
-            "debian": "audacity",
-            "arch": "audacity",
-            "fedora": "audacity",
-            "opensuse": "audacity",
-            "nix": "audacity",
-            "flatpak": "org.audacityteam.Audacity",
-            "snap": "audacity",
-            "homebrew": "--cask audacity"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "audacity",
-            "color": "#0000CC"
-        }
-    },
-    {
-        "id": "kdenlive",
-        "name": "Kdenlive",
-        "description": "Powerful open-source video editor by KDE",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "kdenlive",
-            "debian": "kdenlive",
-            "arch": "kdenlive",
-            "fedora": "kdenlive",
-            "opensuse": "kdenlive",
-            "nix": "kdenlive",
-            "flatpak": "org.kde.kdenlive",
-            "snap": "kdenlive",
-            "homebrew": "--cask kdenlive"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "kdenlive",
-            "color": "#527EB2"
-        }
-    },
-    {
-        "id": "obs",
-        "name": "OBS Studio",
-        "description": "Industry-standard streaming and recording software",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "obs-studio",
-            "debian": "obs-studio",
-            "arch": "obs-studio",
-            "fedora": "obs-studio",
-            "opensuse": "obs-studio",
-            "nix": "obs-studio",
-            "flatpak": "com.obsproject.Studio",
-            "snap": "obs-studio",
-            "homebrew": "--cask obs"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "obsstudio",
-            "color": "#A3A3A3"
-        }
-    },
-    {
-        "id": "ffmpeg",
-        "name": "FFmpeg",
-        "description": "Swiss army knife of video/audio processing",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "ffmpeg",
-            "debian": "ffmpeg",
-            "arch": "ffmpeg",
-            "fedora": "ffmpeg",
-            "opensuse": "ffmpeg",
-            "nix": "ffmpeg",
-            "homebrew": "ffmpeg"
-        },
-        "unavailableReason": "FFmpeg is a system library and not available via Flatpak or Snap.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "ffmpeg",
-            "color": "#007808"
-        }
-    },
-    {
-        "id": "handbrake",
-        "name": "HandBrake",
-        "description": "Open-source video transcoder for any format",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "handbrake",
-            "debian": "handbrake",
-            "arch": "handbrake",
-            "opensuse": "handbrake",
-            "nix": "handbrake",
-            "flatpak": "fr.handbrake.ghb",
-            "snap": "handbrake-jz",
-            "homebrew": "handbrake"
-        },
-        "unavailableReason": "HandBrake is not in official Fedora repos. Use [Flatpak](https://flathub.org/apps/details/fr.handbrake.ghb) or [Snap](https://snapcraft.io/handbrake-jz) instead.",
-        "icon": {
-            "type": "iconify",
-            "set": "mdi",
-            "name": "video-vintage",
-            "color": "#F83262"
-        }
-    },
-    {
-        "id": "stremio",
-        "name": "Stremio",
-        "description": "Modern media center with streaming addons",
-        "category": "Media",
-        "targets": {
-            "arch": "stremio",
-            "nix": "stremio",
-            "flatpak": "com.stremio.Stremio",
-            "homebrew": "--cask stremio"
-        },
-        "unavailableReason": "Only available via [AUR](https://aur.archlinux.org/packages/stremio) or [Flatpak](https://flathub.org/apps/details/com.stremio.Stremio), see [stremio.com/downloads](https://www.stremio.com/downloads) for more info.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "stremio",
-            "color": "#8A5AAB"
-        }
-    },
-    {
-        "id": "kodi",
-        "name": "Kodi",
-        "description": "Open-source home theater and media center",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "kodi",
-            "debian": "kodi",
-            "arch": "kodi",
-            "fedora": "kodi",
-            "opensuse": "kodi",
-            "nix": "kodi",
-            "flatpak": "tv.kodi.Kodi",
-            "snap": "kodi",
-            "homebrew": "--cask kodi"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "kodi",
-            "color": "#17B2E7"
-        }
-    },
-    {
-        "id": "haruna",
-        "name": "Haruna",
-        "description": "Modern Qt/QML video player powered by mpv",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "haruna",
-            "debian": "haruna",
-            "arch": "haruna",
-            "fedora": "haruna",
-            "opensuse": "haruna",
-            "nix": "haruna",
-            "flatpak": "org.kde.haruna",
-            "snap": "haruna"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "hevy",
-            "color": "#A3A3A3"
-        }
-    },
-    {
-        "id": "shortwave",
-        "name": "Shortwave",
-        "description": "Listen to internet radio stations worldwide",
-        "category": "Media",
-        "targets": {
-            "ubuntu": "shortwave",
-            "debian": "shortwave",
-            "arch": "shortwave",
-            "fedora": "shortwave",
-            "opensuse": "shortwave",
-            "nix": "shortwave",
-            "flatpak": "de.haeckerfelix.Shortwave",
-            "snap": "shortwave",
-            "homebrew": "--cask shortwave"
-        },
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "playerfm",
-            "color": "#478ECC"
-        }
-    },
-    {
-        "id": "parabolic",
-        "name": "Parabolic",
-        "description": "Simple YouTube video and audio downloader",
-        "category": "Media",
-        "targets": {
-            "nix": "parabolic",
-            "flatpak": "org.nickvision.tubeconverter",
-            "snap": "tube-converter"
-        },
-        "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/apps/org.nickvision.tubeconverter) or [Snap](https://snapcraft.io/tube-converter).",
-        "icon": {
-            "type": "url",
-            "url": "https://dl.flathub.org/media/org/nickvision/tubeconverter/fdcc995607100afabed728e47cfd5d99/icons/128x128/org.nickvision.tubeconverter.png"
-        }
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "vlcmediaplayer",
+      "color": "#FF8800"
     }
+  },
+  {
+    "id": "mpv",
+    "name": "mpv",
+    "description": "Lightweight and highly configurable media player",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "mpv",
+      "debian": "mpv",
+      "arch": "mpv",
+      "fedora": "mpv",
+      "opensuse": "mpv",
+      "nix": "mpv",
+      "void": "mpv",
+      "flatpak": "io.mpv.Mpv",
+      "snap": "mpv",
+      "homebrew": "mpv"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "mpv",
+      "color": "#691F69"
+    }
+  },
+  {
+    "id": "celluloid",
+    "name": "Celluloid",
+    "description": "Simple GTK frontend for the mpv player",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "celluloid",
+      "debian": "celluloid",
+      "arch": "celluloid",
+      "fedora": "celluloid",
+      "opensuse": "celluloid",
+      "void": "celluloid",
+      "nix": "celluloid",
+      "flatpak": "io.github.celluloid_player.Celluloid"
+    },
+    "unavailableReason": "Celluloid is not available as a Snap package.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "gnome",
+      "color": "#4A86CF"
+    }
+  },
+  {
+    "id": "strawberry",
+    "name": "Strawberry",
+    "description": "Music player for local audio collection",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "strawberry",
+      "debian": "strawberry",
+      "arch": "strawberry",
+      "fedora": "strawberry",
+      "opensuse": "strawberry",
+      "nix": "strawberry",
+      "void": "strawberry",
+      "flatpak": "org.strawberrymusicplayer.strawberry"
+    },
+    "unavailableReason": "Strawberry is not available as a Snap package.",
+    "icon": {
+      "type": "url",
+      "url": "https://www.strawberrymusicplayer.org/pictures/strawberry64.png"
+    }
+  },
+  {
+    "id": "spotify",
+    "name": "Spotify",
+    "description": "Popular music streaming service",
+    "category": "Media",
+    "targets": {
+      "arch": "spotify",
+      "nix": "spotify",
+      "flatpak": "com.spotify.Client",
+      "snap": "spotify",
+      "homebrew": "--cask spotify"
+    },
+    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/details/com.spotify.Client) or [Snap](https://snapcraft.io/spotify) or follow instructions at [spotify.com/download/linux](https://www.spotify.com/download/linux/).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "spotify",
+      "color": "#1DB954"
+    }
+  },
+  {
+    "id": "audacity",
+    "name": "Audacity",
+    "description": "Free open-source audio editor and recorder",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "audacity",
+      "debian": "audacity",
+      "arch": "audacity",
+      "fedora": "audacity",
+      "opensuse": "audacity",
+      "nix": "audacity",
+      "void": "audacity",
+      "flatpak": "org.audacityteam.Audacity",
+      "snap": "audacity",
+      "homebrew": "--cask audacity"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "audacity",
+      "color": "#0000CC"
+    }
+  },
+  {
+    "id": "kdenlive",
+    "name": "Kdenlive",
+    "description": "Powerful open-source video editor by KDE",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "kdenlive",
+      "debian": "kdenlive",
+      "arch": "kdenlive",
+      "fedora": "kdenlive",
+      "opensuse": "kdenlive",
+      "nix": "kdenlive",
+      "void": "kdenlive",
+      "flatpak": "org.kde.kdenlive",
+      "snap": "kdenlive",
+      "homebrew": "--cask kdenlive"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "kdenlive",
+      "color": "#527EB2"
+    }
+  },
+  {
+    "id": "obs",
+    "name": "OBS Studio",
+    "description": "Industry-standard streaming and recording software",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "obs-studio",
+      "debian": "obs-studio",
+      "arch": "obs-studio",
+      "fedora": "obs-studio",
+      "opensuse": "obs-studio",
+      "nix": "obs-studio",
+      "void": "obs",
+      "flatpak": "com.obsproject.Studio",
+      "snap": "obs-studio",
+      "homebrew": "--cask obs"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "obsstudio",
+      "color": "#A3A3A3"
+    }
+  },
+  {
+    "id": "ffmpeg",
+    "name": "FFmpeg",
+    "description": "Swiss army knife of video/audio processing",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "ffmpeg",
+      "debian": "ffmpeg",
+      "arch": "ffmpeg",
+      "fedora": "ffmpeg",
+      "opensuse": "ffmpeg",
+      "nix": "ffmpeg",
+      "void": "ffmpeg6",
+      "homebrew": "ffmpeg"
+    },
+    "unavailableReason": "FFmpeg is a system library and not available via Flatpak or Snap.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "ffmpeg",
+      "color": "#007808"
+    }
+  },
+  {
+    "id": "handbrake",
+    "name": "HandBrake",
+    "description": "Open-source video transcoder for any format",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "handbrake",
+      "debian": "handbrake",
+      "arch": "handbrake",
+      "opensuse": "handbrake",
+      "nix": "handbrake",
+      "void": "handbrake",
+      "flatpak": "fr.handbrake.ghb",
+      "snap": "handbrake-jz",
+      "homebrew": "handbrake"
+    },
+    "unavailableReason": "HandBrake is not in official Fedora repos. Use [Flatpak](https://flathub.org/apps/details/fr.handbrake.ghb) or [Snap](https://snapcraft.io/handbrake-jz) instead.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "video-vintage",
+      "color": "#F83262"
+    }
+  },
+  {
+    "id": "stremio",
+    "name": "Stremio",
+    "description": "Modern media center with streaming addons",
+    "category": "Media",
+    "targets": {
+      "arch": "stremio",
+      "nix": "stremio",
+      "void": "stremio-shell",
+      "flatpak": "com.stremio.Stremio",
+      "homebrew": "--cask stremio"
+    },
+    "unavailableReason": "Only available via [AUR](https://aur.archlinux.org/packages/stremio) or [Flatpak](https://flathub.org/apps/details/com.stremio.Stremio), see [stremio.com/downloads](https://www.stremio.com/downloads) for more info.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "stremio",
+      "color": "#8A5AAB"
+    }
+  },
+  {
+    "id": "kodi",
+    "name": "Kodi",
+    "description": "Open-source home theater and media center",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "kodi",
+      "debian": "kodi",
+      "arch": "kodi",
+      "fedora": "kodi",
+      "opensuse": "kodi",
+      "nix": "kodi",
+      "void": "kodi",
+      "flatpak": "tv.kodi.Kodi",
+      "snap": "kodi",
+      "homebrew": "--cask kodi"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "kodi",
+      "color": "#17B2E7"
+    }
+  },
+  {
+    "id": "haruna",
+    "name": "Haruna",
+    "description": "Modern Qt/QML video player powered by mpv",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "haruna",
+      "debian": "haruna",
+      "arch": "haruna",
+      "fedora": "haruna",
+      "opensuse": "haruna",
+      "nix": "haruna",
+      "flatpak": "org.kde.haruna",
+      "snap": "haruna"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "hevy",
+      "color": "#A3A3A3"
+    }
+  },
+  {
+    "id": "shortwave",
+    "name": "Shortwave",
+    "description": "Listen to internet radio stations worldwide",
+    "category": "Media",
+    "targets": {
+      "ubuntu": "shortwave",
+      "debian": "shortwave",
+      "arch": "shortwave",
+      "fedora": "shortwave",
+      "opensuse": "shortwave",
+      "nix": "shortwave",
+      "void": "shortwave",
+      "flatpak": "de.haeckerfelix.Shortwave",
+      "snap": "shortwave",
+      "homebrew": "--cask shortwave"
+    },
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "playerfm",
+      "color": "#478ECC"
+    }
+  },
+  {
+    "id": "parabolic",
+    "name": "Parabolic",
+    "description": "Simple YouTube video and audio downloader",
+    "category": "Media",
+    "targets": {
+      "nix": "parabolic",
+      "flatpak": "org.nickvision.tubeconverter",
+      "snap": "tube-converter"
+    },
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/apps/org.nickvision.tubeconverter) or [Snap](https://snapcraft.io/tube-converter).",
+    "icon": {
+      "type": "url",
+      "url": "https://dl.flathub.org/media/org/nickvision/tubeconverter/fdcc995607100afabed728e47cfd5d99/icons/128x128/org.nickvision.tubeconverter.png"
+    }
+  }
 ]
