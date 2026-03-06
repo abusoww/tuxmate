@@ -18,7 +18,7 @@ install_pkg() {
 
     local start=$(date +%s)
 
-    with_retry sudo apt-get install -y "$pkg" &
+    with_retry sudo apt-get -o DPkg::Lock::Timeout=60 install -y "$pkg" &
     local pid=$!
 
     if animate_progress "$name" $pid; then
@@ -30,8 +30,8 @@ install_pkg() {
         printf "\\r\\033[K" >&3
         if tail -n 50 "$LOG" | grep -q "unmet dependencies"; then
             warn "Fixing dependencies for $name..."
-            if sudo apt-get --fix-broken install -y >/dev/null 2>&1; then
-                sudo apt-get install -y "$pkg" &
+            if sudo apt-get -o DPkg::Lock::Timeout=60 --fix-broken install -y >/dev/null 2>&1; then
+                sudo apt-get -o DPkg::Lock::Timeout=60 install -y "$pkg" &
                 if animate_progress "$name (retry)" $!; then
                     local elapsed=$(($(date +%s) - start))
                     success "$name" "\${elapsed}s, deps fixed"
@@ -53,11 +53,10 @@ info "Caching sudo credentials..."
 sudo -v || exit 1
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
-wait_for_lock /var/lib/dpkg/lock-frontend
 sudo dpkg --configure -a >/dev/null 2>&1 || true
 
 info "Updating package lists..."
-with_retry sudo apt-get update -qq &
+with_retry sudo apt-get -o DPkg::Lock::Timeout=60 update -qq &
 if animate_progress "Updating..." $!; then
     printf "\\r\\033[K" >&3
     success "Updated"

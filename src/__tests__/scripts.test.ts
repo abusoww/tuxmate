@@ -63,6 +63,12 @@ describe('Script Generators', () => {
             expect(script).toContain('sudo apt-get update');
             expect(script).toContain('install_pkg "Mock Official App" "mock-pkg"');
         });
+
+        it('should use native apt lock waiting instead of wait_for_lock', () => {
+            const script = generateUbuntuScript([pkg]);
+            expect(script).toContain('DPkg::Lock::Timeout=60');
+            expect(script).not.toContain('wait_for_lock /var/lib/dpkg/lock-frontend');
+        });
     });
 
     describe('Flatpak Generator', () => {
