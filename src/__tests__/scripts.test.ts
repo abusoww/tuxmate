@@ -60,7 +60,7 @@ describe('Script Generators', () => {
 
         it('should generate apt install commands', () => {
             const script = generateUbuntuScript([pkg]);
-            expect(script).toContain('sudo apt-get update');
+            expect(script).toContain('sudo apt-get -o DPkg::Lock::Timeout=60 update');
             expect(script).toContain('install_pkg "Mock Official App" "mock-pkg"');
         });
 
