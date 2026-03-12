@@ -214,6 +214,25 @@
     }
   },
   {
+    "id": "qutebrowser",
+    "name": "qutebrowser",
+    "description": "A lightweight keyboard-focused browser.",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "qutebrowser",
+      "debian": "qutebrowser",
+      "arch": "qutebrowser",
+      "fedora": "qutebrowser",
+      "opensuse": "qutebrowser",
+      "nix": "qutebrowser"
+    },
+    "unavailableReason": "Not in the official repos. See [qutebrowser.org](https://qutebrowser.org/doc/install.html) for installation instructions",
+    "icon": {
+      "type": "url",
+      "url": "https://qutebrowser.org/icons/qutebrowser.svg"
+    }
+  },
+  {
     "id": "nyxt",
     "name": "Nyxt",
     "description": "A keyboard-centric browser for power users.",
