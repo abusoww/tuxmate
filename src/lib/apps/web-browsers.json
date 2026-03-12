@@ -85,6 +85,22 @@
     }
   },
   {
+    "id": "waterfox",
+    "name": "Waterfox",
+    "description": "Customizable Firefox fork with privacy features",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "waterfox-bin",
+      "flatpak": "net.waterfox.waterfox",
+      "homebrew": "--cask waterfox"
+    },
+    "unavailableReason": "Not available in official repos. Use [Flatpak](https://flathub.org/en/apps/net.waterfox.waterfox) or see [waterfox.com/download](https://www.waterfox.com/download/).",
+    "icon": {
+      "type": "url",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Waterfox_logo_2020_%28vectorized%29.svg"
+    }
+  },
+  {
     "id": "tor",
     "name": "Tor Browser",
     "description": "Anonymous browsing via the Tor network",
