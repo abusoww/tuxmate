@@ -253,6 +253,25 @@
     }
   },
   {
+    "id": "epiphany",
+    "name": "GNOME Web",
+    "description": "A lightweight browser by the GNOME project",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "epiphany-browser",
+      "debian": "epiphany-browser",
+      "fedora": "epiphany",
+      "opensuse": "epiphany",
+      "nix": "epiphany",
+      "flatpak": "org.gnome.Epiphany"
+    },
+    "unavailableReason": "Not available in official repos. Use the [Flatpak](https://flathub.org/en/apps/org.gnome.Epiphany).",
+    "icon": {
+      "type": "url",
+      "url": "https://static.gnome.org/catalog/app-icon/scalable/org.gnome.Epiphany.svg"
+    }
+  },
+  {
     "id": "qutebrowser",
     "name": "qutebrowser",
     "description": "A lightweight keyboard-focused browser.",
