@@ -224,7 +224,7 @@
       "arch": "konqueror",
       "fedora": "konqueror",
       "opensuse": "konqueror",
-      "nix": "konqueror",
+      "nix": "kdePackages.konqueror",
       "snap": "konqueror"
     },
     "unavailableReason": "Not available in official repos. Use the [Snap](https://snapcraft.io/konqueror) or see [kde.org](https://apps.kde.org/lt/konqueror/)",
@@ -244,7 +244,7 @@
       "arch": "falkon",
       "fedora": "falkon",
       "opensuse": "falkon",
-      "nix": "falkon",
+      "nix": "kdePackages.falkon",
       "flatpak": "org.kde.falkon",
       "snap": "falkon"
     },
