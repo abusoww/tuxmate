@@ -10,7 +10,7 @@
       "homebrew": "--cask ivpn",
       "snap": "ivpn"
     },
-    "unavailableReason": "Not in official repos. Follow instructions at [https://www.ivpn.net/en/apps-linux](https://www.ivpn.net/en/apps-linux/).",
+    "unavailableReason": "Not in official repos. Follow instructions at [ivpn.net/en/apps-linux](https://www.ivpn.net/en/apps-linux/).",
     "icon": {
       "type": "url",
       "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Logo_of_IVPN.svg"
