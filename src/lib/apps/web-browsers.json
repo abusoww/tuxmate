@@ -234,21 +234,22 @@
   },
   {
     "id": "falkon",
-    "name": "Falkin",
+    "name": "Falkon",
     "description": "A lightweight browser by the KDE project",
     "category": "Web Browsers",
     "targets": {
-      "ubuntu": "konqueror",
-      "debian": "konqueror",
-      "fedora": "konqueror",
-      "opensuse": "konqueror",
-      "nix": "konqueror",
-      "snap": "konqueror"
+      "ubuntu": "falkon",
+      "debian": "falkon",
+      "fedora": "falkon",
+      "opensuse": "falkon",
+      "nix": "falkon",
+      "flatpak": "org.kde.falkon",
+      "snap": "falkon"
     },
-    "unavailableReason": "Not available in official repos. Use the [Snap](https://snapcraft.io/konqueror) or see [kde.org](https://apps.kde.org/lt/konqueror/)",
+    "unavailableReason": "Not available in official repos. Use the [Flatpak](https://flathub.org/en/apps/org.kde.falkon).",
     "icon": {
       "type": "url",
-      "url": "https://apps.kde.org/app-icons/org.kde.konqueror.svg"
+      "url": "https://apps.kde.org/app-icons/org.kde.falkon.svg"
     }
   },
   {
