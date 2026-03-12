@@ -317,7 +317,6 @@
     "category": "Web Browsers",
     "targets": {
       "arch": "microsoft-edge-stable-bin",
-      "opensuse": "microsoft-edge-stable",
       "nix": "microsoft-edge",
       "homebrew": "--cask microsoft-edge",
       "flatpak": "com.microsoft.Edge"
