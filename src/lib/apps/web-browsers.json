@@ -214,6 +214,44 @@
     }
   },
   {
+    "id": "konqueror",
+    "name": "Konqueror",
+    "description": "An open source browser with integrated file manager by the KDE project",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "konqueror",
+      "debian": "konqueror",
+      "fedora": "konqueror",
+      "opensuse": "konqueror",
+      "nix": "konqueror",
+      "snap": "konqueror"
+    },
+    "unavailableReason": "Not available in official repos. Use the [Snap](https://snapcraft.io/konqueror) or see [kde.org](https://apps.kde.org/lt/konqueror/)",
+    "icon": {
+      "type": "url",
+      "url": "https://apps.kde.org/app-icons/org.kde.konqueror.svg"
+    }
+  },
+  {
+    "id": "falkon",
+    "name": "Falkin",
+    "description": "A lightweight browser by the KDE project",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "konqueror",
+      "debian": "konqueror",
+      "fedora": "konqueror",
+      "opensuse": "konqueror",
+      "nix": "konqueror",
+      "snap": "konqueror"
+    },
+    "unavailableReason": "Not available in official repos. Use the [Snap](https://snapcraft.io/konqueror) or see [kde.org](https://apps.kde.org/lt/konqueror/)",
+    "icon": {
+      "type": "url",
+      "url": "https://apps.kde.org/app-icons/org.kde.konqueror.svg"
+    }
+  },
+  {
     "id": "qutebrowser",
     "name": "qutebrowser",
     "description": "A lightweight keyboard-focused browser.",
