@@ -1,22 +1,23 @@
 {
-    "_comment": "List of known AUR packages that do NOT have standard suffixes (-bin, -git, -appimage). Suffixes are automatically handled in aur.ts",
-    "packages": [
-        "google-chrome",
-        "slack-desktop",
-        "zoom",
-        "sublime-text-4",
-        "vagrant",
-        "spotify",
-        "stremio",
-        "proton-vpn-gtk-app",
-        "dropbox",
-        "bitwarden",
-        "cura",
-        "davinci-resolve",
-        "fsearch",
-        "intellij-idea-ultimate-edition",
-        "pycharm",
-        "clion"
-
-    ]
+  "_comment": "List of known AUR packages that do NOT have standard suffixes (-bin, -git, -appimage). Suffixes are automatically handled in aur.ts",
+  "packages": [
+    "google-chrome",
+    "slack-desktop",
+    "zoom",
+    "sublime-text-4",
+    "vagrant",
+    "spotify",
+    "stremio",
+    "proton-vpn-gtk-app",
+    "dropbox",
+    "bitwarden",
+    "cura",
+    "davinci-resolve",
+    "fsearch",
+    "intellij-idea-ultimate-edition",
+    "pycharm",
+    "clion",
+    "ivpn-ui",
+    "opera"
+  ]
 }
