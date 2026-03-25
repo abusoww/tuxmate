@@ -71,7 +71,6 @@
     "category": "Web Browsers",
     "targets": {
       "arch": "librewolf-bin",
-      "opensuse": "librewolf",
       "nix": "librewolf",
       "flatpak": "io.gitlab.librewolf-community",
       "homebrew": "--cask librewolf"
@@ -129,7 +128,6 @@
     "category": "Web Browsers",
     "targets": {
       "arch": "google-chrome",
-      "opensuse": "google-chrome-stable",
       "nix": "google-chrome",
       "flatpak": "com.google.Chrome",
       "homebrew": "--cask google-chrome"
@@ -166,7 +164,7 @@
     "category": "Web Browsers",
     "targets": {
       "arch": "helium-browser-bin",
-      "homebrew": "--cask helium"
+      "homebrew": "--cask helium-browser"
     },
     "unavailableReason": "Only available as AppImage or via AUR. Download from [helium.computer](https://helium.computer/).",
     "icon": {
@@ -227,7 +225,7 @@
       "nix": "kdePackages.konqueror",
       "snap": "konqueror"
     },
-    "unavailableReason": "Not available in official repos. Use the [Snap](https://snapcraft.io/konqueror) or see [kde.org](https://apps.kde.org/lt/konqueror/)",
+    "unavailableReason": "Please use your distribution's native package manager to install this application, or visit [kde.org](https://apps.kde.org/lt/konqueror/) for official installation instructions.",
     "icon": {
       "type": "url",
       "url": "https://apps.kde.org/app-icons/org.kde.konqueror.svg"
@@ -248,7 +246,7 @@
       "flatpak": "org.kde.falkon",
       "snap": "falkon"
     },
-    "unavailableReason": "Not available in official repos. Use the [Flatpak](https://flathub.org/en/apps/org.kde.falkon).",
+    "unavailableReason": "Please use your distribution's native package manager to install this application, or use the [Flatpak](https://flathub.org/en/apps/org.kde.falkon).",
     "icon": {
       "type": "url",
       "url": "https://apps.kde.org/app-icons/org.kde.falkon.svg"
@@ -266,9 +264,10 @@
       "fedora": "epiphany",
       "opensuse": "epiphany",
       "nix": "epiphany",
-      "flatpak": "org.gnome.Epiphany"
+      "flatpak": "org.gnome.Epiphany",
+      "snap": "epiphany"
     },
-    "unavailableReason": "Not available in official repos. Use the [Flatpak](https://flathub.org/en/apps/org.gnome.Epiphany).",
+    "unavailableReason": "Please use your distribution's native package manager to install this application, or use [Flatpak](https://flathub.org/en/apps/org.gnome.Epiphany).",
     "icon": {
       "type": "url",
       "url": "https://static.gnome.org/catalog/app-icon/scalable/org.gnome.Epiphany.svg"
@@ -313,7 +312,7 @@
   {
     "id": "edge",
     "name": "Microsoft Edge",
-    "description": "Propietary web browser by Microsoft",
+    "description": "Proprietary web browser by Microsoft",
     "category": "Web Browsers",
     "targets": {
       "arch": "microsoft-edge-stable-bin",
@@ -331,12 +330,13 @@
   {
     "id": "opera",
     "name": "Opera",
-    "description": "Propietary web browser by with a minimalistic design",
+    "description": "Proprietary Chromium-based browser notoriously packed with features and bloat.",
     "category": "Web Browsers",
     "targets": {
       "arch": "opera",
       "homebrew": "--cask opera",
-      "flatpak": "com.opera.Opera"
+      "flatpak": "com.opera.Opera",
+      "snap": "opera"
     },
     "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/com.opera.Opera) or download from [opera.com](https://www.opera.com/opera).",
     "icon": {
