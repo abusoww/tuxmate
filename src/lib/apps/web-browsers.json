@@ -71,7 +71,6 @@
     "category": "Web Browsers",
     "targets": {
       "arch": "librewolf-bin",
-      "opensuse": "librewolf",
       "nix": "librewolf",
       "flatpak": "io.gitlab.librewolf-community",
       "homebrew": "--cask librewolf"
@@ -82,6 +81,22 @@
       "set": "simple-icons",
       "name": "firefoxbrowser",
       "color": "#0588D1"
+    }
+  },
+  {
+    "id": "waterfox",
+    "name": "Waterfox",
+    "description": "Customizable Firefox fork with privacy features",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "waterfox-bin",
+      "flatpak": "net.waterfox.waterfox",
+      "homebrew": "--cask waterfox"
+    },
+    "unavailableReason": "Not available in official repos. Use [Flatpak](https://flathub.org/en/apps/net.waterfox.waterfox) or see [waterfox.com/download](https://www.waterfox.com/download/).",
+    "icon": {
+      "type": "url",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/2/24/Waterfox_logo_2020_%28vectorized%29.svg"
     }
   },
   {
@@ -113,7 +128,6 @@
     "category": "Web Browsers",
     "targets": {
       "arch": "google-chrome",
-      "opensuse": "google-chrome-stable",
       "nix": "google-chrome",
       "flatpak": "com.google.Chrome",
       "homebrew": "--cask google-chrome"
@@ -150,7 +164,7 @@
     "category": "Web Browsers",
     "targets": {
       "arch": "helium-browser-bin",
-      "homebrew": "--cask helium"
+      "homebrew": "--cask helium-browser"
     },
     "unavailableReason": "Only available as AppImage or via AUR. Download from [helium.computer](https://helium.computer/).",
     "icon": {
@@ -198,6 +212,87 @@
     }
   },
   {
+    "id": "konqueror",
+    "name": "Konqueror",
+    "description": "An open source browser with integrated file manager by the KDE project",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "konqueror",
+      "debian": "konqueror",
+      "arch": "konqueror",
+      "fedora": "konqueror",
+      "opensuse": "konqueror",
+      "nix": "kdePackages.konqueror",
+      "snap": "konqueror"
+    },
+    "unavailableReason": "Please use your distribution's native package manager to install this application, or visit [kde.org](https://apps.kde.org/lt/konqueror/) for official installation instructions.",
+    "icon": {
+      "type": "url",
+      "url": "https://apps.kde.org/app-icons/org.kde.konqueror.svg"
+    }
+  },
+  {
+    "id": "falkon",
+    "name": "Falkon",
+    "description": "A lightweight browser by the KDE project",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "falkon",
+      "debian": "falkon",
+      "arch": "falkon",
+      "fedora": "falkon",
+      "opensuse": "falkon",
+      "nix": "kdePackages.falkon",
+      "flatpak": "org.kde.falkon",
+      "snap": "falkon"
+    },
+    "unavailableReason": "Please use your distribution's native package manager to install this application, or use the [Flatpak](https://flathub.org/en/apps/org.kde.falkon).",
+    "icon": {
+      "type": "url",
+      "url": "https://apps.kde.org/app-icons/org.kde.falkon.svg"
+    }
+  },
+  {
+    "id": "epiphany",
+    "name": "GNOME Web",
+    "description": "A lightweight browser by the GNOME project",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "epiphany-browser",
+      "debian": "epiphany-browser",
+      "arch": "epiphany",
+      "fedora": "epiphany",
+      "opensuse": "epiphany",
+      "nix": "epiphany",
+      "flatpak": "org.gnome.Epiphany",
+      "snap": "epiphany"
+    },
+    "unavailableReason": "Please use your distribution's native package manager to install this application, or use [Flatpak](https://flathub.org/en/apps/org.gnome.Epiphany).",
+    "icon": {
+      "type": "url",
+      "url": "https://static.gnome.org/catalog/app-icon/scalable/org.gnome.Epiphany.svg"
+    }
+  },
+  {
+    "id": "qutebrowser",
+    "name": "qutebrowser",
+    "description": "A lightweight keyboard-focused browser.",
+    "category": "Web Browsers",
+    "targets": {
+      "ubuntu": "qutebrowser",
+      "debian": "qutebrowser",
+      "arch": "qutebrowser",
+      "fedora": "qutebrowser",
+      "opensuse": "qutebrowser",
+      "nix": "qutebrowser"
+    },
+    "unavailableReason": "Not in the official repos. See [qutebrowser.org](https://qutebrowser.org/doc/install.html) for installation instructions",
+    "icon": {
+      "type": "url",
+      "url": "https://qutebrowser.org/icons/qutebrowser.svg"
+    }
+  },
+  {
     "id": "nyxt",
     "name": "Nyxt",
     "description": "A keyboard-centric browser for power users.",
@@ -212,6 +307,43 @@
     "icon": {
       "type": "url",
       "url": "https://nyxt.atlas.engineer/image/nyxt_square_corner_128x128.png"
+    }
+  },
+  {
+    "id": "edge",
+    "name": "Microsoft Edge",
+    "description": "Proprietary web browser by Microsoft",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "microsoft-edge-stable-bin",
+      "nix": "microsoft-edge",
+      "homebrew": "--cask microsoft-edge",
+      "flatpak": "com.microsoft.Edge"
+    },
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/com.microsoft.Edge) or download the .deb from [microsoft.com](https://www.microsoft.com/en-us/edge/)",
+    "icon": {
+      "type": "iconify",
+      "set": "logos",
+      "name": "microsoft-edge"
+    }
+  },
+  {
+    "id": "opera",
+    "name": "Opera",
+    "description": "Proprietary Chromium-based browser notoriously packed with features and bloat.",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "opera",
+      "homebrew": "--cask opera",
+      "flatpak": "com.opera.Opera",
+      "snap": "opera"
+    },
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/com.opera.Opera) or download from [opera.com](https://www.opera.com/opera).",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "opera",
+      "color": "#e2423d"
     }
   }
 ]
