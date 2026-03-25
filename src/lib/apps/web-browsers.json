@@ -310,6 +310,23 @@
     }
   },
   {
+    "id": "mullvad-browser",
+    "name": "Mullvad Browser",
+    "description": "Privacy-focused browser made in collaboration with the Tor Project.",
+    "category": "Web Browsers",
+    "targets": {
+      "arch": "mullvad-browser-bin",
+      "flatpak": "net.mullvad.MullvadBrowser",
+      "homebrew": "--cask mullvad-browser",
+      "nix": "mullvad-browser"
+    },
+    "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/net.mullvad.MullvadBrowser) or see [mullvad.net](https://mullvad.net/en/download/browser/linux).",
+    "icon": {
+      "type": "url",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Mullvad_Browser_logo.svg"
+    }
+  },
+  {
     "id": "edge",
     "name": "Microsoft Edge",
     "description": "Proprietary web browser by Microsoft",
