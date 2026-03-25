@@ -127,6 +127,28 @@
         }
     },
     {
+        "id": "incus",
+        "name": "Incus",
+        "description": "Powerful system container and virtual machine manager (community fork of LXD)",
+        "category": "Dev: Tools",
+        "targets": {
+            "ubuntu": "incus",
+            "debian": "incus",
+            "arch": "incus",
+            "fedora": "incus",
+            "opensuse": "incus",
+            "nix": "incus",
+            "homebrew": "incus"
+        },
+        "unavailableReason": "Available in official repositories for Ubuntu 24.04+ (Noble) and Debian 13+ (Trixie). For older releases, the Zabbly repository is required. Incus is a system service and not available via Flatpak or Snap.",
+        "icon": {
+            "type": "iconify",
+            "set": "mdi",
+            "name": "server",
+            "color": "#2496ED"
+        }
+    },
+    {
         "id": "kubectl",
         "name": "kubectl",
         "description": "Command-line tool for Kubernetes clusters",
