@@ -290,5 +290,24 @@
       "type": "url",
       "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Hexchat_Logo.svg"
     }
+  },
+  {
+    "id": "halloy",
+    "name": "Halloy",
+    "description": "Slick IRC client written in Rust",
+    "category": "Communication",
+    "targets": {
+      "arch": "halloy",
+      "opensuse": "halloy",
+      "nix": "halloy",
+      "flatpak": "org.squidowl.halloy",
+      "snap": "halloy",
+      "homebrew": "--cask halloy"
+    },
+    "unavailableReason": "Not in official repos. Install it using [Flatpak](https://flathub.org/en/apps/org.squidowl.halloy) or [Snap](https://snapcraft.io/halloy).",
+    "icon": {
+      "type": "url",
+      "url": "https://github.com/squidowl/halloy/blob/main/assets/logo.png"
+    }
   }
 ]
