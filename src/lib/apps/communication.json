@@ -201,5 +201,26 @@
       "type": "url",
       "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/GNOME_Fractal_%282023%29.svg"
     }
+  },
+  {
+    "id": "nheko",
+    "name": "Nheko",
+    "description": "Matrix client with a familiar user interface",
+    "category": "Communication",
+    "targets": {
+      "ubuntu": "nheko",
+      "debian": "nheko",
+      "arch": "nheko",
+      "fedora": "nheko",
+      "opensuse": "nheko",
+      "nix": "nheko",
+      "flatpak": "im.nheko.Nheko",
+      "homebrew": "--cask nheko"
+    },
+    "unavailableReason": "Not in official repos. Install via [Flatpak](https://flathub.org/en/apps/im.nheko.Nheko), or see [nheko-reborn.github.io](https://nheko-reborn.github.io/) for install instructions.",
+    "icon": {
+      "type": "url",
+      "url": "https://nheko-reborn.github.io/images/logo.png"
+    }
   }
 ]
