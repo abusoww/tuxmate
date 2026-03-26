@@ -38,6 +38,22 @@
     }
   },
   {
+    "id": "stoat",
+    "name": "Stoat",
+    "description": "Open-source Discord alternative",
+    "category": "Communication",
+    "targets": {
+      "arch": "stoat-desktop-bin",
+      "nix": "stoat-desktop",
+      "snap": "stoat-tsugu"
+    },
+    "unavailableReason": "Not available in most official repos. Install it from [Snap](https://snapcraft.io/stoat-tsugu), or see install instructions at [stoat.chat](https://stoat.chat/download).",
+    "icon": {
+      "type": "url",
+      "url": "https://avatars.githubusercontent.com/u/234249415?s=200&v=4"
+    }
+  },
+  {
     "id": "telegram",
     "name": "Telegram",
     "description": "Fast cloud-based messaging with file sharing",
