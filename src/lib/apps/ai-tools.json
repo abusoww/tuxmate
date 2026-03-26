@@ -1,0 +1,128 @@
+[
+  {
+    "id": "opencode",
+    "name": "OpenCode",
+    "description": "AI-powered coding platform and environment",
+    "category": "AI Tools",
+    "targets": {
+      "homebrew": "opencode",
+      "arch": "opencode",
+      "nix": "opencode",
+      "script": "curl -fsSL https://opencode.ai/install | bash"
+    },
+    "note": "Falls back to official installer (opencode.ai/install) on distros without a native package.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "code-braces",
+      "color": "#3B82F6"
+    }
+  },
+  {
+    "id": "codex",
+    "name": "OpenAI Codex",
+    "description": "AI model that parses natural language and generates code",
+    "category": "AI Tools",
+    "targets": {
+      "npm": "@openai/codex",
+      "homebrew": "codex",
+      "nix": "codex"
+    },
+    "note": "Requires Node.js runtime. Installed globally via npm where native packages are unavailable.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "openai",
+      "color": "#412991"
+    }
+  },
+  {
+    "id": "gemini-cli",
+    "name": "Gemini CLI",
+    "description": "Command-line interface for Google's Gemini API",
+    "category": "AI Tools",
+    "targets": {
+      "npm": "@google/gemini-cli",
+      "homebrew": "gemini-cli",
+      "nix": "gemini-cli"
+    },
+    "note": "Requires Node.js runtime. Installed globally via npm where native packages are unavailable.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "googlegemini",
+      "color": "#8E75B2"
+    }
+  },
+  {
+    "id": "claude-code",
+    "name": "Claude Code",
+    "description": "Anthropic's official CLI tool for Claude",
+    "category": "AI Tools",
+    "targets": {
+      "homebrew": "--cask claude-code",
+      "nix": "claude-code",
+      "script": "curl -fsSL https://claude.ai/install.sh | bash"
+    },
+    "note": "Uses official installer script (claude.ai/install.sh) on Linux distros without a native package.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "anthropic",
+      "color": "#D97757"
+    }
+  },
+  {
+    "id": "ollama",
+    "name": "Ollama",
+    "description": "Get up and running with large language models locally",
+    "category": "AI Tools",
+    "targets": {
+      "fedora": "ollama",
+      "opensuse": "ollama",
+      "arch": "ollama",
+      "nix": "ollama",
+      "homebrew": "ollama",
+      "script": "curl -fsSL https://ollama.com/install.sh | sh"
+    },
+    "note": "Falls back to official installer (ollama.com/install.sh) on distros without a native package.",
+    "icon": {
+      "type": "url",
+      "url": "https://ollama.com/public/icon-64x64.png"
+    }
+  },
+  {
+    "id": "llama-cpp",
+    "name": "llama.cpp",
+    "description": "Inference of LLaMA model in pure C/C++",
+    "category": "AI Tools",
+    "targets": {
+      "nix": "llama-cpp",
+      "homebrew": "llama.cpp"
+    },
+    "unavailableReason": "Available via [brew or nix](https://github.com/ggml-org/llama.cpp/blob/master/docs/install.md), [Docker](https://github.com/ggml-org/llama.cpp/blob/master/docs/docker.md), pre-built [releases](https://github.com/ggml-org/llama.cpp/releases), or [build from source](https://github.com/ggml-org/llama.cpp/blob/master/docs/build.md).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "head-cog",
+      "color": "#64748B"
+    }
+  },
+  {
+    "id": "jan",
+    "name": "Jan",
+    "description": "Open-source ChatGPT-alternative that runs locally offline",
+    "category": "AI Tools",
+    "targets": {
+      "arch": "jan-bin",
+      "nix": "jan",
+      "homebrew": "--cask jan",
+      "flatpak": "ai.jan.Jan"
+    },
+    "unavailableReason": "Not in most official repos. Use [flatpak](https://flathub.org/en/apps/ai.jan.Jan) or Download AppImage or .deb package from [jan.ai/download](https://jan.ai/download).",
+    "icon": {
+      "type": "url",
+      "url": "https://www.jan.ai/_next/static/media/logo-jan.db83c5f0.svg"
+    }
+  }
+]

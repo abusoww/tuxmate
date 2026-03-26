@@ -21,6 +21,7 @@ const COLOR_MAP: Record<string, string> = {
     'green': '#22c55e',
     'teal': '#14b8a6',
     'gray': '#6b7280',
+    'fuchsia': '#d946ef',
 };
 
 interface AppItemProps {
@@ -54,10 +55,22 @@ export const AppItem = memo(function AppItem({
 }: AppItemProps) {
     const getUnavailableText = () => {
         const distroName = distros.find(d => d.id === selectedDistro)?.name || '';
-        return app.unavailableReason || `Not available in ${distroName} repos`;
+        let msg = '';
+        if (!isAvailable) {
+            msg = app.unavailableReason || `Not available in ${distroName} repos`;
+        }
+        if (app.note) {
+            msg = msg ? `${msg} — ${app.note}` : app.note;
+        }
+        return msg;
     };
 
     const isAur = selectedDistro === 'arch' && app.targets?.arch && isAurPackage(app.targets.arch);
+    const universalTarget = !app.targets?.[selectedDistro] ? (
+        app.targets?.npm ? 'npm' :
+        app.targets?.script ? 'script' : null
+    ) : null;
+
     const hexColor = COLOR_MAP[color] || COLOR_MAP['gray'];
     const checkboxColor = isAur ? '#1793d1' : hexColor;
 
@@ -111,7 +124,8 @@ export const AppItem = memo(function AppItem({
                     }}
                     onMouseEnter={(e) => {
                         e.stopPropagation();
-                        onTooltipEnter(app.description, e);
+                        const tooltipText = app.note ? `${app.description} — ${app.note}` : app.description;
+                        onTooltipEnter(tooltipText, e);
                     }}
                     onMouseLeave={(e) => {
                         e.stopPropagation();
@@ -142,15 +156,31 @@ export const AppItem = memo(function AppItem({
                         <path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.69 3.1 5.5l.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.82 1.89 3.2 3.4-1.47 3.4 1.46 1.89-3.19 3.61-.82-.34-3.69L23 12m-12.91 4.72l-3.8-3.81 1.48-1.48 2.32 2.33 5.85-5.87 1.48 1.48-7.33 7.35z" />
                     </svg>
                 )}
+                {universalTarget && (
+                    <span 
+                        className="ml-1.5 px-1.5 py-[1px] text-[10px] font-bold uppercase rounded-sm border opacity-80"
+                        style={{ color: hexColor, borderColor: hexColor }}
+                        onMouseEnter={(e) => {
+                            e.stopPropagation();
+                            onTooltipEnter(`Installed via ${universalTarget}. Requires correct runtime.`, e);
+                        }}
+                        onMouseLeave={(e) => {
+                            e.stopPropagation();
+                            onTooltipLeave();
+                        }}
+                    >
+                        {universalTarget}
+                    </span>
+                )}
             </div>
-            {!isAvailable && (
+            {(!isAvailable || universalTarget) && (
                 <div
                     className="relative group flex-shrink-0 cursor-help"
                     onMouseEnter={(e) => { e.stopPropagation(); onTooltipEnter(getUnavailableText(), e); }}
                     onMouseLeave={(e) => { e.stopPropagation(); onTooltipLeave(); }}
                 >
                     <svg
-                        className="w-[18px] h-[18px] text-[var(--text-muted)] transition-[color,transform] duration-300 hover:rotate-[360deg] hover:scale-110"
+                        className={`w-[18px] h-[18px] transition-[color,transform] duration-300 hover:rotate-[360deg] hover:scale-110 ${universalTarget ? 'text-amber-600/40 hover:text-amber-500/60' : 'text-[var(--text-muted)]'}`}
                         style={{ color: isFocused ? hexColor : undefined }}
                         viewBox="0 0 24 24"
                         fill="currentColor"
@@ -161,5 +191,6 @@ export const AppItem = memo(function AppItem({
                 </div>
             )}
         </div>
+
     );
 });

@@ -1,4 +1,4 @@
-import { apps, type DistroId, type AppData } from '../data';
+import { apps, type DistroId, type AppData, type UniversalTargetId } from '../data';
 
 export interface PackageInfo {
     app: AppData;
@@ -19,6 +19,33 @@ export function getSelectedPackages(selectedAppIds: Set<string>, distroId: Distr
         .map(id => apps.find(a => a.id === id))
         .filter((app): app is AppData => !!app && !!app.targets[distroId])
         .map(app => ({ app, pkg: app.targets[distroId]! }));
+}
+
+export function getUniversalPackages(selectedAppIds: Set<string>, target: UniversalTargetId, distroId?: DistroId): PackageInfo[] {
+    return Array.from(selectedAppIds)
+        .map(id => apps.find(a => a.id === id))
+        .filter((app): app is AppData => !!app && !!app.targets[target] && (!distroId || !app.targets[distroId]))
+        .map(app => ({ app, pkg: app.targets[target]! }));
+}
+
+export function generateUniversalScript(selectedAppIds: Set<string>, distroId?: DistroId): string {
+    let script = '';
+    const npmPkgs = getUniversalPackages(selectedAppIds, 'npm', distroId);
+    const scriptPkgs = getUniversalPackages(selectedAppIds, 'script', distroId);
+
+    if (npmPkgs.length === 0 && scriptPkgs.length === 0) {
+        return '';
+    }
+
+    if (npmPkgs.length > 0) {
+        script += `if command -v npm >/dev/null 2>&1; then\\n    info "Installing Node.js (npm) packages..."\\n${npmPkgs.map(p => `    with_retry npm install -g ${escapeShellString(p.pkg)}`).join('\\n')}\\nelse\\n    warn "npm is not installed. Skipping: ${npmPkgs.map(p => escapeShellString(p.app.name)).join(', ')}"\\nfi\\n\\n`;
+    }
+
+    if (scriptPkgs.length > 0) {
+        script += `info "Running custom install scripts..."\\n${scriptPkgs.map(p => `info "Running script for ${escapeShellString(p.app.name)}..."\\n${p.pkg}`).join('\\n')}\\n\\n`;
+    }
+
+    return script;
 }
 
 export function generateAsciiHeader(distroName: string, pkgCount: number): string {

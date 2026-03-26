@@ -43,7 +43,8 @@ const categoryColors: Record<Category, string> = {
     'Dev: Languages': 'rose',
     'Dev: Tools': 'slate',
     'Terminal': 'zinc',
-    'CLI Tools': 'gray'
+    'CLI Tools': 'gray',
+    'AI Tools': 'fuchsia'
 };
 
 function CategorySectionComponent({

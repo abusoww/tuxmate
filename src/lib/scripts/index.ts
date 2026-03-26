@@ -1,6 +1,6 @@
 
 
-export { escapeShellString, getSelectedPackages, type PackageInfo } from './shared';
+export { escapeShellString, getSelectedPackages, getUniversalPackages, generateUniversalScript, generateAsciiHeader, generateSharedUtils, type PackageInfo } from './shared';
 export { generateUbuntuScript } from './ubuntu';
 export { generateDebianScript } from './debian';
 export { generateArchScript } from './arch';

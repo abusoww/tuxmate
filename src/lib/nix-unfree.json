@@ -26,6 +26,7 @@
         "jetbrains.idea",
         "jetbrains.pycharm",
         "jetbrains.clion",
-        "microsoft-edge"
+        "microsoft-edge",
+        "claude-code"
     ]
 }

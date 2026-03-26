@@ -13,9 +13,11 @@ import vpnNetwork from './apps/vpn-network.json';
 import security from './apps/security.json';
 import fileSharing from './apps/file-sharing.json';
 import system from './apps/system.json';
+import aiTools from './apps/ai-tools.json';
 
 
 export type DistroId = 'ubuntu' | 'debian' | 'arch' | 'fedora' | 'opensuse' | 'nix' | 'flatpak' | 'snap' | 'homebrew';
+export type UniversalTargetId = 'npm' | 'script';
 
 export type Category =
     | 'Web Browsers'
@@ -32,7 +34,8 @@ export type Category =
     | 'VPN & Network'
     | 'Security'
     | 'File Sharing'
-    | 'System';
+    | 'System'
+    | 'AI Tools';
 
 export type IconDef =
     | { type: 'iconify'; set: string; name: string; color?: string }
@@ -52,8 +55,9 @@ export interface AppData {
     description: string;
     category: Category;
     icon: IconDef;
-    targets: Partial<Record<DistroId, string>>;
+    targets: Partial<Record<DistroId | UniversalTargetId, string>>;
     unavailableReason?: string;
+    note?: string;
 }
 
 export const getIconUrl = (icon: IconDef): string => {
@@ -94,7 +98,8 @@ export const apps: AppData[] = [
     ...(vpnNetwork as AppData[]),
     ...(security as AppData[]),
     ...(fileSharing as AppData[]),
-    ...(system as AppData[])
+    ...(system as AppData[]),
+    ...(aiTools as AppData[])
 ];
 
 export const categories: Category[] = [
@@ -113,6 +118,7 @@ export const categories: Category[] = [
     'Dev: Tools',
     'Terminal',
     'CLI Tools',
+    'AI Tools',
 ];
 
 export const getAppsByCategory = (category: Category): AppData[] => {
@@ -120,5 +126,7 @@ export const getAppsByCategory = (category: Category): AppData[] => {
 };
 
 export const isAppAvailable = (app: AppData, distro: DistroId): boolean => {
-    return distro in app.targets;
+    return (distro in app.targets) || 
+           ('npm' in app.targets) || 
+           ('script' in app.targets);
 };

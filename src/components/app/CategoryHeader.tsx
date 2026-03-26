@@ -3,7 +3,7 @@
 import {
     ChevronRight, Globe, MessageCircle, Code2, FileCode, Wrench,
     Terminal, Command, Play, Palette, Gamepad2, Briefcase,
-    Network, Lock, Share2, Cpu, type LucideIcon
+    Network, Lock, Share2, Cpu, Sparkles, type LucideIcon
 } from 'lucide-react';
 
 const CATEGORY_ICONS: Record<string, LucideIcon> = {
@@ -22,6 +22,7 @@ const CATEGORY_ICONS: Record<string, LucideIcon> = {
     'Security': Lock,
     'File Sharing': Share2,
     'System': Cpu,
+    'AI Tools': Sparkles,
 };
 
 const COLOR_MAP: Record<string, string> = {
@@ -40,6 +41,7 @@ const COLOR_MAP: Record<string, string> = {
     'green': '#22c55e',
     'teal': '#14b8a6',
     'gray': '#6b7280',
+    'fuchsia': '#d946ef',
 };
 
 // Category header.

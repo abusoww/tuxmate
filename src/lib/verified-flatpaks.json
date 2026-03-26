@@ -1,6 +1,6 @@
 {
   "meta": {
-    "fetchedAt": "2026-03-25T08:54:15.513Z"
+    "fetchedAt": "2026-03-26T11:12:34.224Z"
   },
   "count": 702,
   "apps": [
@@ -174,6 +174,7 @@
     "com.tomjwatson.Emote",
     "com.toolstack.Folio",
     "com.ulaa.Ulaa",
+    "com.unicornsonlsd.finamp",
     "com.usebottles.bottles",
     "com.usebruno.Bruno",
     "com.valvesoftware.SteamLink",
@@ -227,7 +228,6 @@
     "eu.jumplink.Learn6502",
     "eu.nokun.MirrorHall",
     "eu.vcmi.VCMI",
-    "fr.arnaudmichel.launcherstudio",
     "fr.handbrake.ghb",
     "fr.quentium.acters",
     "garden.jamie.Morphosis",
@@ -255,6 +255,7 @@
     "io.frama.tractor.carburetor",
     "io.freetubeapp.FreeTube",
     "io.gdevelop.ide",
+    "io.github.AshBuk.FingerGo",
     "io.github.BrisklyDev.Brisk",
     "io.github.CyberTimon.RapidRAW",
     "io.github.DenysMb.Kontainer",
@@ -326,7 +327,6 @@
     "io.github.linx_systems.ClamUI",
     "io.github.lluciocc.Vish",
     "io.github.lullabyX.sone",
-    "io.github.maddecoder.Classic-RBDOOM-3-BFG",
     "io.github.marco_calautti.DeltaPatcher",
     "io.github.martchus.syncthingtray",
     "io.github.martinrotter.rssguard",
@@ -357,7 +357,6 @@
     "io.github.realmazharhussain.GdmSettings",
     "io.github.revisto.drum-machine",
     "io.github.rfrench3.scopebuddy-gui",
-    "io.github.schwarzen.colormydesktop",
     "io.github.seadve.Kooha",
     "io.github.seadve.Mousai",
     "io.github.sepehr_rs.Sudoku",
@@ -444,6 +443,7 @@
     "net.sapples.LiveCaptions",
     "net.shadps4.shadPS4",
     "net.sourceforge.VMPK",
+    "net.sourceforge.m64py.M64Py",
     "net.supertuxkart.SuperTuxKart",
     "net.trowell.typesetter",
     "net.waterfox.waterfox",

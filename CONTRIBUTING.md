@@ -19,6 +19,7 @@
         *   [Flatpak](#flatpak)
         *   [Snap](#snap)
         *   [Homebrew](#homebrew)
+    *   [Universal Targets](#universal-targets-npm--script)
     *   [Icon System](#5-icon-system)
     *   [Valid Categories](#6-valid-categories)
 4.  [Adding Distributions](#adding-distributions)
@@ -140,11 +141,17 @@ All applications are defined in category-specific JSON files within [`src/lib/ap
     "arch": "exact-package-name",      // pacman OR AUR package name
     "flatpak": "com.vendor.AppId",     // FULL Flatpak App ID (reverse DNS)
     "snap": "snap-name",               // Add --classic if needed
-    "homebrew": "formula-name"         // Formula (CLI) or '--cask name' (GUI)
+    "homebrew": "formula-name",        // Formula (CLI) or '--cask name' (GUI)
+    "npm": "@scope/package-name",      // Global npm install (universal fallback)
+    "script": "curl -fsSL ... | bash"  // Custom install script (universal fallback)
   },
+  "note": "Context for universal targets",  // Shown on hover for universal-fallback apps
   "unavailableReason": "Markdown install instructions"
 }
 ```
+
+> [!NOTE]
+> **Priority system**: Native distro targets (e.g., `arch`, `ubuntu`) always take precedence over universal targets (`npm`, `script`). If an app has both `arch: "ollama"` and `script: "curl ..."`, the script is only used when the user selects a distro where no native package exists.
 
 ### 3. Unavailable Reason Guidelines
 
@@ -217,6 +224,64 @@ Homebrew (macOS/Linux) has two package types. Check [formulae.brew.sh](https://f
     *   Run `brew search <name>` locally to confirm type.
     *   We skip `--cask` targets on Linux installs automatically.
 
+#### Universal Targets (npm & script)
+
+Universal targets provide cross-distro installation via package managers or custom scripts. They serve as **fallbacks** — only used when no native distro target exists for the selected distribution.
+
+*   **`npm`**: Install via `npm install -g`. Requires Node.js runtime on the system.
+*   **`script`**: Raw shell command (typically a `curl | bash` installer). Runs directly.
+
+> [!IMPORTANT]
+> **Native targets always take priority.** If an app defines `arch: "ollama"` alongside `script: "curl ..."`, the script target is completely ignored when Arch is selected. The fallback only activates for distros without a native package.
+
+**When to use each:**
+
+| Target | Use Case | Example |
+| :--- | :--- | :--- |
+| `npm` | CLI tools distributed via npmjs.com | `"npm": "@google/gemini-cli"` |
+| `script` | Apps with official install scripts | `"script": "curl -fsSL https://ollama.com/install.sh \| sh"` |
+
+**Real examples from the codebase:**
+
+```json
+// Ollama: native on arch/fedora/nix/homebrew, falls back to script on ubuntu/debian
+{
+  "id": "ollama",
+  "targets": {
+    "fedora": "ollama",
+    "arch": "ollama",
+    "nix": "ollama",
+    "homebrew": "ollama",
+    "script": "curl -fsSL https://ollama.com/install.sh | sh"
+  },
+  "note": "Falls back to official installer (ollama.com/install.sh) on distros without a native package."
+}
+
+// Gemini CLI: npm-only (plus homebrew)
+{
+  "id": "gemini-cli",
+  "targets": {
+    "npm": "@google/gemini-cli",
+    "homebrew": "gemini-cli"
+  },
+  "note": "Requires Node.js runtime. Installed globally via npm where native packages are unavailable."
+}
+```
+
+**The `note` field:**
+*   Used to explain the universal target behavior to users (shown on hover).
+*   **Required** when using `npm` or `script` targets.
+*   Keep concise and professional. Examples:
+    *   ✅ `"Falls back to official installer (ollama.com/install.sh) on distros without a native package."`
+    *   ✅ `"Requires Node.js runtime. Installed globally via npm where native packages are unavailable."`
+    *   ❌ `"Installed globally via npm."` *(too terse, doesn't explain when or why)*
+
+**Script safety rules:**
+1.  Only use **official** installer scripts from the app's own domain.
+2.  Always use `curl -fsSL` flags (fail silently on errors, follow redirects, show errors).
+3.  Never combine multiple pipes or add `sudo` — the install script handles privileges itself.
+4.  Verify the script URL is stable and maintained by the upstream project.
+
 ### 5. Icon System
 
 Every app needs an icon! Our JSON format makes it super simple to add icons using [Iconify](https://iconify.design/). 
@@ -259,7 +324,7 @@ Just change the `"type"` to `"url"`:
 Use **exactly** one of these:
 *   Web Browsers • Communication • Media • Creative • Gaming • Office
 *   Dev: Languages • Dev: Editors • Dev: Tools
-*   Terminal • CLI Tools • VPN & Network • Security • File Sharing • System
+*   Terminal • CLI Tools • AI Tools • VPN & Network • Security • File Sharing • System
 
 ---
 
@@ -316,6 +381,8 @@ Create a new file `src/lib/scripts/<distroId>.ts`. This file must export a funct
 - [ ] Snap `--classic` flag verification.
 - [ ] Nix unfree packages added to JSON.
 - [ ] Homebrew Casks prefixed correctly.
+- [ ] Universal targets: `npm`/`script` only used as fallbacks, `note` field provided.
+- [ ] Script URLs verified as official, stable endpoints.
 - [ ] `npm run lint` & `npm run test` passed.
 
 ---
@@ -345,6 +412,9 @@ Brief description of changes.
 ## Testing
 - [ ] `npm run dev` working
 - [ ] `npm run build` passed
+- [ ] `npm run test` passed
+- [ ] `npm run lint` passed
+
 
 ## Screenshots (if applicable)
 

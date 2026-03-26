@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useMemo, useCallback, useEffect } from 'react';
-import { distros, apps, type DistroId } from '@/lib/data';
+import { distros, apps, type DistroId, isAppAvailable as globalIsAppAvailable } from '@/lib/data';
 import { isAurPackage } from '@/lib/aur';
 import { isUnfreePackage } from '@/lib/nixUnfree';
 
@@ -59,8 +59,7 @@ export function useLinuxInit(): UseLinuxInitReturn {
                 const validApps = appIds.filter(id => {
                     const app = apps.find(a => a.id === id);
                     if (!app) return false;
-                    const pkg = app.targets[savedDistro || 'ubuntu'];
-                    return pkg !== undefined && pkg !== null;
+                    return globalIsAppAvailable(app, savedDistro || 'ubuntu');
                 });
                 setSelectedApps(new Set(validApps));
             }
@@ -131,8 +130,7 @@ export function useLinuxInit(): UseLinuxInitReturn {
     const isAppAvailable = useCallback((appId: string): boolean => {
         const app = apps.find(a => a.id === appId);
         if (!app) return false;
-        const packageName = app.targets[selectedDistro];
-        return packageName !== undefined && packageName !== null;
+        return globalIsAppAvailable(app, selectedDistro);
     }, [selectedDistro]);
 
     const getPackageName = useCallback((appId: string): string | null => {
@@ -147,11 +145,8 @@ export function useLinuxInit(): UseLinuxInitReturn {
             const newSelected = new Set<string>();
             prevSelected.forEach(appId => {
                 const app = apps.find(a => a.id === appId);
-                if (app) {
-                    const packageName = app.targets[distroId];
-                    if (packageName !== undefined && packageName !== null) {
-                        newSelected.add(appId);
-                    }
+                if (app && globalIsAppAvailable(app, distroId)) {
+                    newSelected.add(appId);
                 }
             });
             return newSelected;
@@ -161,8 +156,7 @@ export function useLinuxInit(): UseLinuxInitReturn {
     const toggleApp = useCallback((appId: string) => {
         const app = apps.find(a => a.id === appId);
         if (!app) return;
-        const pkg = app.targets[selectedDistro];
-        if (pkg === undefined || pkg === null) return;
+        if (!globalIsAppAvailable(app, selectedDistro)) return;
 
         setSelectedApps(prev => {
             const newSet = new Set(prev);
@@ -177,10 +171,7 @@ export function useLinuxInit(): UseLinuxInitReturn {
 
     const selectAll = useCallback(() => {
         const allAvailable = apps
-            .filter(app => {
-                const pkg = app.targets[selectedDistro];
-                return pkg !== undefined && pkg !== null;
-            })
+            .filter(app => globalIsAppAvailable(app, selectedDistro))
             .map(app => app.id);
         setSelectedApps(new Set(allAvailable));
     }, [selectedDistro]);
@@ -190,10 +181,7 @@ export function useLinuxInit(): UseLinuxInitReturn {
     }, []);
 
     const availableCount = useMemo(() => {
-        return apps.filter(app => {
-            const pkg = app.targets[selectedDistro];
-            return pkg !== undefined && pkg !== null;
-        }).length;
+        return apps.filter(app => globalIsAppAvailable(app, selectedDistro)).length;
     }, [selectedDistro]);
 
     const generatedCommand = useMemo(() => {
@@ -205,57 +193,84 @@ export function useLinuxInit(): UseLinuxInitReturn {
         if (!distro) return '';
 
         const packageNames: string[] = [];
+        const npmPkgs: string[] = [];
+        const scriptPkgs: string[] = [];
+
         selectedApps.forEach(appId => {
             const app = apps.find(a => a.id === appId);
             if (app) {
                 const pkg = app.targets[selectedDistro];
-                if (pkg) packageNames.push(pkg);
+                if (pkg) {
+                    packageNames.push(pkg);
+                } else {
+                    if (app.targets.npm) npmPkgs.push(app.targets.npm);
+                    if (app.targets.script) scriptPkgs.push(app.targets.script);
+                }
             }
         });
 
-        if (packageNames.length === 0) return '# No packages selected';
+        const extras: string[] = [];
+        if (npmPkgs.length > 0) extras.push(`npm install -g ${npmPkgs.join(' ')}`);
+        
+        const extrasStr = extras.join(' && ');
+
+        const appendExtras = (cmd: string) => {
+            if (!cmd || cmd.startsWith('#')) return extrasStr || cmd;
+            return extrasStr ? `${cmd} && ${extrasStr}` : cmd;
+        };
+        
+        const appendScripts = (cmd: string) => {
+            if (scriptPkgs.length === 0) return cmd;
+            const scriptsStr = scriptPkgs.join(' && ');
+            return cmd ? `${cmd} && ${scriptsStr}` : scriptsStr;
+        };
+
+        if (packageNames.length === 0 && extras.length === 0 && scriptPkgs.length === 0) {
+            return '# No packages selected';
+        }
+
+        let baseCmd = '';
+
+        if (packageNames.length > 0) {
+            if (selectedDistro === 'nix') {
+                const sortedPkgs = packageNames.filter(p => p.trim()).sort();
+                const pkgList = sortedPkgs.map(p => `    ${p}`).join('\\n');
+                baseCmd = `environment.systemPackages = with pkgs; [\\n${pkgList}\\n];`;
+            } else if (selectedDistro === 'snap') {
+                if (packageNames.length === 1) {
+                    baseCmd = `${distro.installPrefix} ${packageNames[0]}`;
+                } else {
+                    baseCmd = packageNames.map(p => `sudo snap install ${p}`).join(' && ');
+                }
+            } else if (selectedDistro === 'arch' && aurPackageInfo.hasAur) {
+                if (!hasYayInstalled) {
+                    const helperName = selectedHelper; // yay or paru
+                    const installHelperCmd = `sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/${helperName}.git /tmp/${helperName} && cd /tmp/${helperName} && makepkg -si --noconfirm && cd - && rm -rf /tmp/${helperName}`;
+                    const installCmd = `${helperName} -S --needed --noconfirm ${packageNames.join(' ')}`;
+                    baseCmd = `${installHelperCmd} && ${installCmd}`;
+                } else {
+                    baseCmd = `${selectedHelper} -S --needed --noconfirm ${packageNames.join(' ')}`;
+                }
+            } else if (selectedDistro === 'homebrew') {
+                const formulae = packageNames.filter(p => !p.startsWith('--cask '));
+                const casks = packageNames.filter(p => p.startsWith('--cask ')).map(p => p.replace('--cask ', ''));
+                const parts: string[] = [];
+                if (formulae.length > 0) parts.push(`brew install ${formulae.join(' ')}`);
+                if (casks.length > 0) parts.push(`brew install --cask ${casks.join(' ')}`);
+                baseCmd = parts.join(' && ');
+            } else {
+                baseCmd = `${distro.installPrefix} ${packageNames.join(' ')}`;
+            }
+        }
 
         if (selectedDistro === 'nix') {
-            const sortedPkgs = packageNames.filter(p => p.trim()).sort();
-            const pkgList = sortedPkgs.map(p => `    ${p}`).join('\n');
-            return `environment.systemPackages = with pkgs; [\n${pkgList}\n];`;
+            let combined = baseCmd;
+            if (extrasStr) combined += '\\n# NPM limits:\\n# ' + extrasStr;
+            if (scriptPkgs.length > 0) combined += '\\n# Custom scripts:\\n# ' + scriptPkgs.join('\\n# ');
+            return combined;
         }
 
-        if (selectedDistro === 'snap') {
-            if (packageNames.length === 1) {
-                return `${distro.installPrefix} ${packageNames[0]}`;
-            }
-            return packageNames.map(p => `sudo snap install ${p}`).join(' && ');
-        }
-
-        if (selectedDistro === 'arch' && aurPackageInfo.hasAur) {
-            if (!hasYayInstalled) {
-                const helperName = selectedHelper; // yay or paru
-
-                const installHelperCmd = `sudo pacman -S --needed git base-devel && git clone https://aur.archlinux.org/${helperName}.git /tmp/${helperName} && cd /tmp/${helperName} && makepkg -si --noconfirm && cd - && rm -rf /tmp/${helperName}`;
-
-                const installCmd = `${helperName} -S --needed --noconfirm ${packageNames.join(' ')}`;
-
-                return `${installHelperCmd} && ${installCmd}`;
-            } else {
-                return `${selectedHelper} -S --needed --noconfirm ${packageNames.join(' ')}`;
-            }
-        }
-
-        if (selectedDistro === 'homebrew') {
-            const formulae = packageNames.filter(p => !p.startsWith('--cask '));
-            const casks = packageNames.filter(p => p.startsWith('--cask ')).map(p => p.replace('--cask ', ''));
-            const parts: string[] = [];
-            if (formulae.length > 0) {
-                parts.push(`brew install ${formulae.join(' ')}`);
-            }
-            if (casks.length > 0) {
-                parts.push(`brew install --cask ${casks.join(' ')}`);
-            }
-            return parts.join(' && ') || '# No packages selected';
-        }
-
-        return `${distro.installPrefix} ${packageNames.join(' ')}`;
+        return appendScripts(appendExtras(baseCmd));
     }, [selectedDistro, selectedApps, aurPackageInfo.hasAur, hasYayInstalled, selectedHelper]);
 
     return {
