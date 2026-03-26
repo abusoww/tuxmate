@@ -222,5 +222,21 @@
       "type": "url",
       "url": "https://nheko-reborn.github.io/images/logo.png"
     }
+  },
+  {
+    "id": "cinny",
+    "name": "Cinny",
+    "description": "Streamlined Matrix client",
+    "category": "Communication",
+    "targets": {
+      "arch": "cinny-desktop-bin",
+      "nix": "cinny-desktop",
+      "flatpak": "in.cinny.Cinny"
+    },
+    "unavailableReason": "Not in official repos. Install using [Flatpak](https://flathub.org/en/apps/in.cinny.Cinny).",
+    "icon": {
+      "type": "url",
+      "url": "https://cinny.in/assets/cinny.svg"
+    }
   }
 ]
