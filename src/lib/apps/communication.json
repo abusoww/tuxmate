@@ -183,5 +183,23 @@
       "type": "url",
       "url": "https://apps.kde.org/app-icons/org.kde.neochat.svg"
     }
+  },
+  {
+    "id": "fractal",
+    "name": "Fractal",
+    "description": "Streamlined GTK-based Matrix client by the GNOME project",
+    "category": "Communication",
+    "targets": {
+      "arch": "fractal",
+      "fedora": "fractal",
+      "opensuse": "fractal",
+      "nix": "fractal",
+      "flatpak": "org.gnome.Fractal"
+    },
+    "unavailableReason": "Not in official repos. Install via [Flatpak](https://flathub.org/en/apps/org.gnome.Fractal). The Snap version is badly outdated.",
+    "icon": {
+      "type": "url",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/GNOME_Fractal_%282023%29.svg"
+    }
   }
 ]
