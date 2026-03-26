@@ -330,5 +330,25 @@
       "type": "url",
       "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Breezeicons-apps-48-konversation.svg"
     }
+  },
+  {
+    "id": "polari",
+    "name": "Polari",
+    "description": "GTK-based IRC client for GNOME",
+    "category": "Communication",
+    "targets": {
+      "ubuntu": "polari",
+      "debian": "polari",
+      "arch": "polari",
+      "fedora": "polari",
+      "opensuse": "polari",
+      "nix": "polari",
+      "flatpak": "org.gnome.Polari"
+    },
+    "unavailableReason": "Not available in official repos. Use [Flatpak](https://flathub.org/en/apps/org.gnome.Polari).",
+    "icon": {
+      "type": "url",
+      "url": "https://static.gnome.org/catalog/app-icon/scalable/org.gnome.Polari.svg"
+    }
   }
 ]
