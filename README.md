@@ -12,44 +12,47 @@
 
 </div>
 
-## 🐧 The only Mate you need for setup
+<div align="center">
+  <h2>🐧 The only Mate you need for setup</h2>
+  <p><strong>TuxMate is a cross-distro install command generator built for real Linux workflows.</strong></p>
+  <p>Choose apps once, generate inspectable commands/scripts for your distro, and run only what you understand.</p>
+</div>
 
-**TuxMate** is a simple web tool that generates install scripts for any Linux distro. Pick your apps, copy the command, done.
+> [!NOTE]
+> Package mappings are verified against official distro registries and reviewed under strict contribution rules. Repositories evolve over time, so some entries can become outdated or unavailable later. If you spot an issue, please report it so we can fix it quickly.
 
-Fresh install? New machine? Can't remember every package name? We've all been there.
-
-
-## 📦 Supported Package Managers
-
-- Ubuntu / Debian (apt)
-- Arch Linux (pacman + AUR)
-- Fedora (dnf)
-- openSUSE (zypper)
-- Nix (declarative config)
-- Flatpak
-- Snap
-- Homebrew (macOS + Linux)
-
-## ✨ Features
-
-### **Application Catalog**  
-180+ applications across 15 categories: browsers, communication, dev tools, terminals, media, creative software, gaming, office, VPN/network, security, and more.
-
-### **Smart Script Generation**  
-- Detects already-installed packages
-- Handles AUR packages automatically on Arch
-- **Nix Unfree Detection**: Warns compliant configuration for unfree packages (Discord, Spotify, etc.)
-- Homebrew formula/cask separation for macOS
-- Parallel installation for Flatpak
-- Network retry with exponential backoff
-- Progress bars with ETA
-- Colored output and summary reports
+> [!WARNING]
+> Security notice: TuxMate is a command generator (a wrapper around install logic), not a background installer. You copy and run commands yourself, so always inspect the generated command/script in the UI before executing. Downloadable scripts are produced with strict project rules, but no automation tool can replace user review. Confirm package names, flags, and targets for your distro before execution, and proceed at your own risk.
 
 
 
 
+<div align="center">
 
-## 📸 Screenshots
+## Supported Package Managers
+
+[Ubuntu (apt)](https://packages.ubuntu.com/) · [Debian (apt)](https://packages.debian.org/) · [Arch (pacman)](https://archlinux.org/packages/) · [AUR](https://aur.archlinux.org/) · [Fedora (dnf)](https://packages.fedoraproject.org/) · [openSUSE (zypper)](https://software.opensuse.org/) · [Nix (nixpkgs)](https://search.nixos.org/packages) · [Flatpak (Flathub)](https://flathub.org/) · [Snap (Snapcraft)](https://snapcraft.io/) · [Homebrew](https://formulae.brew.sh/)
+
+</div>
+
+## Features
+
+- Cross-distro generation: apt (Ubuntu/Debian), pacman + AUR helpers (yay/paru), dnf (Fedora), zypper (openSUSE), nix config output, Flatpak, Snap, and Homebrew.
+- Native-first resolution with npm/script fallbacks only when a distro target is missing.
+- Safe generation: inspectable output, installed-package checks, and retry with exponential backoff.
+- Faster setup: parallel Flatpak installs.
+- Homebrew-aware output with correct formula/cask separation.
+- Clean terminal UX: colored logs, progress, ETA, and final summaries.
+- Verification built in: AUR detection + allowlist, Nix unfree checks, and verified Flatpak/Snap badges.
+- Productive UI: copy/download drawer, yay/paru switch, unfree warnings, and distro-aware context.
+- Keyboard-first flow: Vim/arrow navigation, `/` search focus, and fast clear.
+- PWA support with network-first service worker for resilient loading.
+
+
+
+
+
+## Screenshots
 
 ![1](src/screenshots/1.png)
 ![2](src/screenshots/2.png)
@@ -59,7 +62,7 @@ Fresh install? New machine? Can't remember every package name? We've all been th
 
 
 <details>
-<summary><h2>💻 Development</h2></summary>
+<summary><h3>Development</h3></summary>
 
 ```bash
 npm install
@@ -79,89 +82,52 @@ npm start
 
 
 <details>
-<summary><h2>🗂️ Project Structure</h2></summary>
+<summary><h3>Project Structure</h3></summary>
 
-```
-src/
-├── app/                    # Next.js app router
-│   ├── page.tsx            # Main page component
-│   ├── layout.tsx          # Root layout with meta tags
-│   ├── globals.css         # Tailwind styles
-│   ├── error.tsx           # Error boundary
-│   └── favicon.ico         # Site favicon
-├── components/
-│   ├── app/                # App cards & categories
-│   ├── command/            # Command footer & AUR settings
-│   ├── common/             # Tooltips, loading states
-│   ├── distro/             # Distribution selector
-│   ├── header/             # Header links & info
-│   ├── search/             # Search overlay
-│   └── ui/                 # Theme toggle
-├── hooks/                  # React hooks
-│   ├── useLinuxInit.ts     # Main app state management
-│   ├── useKeyboardNavigation.ts
-│   ├── useTheme.tsx
-│   ├── useTooltip.ts
-│   └── useDelayedTooltip.ts
-├── lib/
-│   ├── apps/               # JSON application files by category
-│   ├── data.ts             # Categories, distros, and app unifier
-│   ├── aur.ts              # AUR package detection
-│   ├── analytics.ts        # Umami tracking
-│   ├── utils.ts            # Utility functions
-│   ├── generateInstallScript.ts
-│   └── scripts/            # Per-distro script generators
-└── __tests__/              # Vitest unit tests
-```
+- `src/app/`: App Router entrypoints, layout, globals, and error boundary.
+- `src/components/`: UI modules (catalog, command drawer, distro selector, search, shared UI primitives).
+- `src/hooks/`: App interaction hooks (state orchestration, keyboard navigation, theme, tooltips).
+- `src/lib/apps/`: Source-of-truth app registry (category JSON files).
+- `src/lib/scripts/`: Distro-specific script generators and shared shell helpers.
+- `src/lib/generateInstallScript.ts`: Main orchestration for native targets + universal fallbacks.
+- `src/lib/verification.ts`: Verified source badges (Flathub/Snap).
+- `src/__tests__/`: Unit tests for data, script behavior, and utilities.
 
 </details>
 
 
 <details>
-<summary><h2>🐳 Docker Deployment</h2></summary>
+<summary><h3>Docker Deployment</h3></summary>
 
-### Quick Start with Docker
+### Build and Run
 
 ```bash
-# Build the Docker image
 docker build -t tuxmate:latest .
-
-# Run the container
 docker run -p 3000:3000 tuxmate:latest
 ```
 
-### Using Pre-built Images
-
-Pre-built Docker images are automatically published to GitHub Container Registry:
+### Use Prebuilt Image (GHCR)
 
 ```bash
-# Pull and run the latest image
 docker pull ghcr.io/abusoww/tuxmate:latest
 docker run -p 3000:3000 ghcr.io/abusoww/tuxmate:latest
 
-# Or use a specific version
+# Version pinning example
 docker pull ghcr.io/abusoww/tuxmate:v1.0.0
 docker run -p 3000:3000 ghcr.io/abusoww/tuxmate:v1.0.0
 ```
 
-### Using Docker Compose (Recommended)
+### Docker Compose
 
 ```bash
-# Start the application
 docker-compose up -d
-
-# View logs
 docker-compose logs -f
-
-# Stop the application
 docker-compose down
 ```
 
 Open [http://localhost:3000](http://localhost:3000)
 
-### Configuration
-
-The Docker container exposes port 3000 by default. You can customize the port mapping:
+### Port Mapping
 
 ```bash
 docker run -p 8080:3000 tuxmate:latest
@@ -169,13 +135,9 @@ docker run -p 8080:3000 tuxmate:latest
 
 ### Environment Variables
 
-The following environment variables are configured by default:
-
 - `NODE_ENV=production` - Run in production mode
 - `PORT=3000` - Application port
 - `NEXT_TELEMETRY_DISABLED=1` - Disable Next.js anonymous telemetry
-
-You can override these when running the container:
 
 ```bash
 docker run -p 3000:3000 \
@@ -188,32 +150,13 @@ docker run -p 3000:3000 \
 
 
 <details>
-<summary><h2>🛠️ Tech Stack</h2></summary>
+<summary><h3>Tech Stack</h3></summary>
 
-- [Next.js](https://nextjs.org/) 16 (App Router)
-- [React](https://react.dev/) 19
-- [TypeScript](https://www.typescriptlang.org/)
-- [Tailwind CSS](https://tailwindcss.com/) 4
-- [Framer Motion](https://www.framer.com/motion/)
-- [GSAP](https://gsap.com/)
-- [Vitest](https://vitest.dev/) (testing)
-- [Lucide React](https://lucide.dev/) (icons)
+- Core: [Next.js](https://nextjs.org/) 16 (App Router), [React](https://react.dev/) 19, [TypeScript](https://www.typescriptlang.org/)
+- UI: [Tailwind CSS](https://tailwindcss.com/) 4, [Framer Motion](https://www.framer.com/motion/), [GSAP](https://gsap.com/), [Lucide React](https://lucide.dev/)
+- Testing: [Vitest](https://vitest.dev/)
 
 </details>
-
-### ⌨️ Keyboard Shortcuts
-
-| Key | Action |
-|-----|--------|
-| `↑` `↓` `←` `→` / `h` `j` `k` `l` | Navigate apps |
-| `Space` | Toggle app selection |
-| `Esc` | Clear focus |
-| `/` | Focus search |
-| `y` | Copy command |
-| `d` | Download script |
-| `t` | Toggle theme |
-| `c` | Clear all selections |
-| `Tab` | Toggle preview drawer |
 
 ## 🤝 Contribution
 
@@ -258,7 +201,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 
 <details>
-<summary><h4>🔗 Related Projects</h4></summary>
+<summary><h4>Related Projects</h4></summary>
 	
 - **[LinuxToys](https://github.com/psygreg/linuxtoys)** – User-friendly collection of tools for Linux with an intuitive interface
 - **[Nixite](https://github.com/aspizu/nixite)** – Generates bash scripts to install Linux software, inspired by Ninite
@@ -268,7 +211,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
 
 <details>
-<summary><h4>💳 Monetary Contributions</h4></summary>
+<summary><h4>Monetary Contributions</h4></summary>
 
 No tips jar here. I’m happy just knowing you’re using Linux.
 
