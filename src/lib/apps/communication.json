@@ -180,45 +180,6 @@
     }
   },
   {
-    "id": "neochat",
-    "name": "NeoChat",
-    "description": "Qt-based Matrix client by the KDE project",
-    "category": "Communication",
-    "targets": {
-      "ubuntu": "neochat",
-      "debian": "neochat",
-      "arch": "neochat",
-      "fedora": "neochat",
-      "opensuse": "neochat",
-      "nix": "neochat",
-      "flatpak": "org.kde.neochat",
-      "snap": "neochat"
-    },
-    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/org.kde.neochat) or [Snap](https://snapcraft.io/neochat).",
-    "icon": {
-      "type": "url",
-      "url": "https://apps.kde.org/app-icons/org.kde.neochat.svg"
-    }
-  },
-  {
-    "id": "fractal",
-    "name": "Fractal",
-    "description": "Streamlined GTK-based Matrix client by the GNOME project",
-    "category": "Communication",
-    "targets": {
-      "arch": "fractal",
-      "fedora": "fractal",
-      "opensuse": "fractal",
-      "nix": "fractal",
-      "flatpak": "org.gnome.Fractal"
-    },
-    "unavailableReason": "Not in official repos. Install via [Flatpak](https://flathub.org/en/apps/org.gnome.Fractal). The Snap version is badly outdated.",
-    "icon": {
-      "type": "url",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/b/b9/GNOME_Fractal_%282023%29.svg"
-    }
-  },
-  {
     "id": "nheko",
     "name": "Nheko",
     "description": "Matrix client with a familiar user interface",
@@ -273,25 +234,6 @@
     }
   },
   {
-    "id": "hexchat",
-    "name": "Hexchat",
-    "description": "Fully-featured IRC client",
-    "category": "Communication",
-    "targets": {
-      "ubuntu": "hexchat",
-      "debian": "hexchat",
-      "arch": "hexchat",
-      "fedora": "hexchat",
-      "opensuse": "hexchat",
-      "nix": "hexchat"
-    },
-    "unavailableReason": "Not in official repos. See [hexchat.github.io](https://hexchat.github.io/) for installation instructions.",
-    "icon": {
-      "type": "url",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Hexchat_Logo.svg"
-    }
-  },
-  {
     "id": "halloy",
     "name": "Halloy",
     "description": "Slick IRC client written in Rust",
@@ -308,47 +250,6 @@
     "icon": {
       "type": "url",
       "url": "https://halloy.chat/logo.png"
-    }
-  },
-  {
-    "id": "konversation",
-    "name": "Konversation",
-    "description": "IRC client by the KDE project",
-    "category": "Communication",
-    "targets": {
-      "ubuntu": "konversation",
-      "debian": "konversation",
-      "arch": "konversation",
-      "fedora": "konversation",
-      "opensuse": "konversation",
-      "nix": "konversation",
-      "flatpak": "org.kde.konversation",
-      "snap": "konversation"
-    },
-    "unavailableReason": "Not in official repos. Install using [Flatpak](https://flathub.org/en/apps/org.kde.konversation) or [Snap](https://snapcraft.io/konversation).",
-    "icon": {
-      "type": "url",
-      "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/Breezeicons-apps-48-konversation.svg"
-    }
-  },
-  {
-    "id": "polari",
-    "name": "Polari",
-    "description": "GTK-based IRC client for GNOME",
-    "category": "Communication",
-    "targets": {
-      "ubuntu": "polari",
-      "debian": "polari",
-      "arch": "polari",
-      "fedora": "polari",
-      "opensuse": "polari",
-      "nix": "polari",
-      "flatpak": "org.gnome.Polari"
-    },
-    "unavailableReason": "Not available in official repos. Use [Flatpak](https://flathub.org/en/apps/org.gnome.Polari).",
-    "icon": {
-      "type": "url",
-      "url": "https://static.gnome.org/catalog/app-icon/scalable/org.gnome.Polari.svg"
     }
   },
   {
@@ -370,26 +271,6 @@
     "icon": {
       "type": "url",
       "url": "https://dino.im/img/logo.svg"
-    }
-  },
-  {
-    "id": "kaidan",
-    "name": "Kaidan",
-    "description": "XMPP client by the KDE project",
-    "category": "Communication",
-    "targets": {
-      "ubuntu": "kaidan",
-      "debian": "kaidan",
-      "arch": "kaidan",
-      "fedora": "kaidan",
-      "opensuse": "kaidan",
-      "nix": "kaidan",
-      "flatpak": "im.kaidan.kaidan"
-    },
-    "unavailableReason": "Not available in official repos. Use [Flatpak](https://flathub.org/en/apps/im.kaidan.kaidan)",
-    "icon": {
-      "type": "url",
-      "url": "https://imgproxy.flathub.org/insecure/dpr:1/f:avif/q:100/rs:fit:128:128/aHR0cHM6Ly9kbC5mbGF0aHViLm9yZy9tZWRpYS9pbS9rYWlkYW4va2FpZGFuL2Q3ZGY3NmJkYjRiMzgzMzYyZGEwOTVjNDA4N2YwMTYyL2ljb25zLzEyOHgxMjgvaW0ua2FpZGFuLmthaWRhbi5wbmc"
     }
   }
 ]
