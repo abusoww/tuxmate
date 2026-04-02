@@ -273,29 +273,6 @@
         }
     },
     {
-        "id": "wireshark",
-        "name": "Wireshark",
-        "description": "Network protocol analyzer and packet capture",
-        "category": "Dev: Tools",
-        "targets": {
-            "ubuntu": "wireshark",
-            "debian": "wireshark",
-            "arch": "wireshark-qt",
-            "fedora": "wireshark",
-            "opensuse": "wireshark",
-            "nix": "wireshark",
-            "flatpak": "org.wireshark.Wireshark",
-            "homebrew": "--cask wireshark-app"
-        },
-        "unavailableReason": "Wireshark is not available as a Snap package.",
-        "icon": {
-            "type": "iconify",
-            "set": "simple-icons",
-            "name": "wireshark",
-            "color": "#1679A7"
-        }
-    },
-    {
         "id": "postman",
         "name": "Postman",
         "description": "Popular API testing and development platform",

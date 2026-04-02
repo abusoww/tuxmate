@@ -10,6 +10,7 @@
       "homebrew": "--cask ivpn",
       "snap": "ivpn"
     },
+    "note": "",
     "unavailableReason": "Not in official repos. Follow instructions at [ivpn.net/en/apps-linux](https://www.ivpn.net/en/apps-linux/).",
     "icon": {
       "type": "url",
@@ -27,6 +28,7 @@
       "flatpak": "com.protonvpn.www",
       "homebrew": "--cask protonvpn"
     },
+    "note": "",
     "unavailableReason": "Not in official repos. Use Flatpak or follow instructions at [protonvpn.com/support/linux-vpn-setup](https://protonvpn.com/support/linux-vpn-setup/).",
     "icon": {
       "type": "iconify",
@@ -45,6 +47,7 @@
       "nix": "mullvad-vpn",
       "homebrew": "--cask mullvad-vpn"
     },
+    "note": "",
     "unavailableReason": "Not in official repos. Use [AUR](https://aur.archlinux.org/packages/mullvad-vpn-bin) or see [official install guide](https://mullvad.net/en/help/install-mullvad-app-linux).",
     "icon": {
       "type": "iconify",
@@ -65,6 +68,7 @@
       "nix": "tailscale",
       "homebrew": "tailscale"
     },
+    "note": "",
     "unavailableReason": "Not in Debian or Ubuntu repos. Follow instructions at [tailscale.com/download/linux](https://tailscale.com/download/linux).",
     "icon": {
       "type": "iconify",
@@ -87,6 +91,7 @@
       "nix": "wireguard-tools",
       "homebrew": "wireguard-tools"
     },
+    "note": "",
     "unavailableReason": "WireGuard is a kernel module and not available via Flatpak or Snap.",
     "icon": {
       "type": "iconify",
@@ -109,6 +114,7 @@
       "nix": "openvpn",
       "homebrew": "openvpn"
     },
+    "note": "",
     "unavailableReason": "OpenVPN is a system package and not available via Flatpak or Snap.",
     "icon": {
       "type": "iconify",
@@ -131,6 +137,7 @@
       "nix": "nmap",
       "homebrew": "nmap"
     },
+    "note": "",
     "unavailableReason": "Nmap is a CLI tool and not available via Flatpak or Snap.",
     "icon": {
       "type": "url",
@@ -151,6 +158,7 @@
       "nix": "openssh",
       "homebrew": "openssh"
     },
+    "note": "",
     "unavailableReason": "OpenSSH is a system package and not available via Flatpak or Snap.",
     "icon": {
       "type": "iconify",
@@ -174,10 +182,106 @@
       "flatpak": "org.remmina.Remmina",
       "snap": "remmina"
     },
+    "note": "",
     "unavailableReason": "Remmina is not available via Homebrew, use [Flatpak version](https://flathub.org/en/apps/org.remmina.Remmina) or [Snap version](https://snapcraft.io/remmina) instead.",
     "icon": {
       "type": "url",
       "url": "https://upload.wikimedia.org/wikipedia/commons/9/96/Org.remmina.Remmina.svg"
+    }
+  },
+  {
+    "id": "wireshark",
+    "name": "Wireshark",
+    "description": "Network protocol analyzer",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "wireshark",
+      "arch": "wireshark-gtk",
+      "homebrew": "--cask wireshark"
+    },
+    "note": "",
+    "unavailableReason": "Install via [official site](https://www.wireshark.org/download.html) if unavailable.",
+    "icon": {
+      "type": "iconify",
+      "set": "simple-icons",
+      "name": "wireshark",
+      "color": "#005C9E"
+    }
+  },
+  {
+    "id": "netdiscover",
+    "name": "Netdiscover",
+    "description": "ARP network discovery tool",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "netdiscover",
+      "arch": "netdiscover",
+      "homebrew": "netdiscover"
+    },
+    "note": "",
+    "unavailableReason": "Install via [official repo instructions](https://github.com/alexxy/netdiscover).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "network",
+      "color": "#FF6600"
+    }
+  },
+  {
+    "id": "dig",
+    "name": "dig",
+    "description": "DNS lookup utility (from dnsutils)",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "dnsutils",
+      "arch": "bind-tools",
+      "homebrew": "bind"
+    },
+    "note": "",
+    "unavailableReason": "Install via [official docs](https://linux.die.net/man/1/dig) if unavailable.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "dns",
+      "color": "#4CAF50"
+    }
+  },
+  {
+    "id": "netcat",
+    "name": "Netcat",
+    "description": "Networking utility for reading/writing TCP/UDP",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "netcat",
+      "arch": "gnu-netcat",
+      "homebrew": "netcat"
+    },
+    "note": "",
+    "unavailableReason": "Install via [official package](https://nc110.sourceforge.io/).",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "network",
+      "color": "#2196F3"
+    }
+  },
+  {
+    "id": "netstat",
+    "name": "Netstat",
+    "description": "Displays network connections, routing tables",
+    "category": "VPN & Network",
+    "targets": {
+      "ubuntu": "net-tools",
+      "arch": "net-tools",
+      "homebrew": "net-tools"
+    },
+    "note": "",
+    "unavailableReason": "Install via [official docs](https://man7.org/linux/man-pages/man8/netstat.8.html) if unavailable.",
+    "icon": {
+      "type": "iconify",
+      "set": "mdi",
+      "name": "network",
+      "color": "#F44336"
     }
   }
 ]
