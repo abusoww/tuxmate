@@ -4,14 +4,8 @@
 import { distros, type DistroId } from './data';
 import {
     getSelectedPackages,
-    generateUbuntuScript,
-    generateDebianScript,
     generateArchScript,
-    generateFedoraScript,
-    generateOpenSUSEScript,
-    generateNixScript,
     generateFlatpakScript,
-    generateSnapScript,
 } from './scripts';
 
 interface ScriptOptions {
@@ -31,14 +25,8 @@ export function generateInstallScript(options: ScriptOptions): string {
     if (packages.length === 0) return '#!/bin/bash\necho "No packages selected"\nexit 0';
 
     switch (distroId) {
-        case 'ubuntu': return generateUbuntuScript(packages);
-        case 'debian': return generateDebianScript(packages);
         case 'arch': return generateArchScript(packages, helper);
-        case 'fedora': return generateFedoraScript(packages);
-        case 'opensuse': return generateOpenSUSEScript(packages);
-        case 'nix': return generateNixScript(packages);
         case 'flatpak': return generateFlatpakScript(packages);
-        case 'snap': return generateSnapScript(packages);
         default: return '#!/bin/bash\necho "Unsupported distribution"\nexit 1';
     }
 }
@@ -51,16 +39,8 @@ export function generateSimpleCommand(selectedAppIds: Set<string>, distroId: Dis
     const pkgList = packages.map(p => p.pkg).join(' ');
 
     switch (distroId) {
-        case 'ubuntu':
-        case 'debian': return `sudo apt install -y ${pkgList}`;
-        case 'arch': return `yay -S --needed --noconfirm ${pkgList}`;
-        case 'fedora': return `sudo dnf install -y ${pkgList}`;
-        case 'opensuse': return `sudo zypper install -y ${pkgList}`;
-        case 'nix': return `nix-env -iA ${packages.map(p => `nixpkgs.${p.pkg}`).join(' ')}`;
+        case 'arch': return `sudo pacman -S --needed --noconfirm ${pkgList}`;
         case 'flatpak': return `flatpak install flathub -y ${pkgList}`;
-        case 'snap':
-            if (packages.length === 1) return `sudo snap install ${pkgList}`;
-            return packages.map(p => `sudo snap install ${p.pkg}`).join(' && ');
         default: return `# Install: ${pkgList}`;
     }
 }

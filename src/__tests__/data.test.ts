@@ -13,8 +13,15 @@ describe('Data Module', () => {
         it('should have icon URLs', () => {
             distros.forEach(distro => {
                 expect(distro.iconUrl).toBeTruthy();
-                expect(distro.iconUrl).toMatch(/^https?:\/\//);
+                expect(distro.iconUrl).toMatch(/^(https?:\/\/|\/)/);
             });
+        });
+
+        it('should have exactly arch and flatpak', () => {
+            const ids = distros.map(d => d.id);
+            expect(ids).toContain('arch');
+            expect(ids).toContain('flatpak');
+            expect(ids.length).toBe(2);
         });
     });
 
@@ -73,23 +80,24 @@ describe('Data Module', () => {
     });
 
     describe('isAppAvailable', () => {
-        it('should return true for Firefox on Ubuntu', () => {
-            const firefox = apps.find(a => a.id === 'firefox');
-            expect(firefox).toBeDefined();
-            expect(isAppAvailable(firefox!, 'ubuntu')).toBe(true);
-        });
-
         it('should return true for Firefox on Arch', () => {
             const firefox = apps.find(a => a.id === 'firefox');
             expect(firefox).toBeDefined();
             expect(isAppAvailable(firefox!, 'arch')).toBe(true);
         });
 
+        it('should return true for Firefox on Flatpak', () => {
+            const firefox = apps.find(a => a.id === 'firefox');
+            expect(firefox).toBeDefined();
+            expect(isAppAvailable(firefox!, 'flatpak')).toBe(true);
+        });
+
         it('should return false for apps not on distro', () => {
-            // Discord is not in Ubuntu repos
-            const discord = apps.find(a => a.id === 'discord');
-            expect(discord).toBeDefined();
-            expect(isAppAvailable(discord!, 'ubuntu')).toBe(false);
+            // ohmyzsh has no targets defined for any distro
+            const ohmyzsh = apps.find(a => a.id === 'ohmyzsh');
+            expect(ohmyzsh).toBeDefined();
+            expect(isAppAvailable(ohmyzsh!, 'arch')).toBe(false);
+            expect(isAppAvailable(ohmyzsh!, 'flatpak')).toBe(false);
         });
     });
 });
