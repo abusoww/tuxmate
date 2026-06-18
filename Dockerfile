@@ -1,26 +1,16 @@
-# Stage 1: Build the application
-FROM node:20-alpine AS builder
+FROM oven/bun:1.3 AS builder
 WORKDIR /app
 
-# Disable Next.js telemetry during build
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Copy package files
-COPY package.json package-lock.json ./
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-# Install dependencies
-RUN npm ci
-
-# Copy source code
 COPY . .
+RUN bun run build
 
-# Build Next.js application (static export to /app/out)
-RUN npm run build
-
-# Stage 2: Serve static files with nginx
 FROM nginx:alpine AS runner
 
-# Copy custom nginx config for SPA routing
 RUN echo 'server { \
     listen 80; \
     listen [::]:80; \
@@ -37,11 +27,8 @@ RUN echo 'server { \
     gzip_types text/plain text/css application/json application/javascript text/xml application/xml text/javascript; \
 }' > /etc/nginx/conf.d/default.conf
 
-# Copy static files from builder
 COPY --from=builder /app/out /usr/share/nginx/html
 
-# Expose port
 EXPOSE 80
 
-# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
