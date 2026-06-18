@@ -8,9 +8,11 @@ import gsap from 'gsap';
 import { useLinuxInit } from '@/hooks/useLinuxInit';
 import { useDelayedTooltip } from '@/hooks/useDelayedTooltip';
 import { useKeyboardNavigation, type NavItem } from '@/hooks/useKeyboardNavigation';
+import { useVerification } from '@/hooks/useVerification';
+import { useI18n } from '@/hooks/useI18n';
 
 // Data
-import { categories, getAppsByCategory } from '@/lib/data';
+import { categories, getAppsByCategory, getNixPackages, hasNixPackages } from '@/lib/data';
 
 // Components
 import { ThemeToggle } from '@/components/ui/theme-toggle';
@@ -19,18 +21,18 @@ import { DistroSelector } from '@/components/distro';
 import { CategorySection } from '@/components/app';
 import { CommandFooter } from '@/components/command';
 import { Tooltip, GlobalStyles, LoadingSkeleton } from '@/components/common';
+import { Sidebar } from '@/components/sidebar';
+import { LocaleToggle } from '@/components/i18n';
 import LogoBg from '@/components/app/LogoBg';
 
-// The main event
-
 export default function Home() {
-    // All the state we need to make this thing work
-
+    const { t, fmt, dir } = useI18n();
     const { tooltip, show: showTooltip, hide: hideTooltip, onTooltipEnter, onTooltipLeave } = useDelayedTooltip(600);
 
     const {
         selectedDistro,
         selectedApps,
+        setSelectedDistro,
         toggleApp,
         clearAll,
         isAppAvailable,
@@ -42,8 +44,14 @@ export default function Home() {
         aurAppNames,
         isHydrated,
         selectedHelper,
-        setSelectedHelper
+        setSelectedHelper,
+        hasUnfreePackages,
+        unfreeAppNames,
+        hasFlatpakPackages,
+        flatpakAppNames,
     } = useLinuxInit();
+
+    const { isVerified, getVerificationSource } = useVerification();
 
     // Search state
     const [searchQuery, setSearchQuery] = useState('');
@@ -52,10 +60,7 @@ export default function Home() {
     // Handle "/" key to focus search
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            // Skip if already in input
             if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-
-            // Skip if modifier keys are pressed (prevents conflicts with browser shortcuts)
             if (e.ctrlKey || e.altKey || e.metaKey) return;
 
             if (e.key === '/') {
@@ -68,6 +73,8 @@ export default function Home() {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, []);
 
+    // Active shortcut visual feedback
+    const [activeShortcut, setActiveShortcut] = useState<string | null>(null);
 
     // Distribute apps into a nice grid
     const allCategoriesWithApps = useMemo(() => {
@@ -75,7 +82,6 @@ export default function Home() {
         return categories
             .map(cat => {
                 const categoryApps = getAppsByCategory(cat);
-                // Filter apps if there's a search query (match name or id only)
                 const filteredApps = query
                     ? categoryApps.filter(app =>
                         app.name.toLowerCase().includes(query) ||
@@ -87,10 +93,8 @@ export default function Home() {
             .filter(c => c.apps.length > 0);
     }, [searchQuery]);
 
-    // 5 columns looks good on most screens
     const COLUMN_COUNT = 5;
 
-    // Tetris-style packing: shortest column gets the next category
     const columns = useMemo(() => {
         const cols: Array<typeof allCategoriesWithApps> = Array.from({ length: COLUMN_COUNT }, () => []);
         const heights = Array(COLUMN_COUNT).fill(0);
@@ -102,10 +106,6 @@ export default function Home() {
         return cols;
     }, [allCategoriesWithApps]);
 
-    // ========================================================================
-    // Category Expansion State
-    // ========================================================================
-
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => new Set(categories));
 
     const toggleCategoryExpanded = useCallback((cat: string) => {
@@ -116,8 +116,6 @@ export default function Home() {
         });
     }, []);
 
-
-    // Build nav items for keyboard navigation (vim keys ftw)
     const navItems = useMemo(() => {
         const items: NavItem[][] = [];
         columns.forEach((colCategories) => {
@@ -139,10 +137,7 @@ export default function Home() {
         toggleApp
     );
 
-    // ========================================================================
     // Header Animation
-    // ========================================================================
-
     const headerRef = useRef<HTMLElement>(null);
 
     useLayoutEffect(() => {
@@ -152,7 +147,6 @@ export default function Home() {
         const title = header.querySelector('.header-animate');
         const controls = header.querySelector('.header-controls');
 
-        // Fancy clip-path reveal for the logo
         gsap.fromTo(title,
             { clipPath: 'inset(0 100% 0 0)' },
             {
@@ -166,7 +160,6 @@ export default function Home() {
             }
         );
 
-        // Animate controls with fade-in
         gsap.fromTo(controls,
             { opacity: 0, y: -10 },
             {
@@ -179,17 +172,64 @@ export default function Home() {
         );
     }, [isHydrated]);
 
+    // Nix packages
+    const nixPackages = useMemo(() => getNixPackages(selectedApps), [selectedApps]);
+    const showNixGenerator = useMemo(() => hasNixPackages(selectedApps), [selectedApps]);
 
-    // Don't render until we've loaded from localStorage (avoids flash)
+    // Keyboard shortcuts
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (
+                e.target instanceof HTMLInputElement ||
+                e.target instanceof HTMLTextAreaElement ||
+                e.target instanceof HTMLSelectElement
+            ) {
+                return;
+            }
 
-    // Show loading skeleton until localStorage is hydrated
+            if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+            setActiveShortcut(e.key);
+            setTimeout(() => setActiveShortcut(null), 200);
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
+    // Drawer state
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [drawerClosing, setDrawerClosing] = useState(false);
+
+    const openDrawer = useCallback(() => setDrawerOpen(true), []);
+    const closeDrawer = useCallback(() => {
+        setDrawerClosing(true);
+        setTimeout(() => {
+            setDrawerOpen(false);
+            setDrawerClosing(false);
+        }, 250);
+    }, []);
+
+    useEffect(() => {
+        if (!drawerOpen) return;
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') closeDrawer();
+        };
+        document.addEventListener('keydown', handleEscape);
+        return () => document.removeEventListener('keydown', handleEscape);
+    }, [drawerOpen, closeDrawer]);
+
+    const isRtl = dir === 'rtl';
+
     if (!isHydrated) {
         return <LoadingSkeleton />;
     }
 
-    // ========================================================================
-    // Render
-    // ========================================================================
+    const distroDisplayName = selectedDistro === 'arch' ? t.distro.parch : t.distro.flatpak;
+    const totalResults = allCategoriesWithApps.reduce((sum, c) => sum + c.apps.length, 0);
+    const resultLabel = totalResults === 1
+        ? fmt(t.search.results, { count: totalResults })
+        : fmt(t.search.results_plural, { count: totalResults });
 
     return (
         <div
@@ -201,28 +241,54 @@ export default function Home() {
             <GlobalStyles />
             <Tooltip tooltip={tooltip} onEnter={onTooltipEnter} onLeave={onTooltipLeave} />
 
-            {/* Header */}
-            <header ref={headerRef} className="pt-8 sm:pt-12 pb-8 sm:pb-10 px-4 sm:px-6 relative" style={{ zIndex: 1 }}>
+            <Sidebar
+                selectedDistro={selectedDistro}
+                onDistroSelect={(id) => setSelectedDistro(id)}
+                selectedApps={selectedApps}
+                selectedCount={selectedCount}
+                clearAll={clearAll}
+                command={generatedCommand}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                searchInputRef={searchInputRef}
+                hasAurPackages={hasAurPackages}
+                aurAppNames={aurAppNames}
+                selectedHelper={selectedHelper}
+                setSelectedHelper={setSelectedHelper}
+                hasUnfreePackages={hasUnfreePackages}
+                unfreeAppNames={unfreeAppNames}
+                hasFlatpakPackages={hasFlatpakPackages}
+                flatpakAppNames={flatpakAppNames}
+                onOpenDrawer={openDrawer}
+                activeShortcut={activeShortcut}
+            />
+
+            {/* Header - mobile only */}
+            <header
+                ref={headerRef}
+                className={`pt-6 sm:pt-10 pb-6 sm:pb-8 px-4 sm:px-6 relative lg:hidden ${isRtl ? 'text-right' : ''}`}
+                style={{ zIndex: 1 }}
+            >
                 <div className="max-w-7xl mx-auto">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${isRtl ? 'sm:flex-row-reverse' : ''}`}>
                         {/* Logo & Title */}
                         <div className="header-animate">
-                            <div className="flex items-start gap-4">
+                            <div className={`flex items-start gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
                                 <img
                                     src="/tuxmate.png"
-                                    alt="ParchMate Logo"
-                                    className="w-16 h-16 sm:w-[72px] sm:h-[72px] object-contain shrink-0"
+                                    alt={t.app.title}
+                                    className="w-14 h-14 sm:w-[64px] sm:h-[64px] object-contain shrink-0"
                                 />
-                                <div className="flex flex-col justify-center">
+                                <div className={`flex flex-col justify-center ${isRtl ? 'items-end' : ''}`}>
                                     <h1 className="text-xl sm:text-2xl font-bold tracking-tight" style={{ transition: 'color 0.5s' }}>
-                                        ParchMate
+                                        {t.app.title}
                                     </h1>
                                     <p className="text-[10px] sm:text-xs text-[var(--text-muted)] uppercase tracking-widest" style={{ transition: 'color 0.5s' }}>
-                                        The Linux Bulk App Installer.
+                                        {t.app.tagline}
                                     </p>
-                                    <div className="flex items-center gap-3 mt-1.5">
+                                    <div className={`flex items-center gap-3 mt-1.5 ${isRtl ? 'flex-row-reverse' : ''}`}>
                                         <p className="text-xs text-[var(--text-muted)]" style={{ transition: 'color 0.5s' }}>
-                                            Select apps • <span className="hidden sm:inline">Arrow keys + Space</span>
+                                            {t.app.subtitle}
                                         </p>
                                         <span className="text-[var(--text-muted)] opacity-30">|</span>
                                         <HowItWorks />
@@ -232,11 +298,10 @@ export default function Home() {
                         </div>
 
                         {/* Header Controls */}
-                        <div className="header-controls flex items-center gap-3 sm:gap-4">
-                            {/* Links */}
-                            <div className="flex items-center gap-3 sm:gap-4">
-                                <GitHubLink href="https://github.com/parchlinuxb/tuxmate" label="Parch Repo"  />
-                                <GitHubLink label="Original" />
+                        <div className={`header-controls flex items-center gap-3 sm:gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                            <div className={`flex items-center gap-3 sm:gap-4 ${isRtl ? 'flex-row-reverse' : ''}`}>
+                                <GitHubLink href="https://github.com/parchlinuxb/tuxmate" label={t.flags.parchRepo} />
+                                <GitHubLink label={t.flags.github} />
                                 <ContributeLink />
                                 {selectedCount > 0 && (
                                     <>
@@ -247,7 +312,7 @@ export default function Home() {
                                         >
                                             <X className="w-4 h-4 transition-transform duration-300 group-hover:rotate-90" />
                                             <span className="hidden sm:inline relative">
-                                                Clear ({selectedCount})
+                                                {t.sidebar.clearAll} ({selectedCount})
                                                 <span className="absolute bottom-0 left-0 w-0 h-px bg-rose-400 transition-[width] duration-300 group-hover:w-full" />
                                             </span>
                                         </button>
@@ -255,9 +320,9 @@ export default function Home() {
                                 )}
                             </div>
 
-                            {/* Control buttons */}
-                            <div className="flex items-center gap-2 pl-2 sm:pl-3 border-l border-[var(--border-primary)]">
+                            <div className={`flex items-center gap-2 border-l border-[var(--border-primary)] ${isRtl ? 'pr-2 sm:pr-3 border-r-0 border-l' : 'pl-2 sm:pl-3 border-l'}`}>
                                 <ThemeToggle />
+                                <LocaleToggle />
                             </div>
                         </div>
                     </div>
@@ -265,17 +330,31 @@ export default function Home() {
             </header>
 
             {/* App Grid */}
-            <main className="px-4 sm:px-6 pb-40 relative" style={{ zIndex: 1 }}>
+            <main className="px-4 sm:px-6 pb-44 relative main-with-sidebar" style={{ zIndex: 1 }}>
                 <div className="max-w-7xl mx-auto">
+                    {searchQuery && (
+                        <div className={`mb-4 flex items-center gap-2 text-xs text-[var(--text-muted)] ${isRtl ? 'flex-row-reverse' : ''}`}>
+                            <span className="px-2 py-1 rounded-md bg-[var(--bg-tertiary)]/50 border border-[var(--border-primary)]/30">
+                                {t.search.searching}: <strong className="text-[var(--text-secondary)]">&ldquo;{searchQuery}&rdquo;</strong>
+                            </span>
+                            <span className="text-[var(--text-muted)]/60">
+                                &mdash; {resultLabel}
+                            </span>
+                            <button
+                                onClick={() => { setSearchQuery(''); searchInputRef.current?.focus(); }}
+                                className={`px-2 py-1 rounded-md text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)] transition-colors ${isRtl ? 'mr-auto' : 'ml-auto'}`}
+                            >
+                                {t.search.clear}
+                            </button>
+                        </div>
+                    )}
                     <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 sm:gap-x-8">
                         {columns.map((columnCategories, colIdx) => {
-                            // Calculate starting index for this column (for staggered animation)
                             let globalIdx = 0;
                             for (let c = 0; c < colIdx; c++) {
                                 globalIdx += columns[c].length;
                             }
 
-                            // Generate stable key based on column content to ensure proper reconciliation
                             const columnKey = `col-${colIdx}-${columnCategories.map(c => c.category).join('-')}`;
 
                             return (
@@ -284,6 +363,7 @@ export default function Home() {
                                         <CategorySection
                                             key={`${category}-${categoryApps.length}`}
                                             category={category}
+                                            localizedCategory={t.category[category] || category}
                                             categoryApps={categoryApps}
                                             selectedApps={selectedApps}
                                             isAppAvailable={isAppAvailable}
@@ -298,6 +378,8 @@ export default function Home() {
                                             categoryIndex={globalIdx + catIdx}
                                             onCategoryFocus={() => setFocusByItem('category', category)}
                                             onAppFocus={(appId) => setFocusByItem('app', appId)}
+                                            isVerified={isVerified}
+                                            getVerificationSource={getVerificationSource}
                                         />
                                     ))}
                                 </div>
@@ -323,6 +405,12 @@ export default function Home() {
                 clearAll={clearAll}
                 selectedHelper={selectedHelper}
                 setSelectedHelper={setSelectedHelper}
+                nixPackages={nixPackages}
+                showNixGenerator={showNixGenerator}
+                drawerOpen={drawerOpen}
+                drawerClosing={drawerClosing}
+                onOpenDrawer={openDrawer}
+                onCloseDrawer={closeDrawer}
             />
         </div>
     );

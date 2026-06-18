@@ -229,22 +229,6 @@ export function AurFloatingCard({
                     {/* Helper selection */}
                     <div className="px-4 pb-4 flex gap-2">
                         <button
-                            onClick={() => handleHelperSelect('yay')}
-                            className={`
-                                flex-1 py-2.5 px-4 rounded-xl text-sm font-medium 
-                                transition-[background-color,color] duration-200 ease-out
-                                ${selectedHelper === 'yay' && helperChosen
-                                    ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm'
-                                    : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
-                                }
-                            `}
-                        >
-                            <span className="block font-semibold">yay</span>
-                            <span className={`block text-[10px] mt-0.5 ${selectedHelper === 'yay' && helperChosen ? 'opacity-70' : 'opacity-50'}`}>
-                                recommended
-                            </span>
-                        </button>
-                        <button
                             onClick={() => handleHelperSelect('paru')}
                             className={`
                                 flex-1 py-2.5 px-4 rounded-xl text-sm font-medium 
@@ -257,7 +241,23 @@ export function AurFloatingCard({
                         >
                             <span className="block font-semibold">paru</span>
                             <span className={`block text-[10px] mt-0.5 ${selectedHelper === 'paru' && helperChosen ? 'opacity-70' : 'opacity-50'}`}>
-                                rust-based
+                                recommended
+                            </span>
+                        </button>
+                        <button
+                            onClick={() => handleHelperSelect('yay')}
+                            className={`
+                                flex-1 py-2.5 px-4 rounded-xl text-sm font-medium 
+                                transition-[background-color,color] duration-200 ease-out
+                                ${selectedHelper === 'yay' && helperChosen
+                                    ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm'
+                                    : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]'
+                                }
+                            `}
+                        >
+                            <span className="block font-semibold">yay</span>
+                            <span className={`block text-[10px] mt-0.5 ${selectedHelper === 'yay' && helperChosen ? 'opacity-70' : 'opacity-50'}`}>
+                                go-based
                             </span>
                         </button>
                     </div>

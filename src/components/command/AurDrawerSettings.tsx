@@ -1,5 +1,7 @@
 'use client';
 
+import { useI18n } from '@/hooks/useI18n';
+
 interface AurDrawerSettingsProps {
     aurAppNames: string[];
     hasYayInstalled: boolean;
@@ -16,6 +18,8 @@ export function AurDrawerSettings({
     selectedHelper,
     setSelectedHelper,
 }: AurDrawerSettingsProps) {
+    const { t, dir } = useI18n();
+    const isRtl = dir === 'rtl';
     return (
         <div className="mb-4 rounded-xl bg-[var(--bg-tertiary)] border border-[var(--border-primary)]/40 overflow-hidden">
             {/* Header with all apps listed */}
@@ -33,6 +37,18 @@ export function AurDrawerSettings({
                     <span className="text-[var(--text-secondary)] font-medium">AUR helper:</span>
                     <div className="flex bg-[var(--bg-secondary)] rounded-lg p-1 border border-[var(--border-primary)]/30">
                         <button
+                            onClick={() => setSelectedHelper('paru')}
+                            className={`relative px-3 py-1.5 rounded-md font-medium transition-[background-color,color,transform] duration-200 ease-out ${selectedHelper === 'paru'
+                                ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm'
+                                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                                }`}
+                            style={{
+                                transform: selectedHelper === 'paru' ? 'scale(1)' : 'scale(0.98)',
+                            }}
+                        >
+                            paru <span className="opacity-60 font-normal">(Rust, recommended)</span>
+                        </button>
+                        <button
                             onClick={() => setSelectedHelper('yay')}
                             className={`relative px-3 py-1.5 rounded-md font-medium transition-[background-color,color,transform] duration-200 ease-out ${selectedHelper === 'yay'
                                 ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm'
@@ -43,18 +59,6 @@ export function AurDrawerSettings({
                             }}
                         >
                             yay <span className="opacity-60 font-normal">(Go)</span>
-                        </button>
-                        <button
-                            onClick={() => setSelectedHelper('paru')}
-                            className={`relative px-3 py-1.5 rounded-md font-medium transition-[background-color,color,transform] duration-200 ease-out ${selectedHelper === 'paru'
-                                ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] shadow-sm'
-                                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-                                }`}
-                            style={{
-                                transform: selectedHelper === 'paru' ? 'scale(1)' : 'scale(0.98)',
-                            }}
-                        >
-                            paru <span className="opacity-60 font-normal">(Rust)</span>
                         </button>
                     </div>
                 </div>

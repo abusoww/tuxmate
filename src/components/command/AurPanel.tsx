@@ -16,7 +16,7 @@ export function AurPanel({
     setHasYayInstalled,
 }: AurPanelProps) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [selectedHelper, setSelectedHelper] = useState<'yay' | 'paru'>('yay');
+    const [selectedHelper, setSelectedHelper] = useState<'yay' | 'paru'>('paru');
     const panelRef = useRef<HTMLDivElement>(null);
 
     // Close on click outside
@@ -38,8 +38,8 @@ export function AurPanel({
 
             // Skip if modifier keys are pressed (prevents conflicts with browser shortcuts)
             if (e.ctrlKey || e.altKey || e.metaKey) return;
-            if (e.key === '1') setSelectedHelper('yay');
-            if (e.key === '2') setSelectedHelper('paru');
+            if (e.key === '1') setSelectedHelper('paru');
+            if (e.key === '2') setSelectedHelper('yay');
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
@@ -140,16 +140,6 @@ export function AurPanel({
                         <p className="text-xs text-[var(--text-muted)] mb-2">Choose your AUR helper:</p>
                         <div className="flex gap-2">
                             <button
-                                onClick={() => setSelectedHelper('yay')}
-                                className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-[background-color,color,border-color] border
-                                    ${selectedHelper === 'yay'
-                                        ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/40'
-                                        : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] border-[var(--border-primary)] hover:text-[var(--text-primary)]'
-                                    }`}
-                            >
-                                <span className="opacity-50 mr-1 text-xs">1</span> yay
-                            </button>
-                            <button
                                 onClick={() => setSelectedHelper('paru')}
                                 className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-[background-color,color,border-color] border
                                     ${selectedHelper === 'paru'
@@ -157,7 +147,17 @@ export function AurPanel({
                                         : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] border-[var(--border-primary)] hover:text-[var(--text-primary)]'
                                     }`}
                             >
-                                <span className="opacity-50 mr-1 text-xs">2</span> paru
+                                <span className="opacity-50 mr-1 text-xs">1</span> paru <span className="text-[10px] opacity-60">(recommended)</span>
+                            </button>
+                            <button
+                                onClick={() => setSelectedHelper('yay')}
+                                className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-[background-color,color,border-color] border
+                                    ${selectedHelper === 'yay'
+                                        ? 'bg-indigo-500/20 text-indigo-400 border-indigo-500/40'
+                                        : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] border-[var(--border-primary)] hover:text-[var(--text-primary)]'
+                                    }`}
+                            >
+                                <span className="opacity-50 mr-1 text-xs">2</span> yay
                             </button>
                         </div>
                         <p className="text-[10px] text-[var(--text-muted)]/60 mt-2 text-center">

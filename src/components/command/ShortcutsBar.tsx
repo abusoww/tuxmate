@@ -2,6 +2,7 @@
 
 import { forwardRef } from 'react';
 import { X } from 'lucide-react';
+import { useI18n } from '@/hooks/useI18n';
 
 interface ShortcutsBarProps {
     searchQuery: string;
@@ -26,6 +27,7 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
         selectedHelper,
         setSelectedHelper,
     }, ref) {
+        const { t } = useI18n();
 
         const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
             if (e.key === 'Escape' || e.key === 'Enter') {
@@ -53,7 +55,7 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
                                 value={searchQuery}
                                 onChange={(e) => onSearchChange(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                placeholder="search..."
+                                placeholder={t.footer.searchPlaceholder}
                                 className="
                                     w-20 sm:w-28
                                     bg-transparent
@@ -75,7 +77,7 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
                         {/* App count */}
                         {selectedCount > 0 && (
                             <div className="flex items-center px-3 py-1 text-[var(--text-muted)] border-r border-[var(--border-primary)]/30 whitespace-nowrap">
-                                [{selectedCount} app{selectedCount !== 1 ? 's' : ''}]
+                                [{selectedCount}]
                             </div>
                         )}
 
@@ -83,18 +85,18 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
                         {showAur && (
                             <div className="flex items-stretch border-r border-[var(--border-primary)]/30">
                                 <button
-                                    onClick={() => setSelectedHelper('yay')}
-                                    className={`px-3 flex items-center gap-1.5 text-[10px] font-medium transition-colors border-r border-[var(--border-primary)]/30 whitespace-nowrap ${selectedHelper === 'yay' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
+                                    onClick={() => setSelectedHelper('paru')}
+                                    className={`px-3 flex items-center gap-1.5 text-[10px] font-medium transition-colors border-r border-[var(--border-primary)]/30 whitespace-nowrap ${selectedHelper === 'paru' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
                                 >
                                     <span className="font-mono opacity-50">1</span>
-                                    yay
+                                    paru
                                 </button>
                                 <button
-                                    onClick={() => setSelectedHelper('paru')}
-                                    className={`px-3 flex items-center gap-1.5 text-[10px] font-medium transition-colors whitespace-nowrap ${selectedHelper === 'paru' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
+                                    onClick={() => setSelectedHelper('yay')}
+                                    className={`px-3 flex items-center gap-1.5 text-[10px] font-medium transition-colors whitespace-nowrap ${selectedHelper === 'yay' ? 'bg-[var(--text-primary)] text-[var(--bg-primary)] font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]'}`}
                                 >
                                     <span className="font-mono opacity-50">2</span>
-                                    paru
+                                    yay
                                 </button>
                             </div>
                         )}
@@ -104,26 +106,26 @@ export const ShortcutsBar = forwardRef<HTMLInputElement, ShortcutsBarProps>(
                     <div className="flex items-stretch">
                         <div className="hidden sm:flex items-center gap-3 px-3 py-1 text-[var(--text-muted)] text-[10px] border-l border-[var(--border-primary)]/30">
                             {/* Navigation */}
-                            <span className="hidden lg:inline"><b className="text-[var(--text-secondary)]">←↓↑→ </b>/<b className="text-[var(--text-secondary)]"> hjkl</b> Navigation</span>
+                            <span className="hidden lg:inline"><b className="text-[var(--text-secondary)]">←↓↑→ </b>/<b className="text-[var(--text-secondary)]"> hjkl</b> {t.footer.nav}</span>
                             <span className="hidden lg:inline opacity-30">·</span>
                             {/* Actions */}
-                            <span><b className="text-[var(--text-secondary)]">/</b> search</span>
+                            <span><b className="text-[var(--text-secondary)]">/</b> {t.footer.search}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">Space</b> toggle</span>
+                            <span><b className="text-[var(--text-secondary)]">Space</b> {t.footer.toggle}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">y</b> copy</span>
+                            <span><b className="text-[var(--text-secondary)]">y</b> {t.footer.copyShort}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">d</b> download</span>
+                            <span><b className="text-[var(--text-secondary)]">d</b> {t.footer.downloadShort}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">c</b> clear</span>
+                            <span><b className="text-[var(--text-secondary)]">c</b> {t.footer.clearShort}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">t</b> theme</span>
+                            <span><b className="text-[var(--text-secondary)]">t</b> {t.footer.themeShort}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">Tab</b> preview</span>
+                            <span><b className="text-[var(--text-secondary)]">Tab</b> {t.footer.previewShort}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">Esc</b> back</span>
+                            <span><b className="text-[var(--text-secondary)]">Esc</b> {t.footer.back}</span>
                             <span className="opacity-30">·</span>
-                            <span><b className="text-[var(--text-secondary)]">?</b> help</span>
+                            <span><b className="text-[var(--text-secondary)]">?</b> {t.footer.help}</span>
                         </div>
 
                         {/* End badge - like nvim line:col */}

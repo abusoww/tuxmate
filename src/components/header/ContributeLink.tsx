@@ -10,7 +10,7 @@ export function ContributeLink({ href = "https://github.com/abusoww/tuxmate/blob
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Contribute to TuxMate on GitHub"
+            aria-label="Contribute to ParchMate on GitHub"
             className="group flex items-center gap-1.5 text-sm text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors duration-300"
             onClick={() => analytics.contributeClicked()}
         >
