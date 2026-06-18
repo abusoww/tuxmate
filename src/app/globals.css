@@ -1,48 +1,55 @@
 @import "tailwindcss";
 
-/* ===== WARM PAPER AESTHETIC THEMES ===== */
+/* ===== WARM COPPER & NAVY AESTHETIC THEMES ===== */
 
 :root {
-    /* Dark theme - عمق دریا و فیروزه تیره */
-    --bg-primary: #0f1c20;      /* پس‌زمینه اصلی: تیره فیروزه‌ای خیلی تیره */
-    --bg-secondary: #16282d;    /* پس‌زمینه ثانویه: سبز دودی تیره */
-    --bg-tertiary: #1d363d;     /* پس‌زمینه ترشیاری: سبز دودی متوسط */
-    --bg-hover: #264649;        /* هاور: کمی روشن‌تر */
-    --bg-focus: #30565a;        /* فوکوس: سبز دودی رو به آبی */
-    
-    --text-primary: #e0f2f1;    /* متن اصلی: سفید مایل به فیروزه‌ای خیلی روشن */
-    --text-secondary: #b2dfdb;  /* متن ثانویه: فیروزه‌ای روشن مات */
-    --text-muted: #5eead4;      /* متن خاکستری/محو: سبز نعنایی روشن */
-    
-    --border-primary: #264649;
-    --border-secondary: #30565a;
-    
-    --accent: #2dd4bf;          /* اکسنت اصلی: فیروزه‌ای زنده و براق */
+    --bg-primary: #191724;
+    --bg-secondary: #1f1d2e;
+    --bg-tertiary: #2a273f;
+    --bg-hover: #363249;
+    --bg-focus: #423f58;
+
+    --text-primary: #e0def4;
+    --text-secondary: #c4b8d4;
+    --text-muted: #908caa;
+
+    --border-primary: #363249;
+    --border-secondary: #423f58;
+
+    --accent: #f6c177;
+    --accent-strong: #ebbcba;
+    --accent-dim: #c4a882;
 }
 
 .light {
-    /* Light theme - کاغذ کاهی سبز و نعنایی */
-    --bg-primary: #f0fdfa;      /* پس‌زمینه اصلی: سفید مایل to نعنایی (Mint Cream) */
-    --bg-secondary: #ccfbf1;   /* پس‌زمینه ثانویه: فیروزه‌ای خیلی کمرنگ */
-    --bg-tertiary: #99f6e4;     /* پس‌زمینه ترشیاری: فیروزه‌ای پاستلی */
-    --bg-hover: #5eead4;        /* هاور: فیروزه‌ای روشن */
-    --bg-focus: #2dd4bf;        /* فوکوس: فیروزه‌ای اصلی */
-    
-    --text-primary: #134e4a;    /* متن اصلی: سبز جنگلی تیره برای کنتراست */
-    --text-secondary: #115e59;  /* متن ثانویه: سبز دودی */
-    --text-muted: #0f766e;      /* متن خاکستری/محو: سبز فیروزه‌ای تیره */
-    
-    --border-primary: #99f6e4;
-    --border-secondary: #5eead4;
-    
-    --accent: #0d9488;          /* اکسنت اصلی: سبز دودی عمیق */
+    --bg-primary: #faf4ed;
+    --bg-secondary: #fff4ed;
+    --bg-tertiary: #f2e9e1;
+    --bg-hover: #e6ddd4;
+    --bg-focus: #d9cfc3;
+
+    --text-primary: #232136;
+    --text-secondary: #59546c;
+    --text-muted: #9893a5;
+
+    --border-primary: #e0d4c8;
+    --border-secondary: #cec4b8;
+
+    --accent: #d7827e;
+    --accent-strong: #b4637a;
+    --accent-dim: #c4a882;
 }
 
 @theme inline {
     --color-background: var(--bg-primary);
     --color-foreground: var(--text-primary);
-    --font-sans: var(--font-saira);
-    --font-mono: var(--font-fira-code);
+    --font-sans: var(--font-saira), var(--font-vazirmatn), sans-serif;
+    --font-mono: var(--font-fira-code), monospace;
+}
+
+/* RTL font stack - use Vazirmatn for Persian text */
+[dir="rtl"] {
+    --font-sans: var(--font-vazirmatn), var(--font-saira), sans-serif;
 }
 
 @layer theme {
@@ -418,6 +425,36 @@ html {
     transition: background 0.15s ease;
 }
 
+/* ===== GLASS EFFECT UTILITIES ===== */
+
+.glass-card {
+    background: color-mix(in srgb, var(--bg-secondary) 80%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, var(--border-primary) 50%, transparent);
+}
+
+.glass-card-hover {
+    background: color-mix(in srgb, var(--bg-secondary) 80%, transparent);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid color-mix(in srgb, var(--border-primary) 50%, transparent);
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.glass-card-hover:hover {
+    background: color-mix(in srgb, var(--bg-hover) 80%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    box-shadow: 0 8px 32px color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.glass-footer {
+    background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid color-mix(in srgb, var(--border-primary) 40%, transparent);
+}
+
 /* ===== ENTRANCE ANIMATION INITIAL STATES ===== */
 /* These prevent the flash of content before GSAP animates */
 
@@ -531,16 +568,6 @@ html {
     100% {
         opacity: 0;
         transform: translate(-50%, -48%) scale(0.96);
-    }
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-
-    100% {
-        opacity: 0;
     }
 }
 
@@ -756,4 +783,151 @@ body.theme-flash::after {
     backface-visibility: hidden;
     -webkit-perspective: 1000px;
     perspective: 1000px;
+}
+
+/* ===== SIDEBAR STYLES ===== */
+
+@keyframes sidebarSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.sidebar {
+    animation: sidebarSlideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+    background: color-mix(in srgb, var(--bg-primary) 85%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-right: 1px solid color-mix(in srgb, var(--border-primary), transparent 50%);
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+    width: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--text-muted), transparent 70%);
+    border-radius: 3px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in srgb, var(--text-muted), transparent 40%);
+}
+
+.sidebar-action-btn {
+    transition: background-color 0.15s ease, color 0.15s ease, opacity 0.15s ease, border-color 0.15s ease;
+    border: 1px solid var(--border-primary);
+}
+
+.sidebar-action-btn:hover:not(:disabled) {
+    background-color: var(--bg-hover);
+}
+
+.sidebar-action-btn:active:not(:disabled) {
+    opacity: 0.8;
+}
+
+.sidebar-search {
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.sidebar-search:focus-within {
+    border-color: var(--accent);
+    background: var(--bg-secondary);
+}
+
+.sidebar-command-preview {
+    transition: background-color 0.15s ease;
+}
+
+.sidebar-command-preview:hover {
+    background: var(--bg-hover);
+}
+
+.sidebar-distro-btn {
+    transition: background-color 0.15s ease;
+}
+
+.sidebar-distro-btn:hover {
+    filter: brightness(1.08);
+}
+
+@media (min-width: 1024px) {
+    .main-with-sidebar {
+        margin-left: 380px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .main-with-sidebar {
+        margin-left: 420px;
+    }
+}
+
+/* ===== RTL OVERRIDES ===== */
+
+[dir="rtl"] .sidebar {
+    left: auto;
+    right: 0;
+    border-right: none;
+    border-left: 1px solid color-mix(in srgb, var(--border-primary), transparent 50%);
+    animation: sidebarSlideInRtl 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+[dir="rtl"] .main-with-sidebar {
+    margin-left: 0;
+    margin-right: 380px;
+}
+
+@media (min-width: 1280px) {
+    [dir="rtl"] .main-with-sidebar {
+        margin-left: 0;
+        margin-right: 420px;
+    }
+}
+
+@keyframes sidebarSlideInRtl {
+    0% {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Flip icons in RTL for directional indicators */
+[dir="rtl"] .chevron-icon {
+    transform: scaleX(-1);
+}
+
+[dir="rtl"] .sidebar-distro-btn .chevron-icon {
+    transform: scaleX(-1);
+}
+
+/* RTL text alignment for sidebar content */
+[dir="rtl"] .sidebar-search input {
+    text-align: right;
+}
+
+[dir="rtl"] .sidebar-command-preview code {
+    direction: ltr;
+    text-align: left;
+    unicode-bidi: isolate;
+}
+
+/* RTL keyboard shortcuts grid */
+[dir="rtl"] .keyboard-grid > * {
+    direction: rtl;
 }

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Moon, Sun } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "@/hooks/useTheme"
+import { useI18n } from "@/hooks/useI18n"
 import { analytics } from "@/lib/analytics"
 
 interface ThemeToggleProps {
@@ -12,7 +13,9 @@ interface ThemeToggleProps {
 
 export function ThemeToggle({ className }: ThemeToggleProps) {
     const { theme, toggle } = useTheme()
+    const { dir } = useI18n()
     const [mounted, setMounted] = useState(false)
+    const isRtl = dir === 'rtl'
 
     // Prevent hydration mismatch by only rendering after mount
     useEffect(() => {
@@ -48,11 +51,16 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
             role="button"
             tabIndex={0}
         >
-            <div className="flex justify-between items-center w-full">
+            <div className={cn(
+                "flex justify-between items-center w-full",
+                isRtl ? "flex-row-reverse" : ""
+            )}>
                 <div
                     className={cn(
                         "flex justify-center items-center w-8 h-8 rounded-full transition-transform duration-300",
-                        isDark ? "transform translate-x-0" : "transform translate-x-10",
+                        isDark
+                            ? "transform translate-x-0"
+                            : (isRtl ? "transform -translate-x-10" : "transform translate-x-10"),
                         "bg-[var(--bg-tertiary)]"
                     )}
                 >
@@ -73,7 +81,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
                         "flex justify-center items-center w-8 h-8 rounded-full transition-transform duration-300",
                         isDark
                             ? "bg-transparent"
-                            : "transform -translate-x-10"
+                            : (isRtl ? "transform translate-x-10" : "transform -translate-x-10")
                     )}
                 >
                     {isDark ? (

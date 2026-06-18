@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Saira, Fira_Code } from "next/font/google";
+import { Saira, Fira_Code, Vazirmatn } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/hooks/useTheme";
+import { ClientRoot } from "./ClientRoot";
 
 const saira = Saira({
   variable: "--font-saira",
@@ -11,6 +12,11 @@ const saira = Saira({
 const firaCode = Fira_Code({
   variable: "--font-fira-code",
   subsets: ["latin"],
+});
+
+const vazirmatn = Vazirmatn({
+  variable: "--font-vazirmatn",
+  subsets: ["arabic"],
 });
 
 export const metadata: Metadata = {
@@ -50,21 +56,17 @@ export default function RootLayout({
   const cfBeacon = process.env.NEXT_PUBLIC_CF_BEACON_TOKEN;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <script>{themeScript}</script>
-        {/* {umamiId && (
-          <script defer src="https://cloud.umami.is/script.js" data-website-id={umamiId} />
-        )}
-        {cfBeacon && (
-          <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token": "${cfBeacon}"}`} />
-        )} */}
       </head>
       <body
-        className={`${saira.variable} ${firaCode.variable} antialiased`}
+        className={`${saira.variable} ${firaCode.variable} ${vazirmatn.variable} antialiased`}
       >
         <ThemeProvider>
-          {children}
+          <ClientRoot>
+            {children}
+          </ClientRoot>
         </ThemeProvider>
       </body>
     </html>
