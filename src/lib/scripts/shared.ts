@@ -35,8 +35,8 @@ export function generateAsciiHeader(distroName: string, pkgCount: number): strin
 #     ██║   ╚██████╔╝██╔╝ ██╗██║ ╚═╝ ██║██║  ██║   ██║   ███████╗
 #     ╚═╝    ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝
 #
-#  Linux App Installer
-#  https://github.com/abusoww/tuxmate
+#  ParchMate App Installer
+#  https://mate.parchlinux.com
 #
 #  Distribution: ${distroName}
 #  Packages: ${pkgCount}
