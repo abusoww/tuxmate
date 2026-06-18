@@ -1,0 +1,32 @@
+{
+    "packages": [
+        "discord",
+        "slack",
+        "zoom-us",
+        "teams",
+        "skypeforlinux",
+        "google-chrome",
+        "vivaldi",
+        "opera",
+        "spotify",
+        "steam",
+        "vscode",
+        "sublime",
+        "sublime4",
+        "jetbrains",
+        "nvidia-x11",
+        "dropbox",
+        "1password",
+        "masterpdfeditor",
+        "postman",
+        "obsidian",
+        "davinci-resolve",
+        "code-cursor",
+        "vagrant",
+        "jetbrains.idea",
+        "jetbrains.pycharm",
+        "jetbrains.clion",
+        "microsoft-edge",
+        "claude-code"
+    ]
+}
