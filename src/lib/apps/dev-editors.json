@@ -140,7 +140,7 @@
     "targets": {
       "ubuntu": "arduino",
       "debian": "arduino",
-      "arch": "arduino",
+      "arch": "arduino-ide-bin",
       "fedora": "arduino",
       "nix": "arduino-ide",
       "flatpak": "cc.arduino.IDE2",

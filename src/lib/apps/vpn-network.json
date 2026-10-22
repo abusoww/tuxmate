@@ -41,11 +41,11 @@
     "description": "Privacy-focused VPN with no-logging policy",
     "category": "VPN & Network",
     "targets": {
-      "arch": "mullvad-vpn-bin",
+      "arch": "mullvad-vpn",
       "nix": "mullvad-vpn",
       "homebrew": "--cask mullvad-vpn"
     },
-    "unavailableReason": "Not in official repos. Use [AUR](https://aur.archlinux.org/packages/mullvad-vpn-bin) or see [official install guide](https://mullvad.net/en/help/install-mullvad-app-linux).",
+    "unavailableReason": "Not in official repos. See the [official install guide](https://mullvad.net/en/help/install-mullvad-app-linux).",
     "icon": {
       "type": "iconify",
       "set": "simple-icons",

@@ -359,7 +359,7 @@
         "description": "Modern desktop API client for REST and GraphQL",
         "category": "Dev: Tools",
         "targets": {
-            "arch": "yaak-bin",
+            "arch": "yaak",
             "nix": "yaak",
             "homebrew": "--cask yaak"
         },

@@ -205,7 +205,7 @@
     "description": "A refined Matrix client focusing purely on user experience",
     "category": "Communication",
     "targets": {
-      "arch": "cinny-desktop-bin",
+      "arch": "cinny-desktop",
       "nix": "cinny-desktop",
       "flatpak": "in.cinny.Cinny"
     },

@@ -70,7 +70,7 @@
     "description": "Privacy-hardened Firefox fork with telemetry removed",
     "category": "Web Browsers",
     "targets": {
-      "arch": "librewolf-bin",
+      "arch": "librewolf",
       "nix": "librewolf",
       "flatpak": "io.gitlab.librewolf-community",
       "homebrew": "--cask librewolf"
