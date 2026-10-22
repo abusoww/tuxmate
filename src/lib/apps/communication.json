@@ -146,7 +146,7 @@
       "fedora": "thunderbird",
       "opensuse": "MozillaThunderbird",
       "nix": "thunderbird",
-      "flatpak": "org.mozilla.Thunderbird",
+      "flatpak": "org.mozilla.thunderbird",
       "snap": "thunderbird",
       "homebrew": "--cask thunderbird"
     },

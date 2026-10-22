@@ -141,7 +141,7 @@
             "arch": "kdenlive",
             "fedora": "kdenlive",
             "opensuse": "kdenlive",
-            "nix": "kdenlive",
+            "nix": "kdePackages.kdenlive",
             "flatpak": "org.kde.kdenlive",
             "snap": "kdenlive",
             "homebrew": "--cask kdenlive"
@@ -228,7 +228,7 @@
         "category": "Media",
         "targets": {
             "arch": "stremio",
-            "nix": "stremio",
+            "nix": "stremio-linux-shell",
             "flatpak": "com.stremio.Stremio",
             "homebrew": "--cask stremio"
         },

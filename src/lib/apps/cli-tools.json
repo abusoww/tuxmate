@@ -184,7 +184,7 @@
             "arch": "tldr",
             "fedora": "tldr",
             "nix": "tldr",
-            "homebrew": "tldr"
+            "homebrew": "tlrc"
         },
         "unavailableReason": "tldr is a CLI tool and not available on openSUSE, Flatpak, or Snap. For Debian 12 (Bookworm) or older and Ubuntu 24.04 or older use `sudo apt install -y tldr`",
         "icon": {

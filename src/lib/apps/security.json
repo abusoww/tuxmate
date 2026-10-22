@@ -6,7 +6,7 @@
         "category": "Security",
         "targets": {
             "arch": "bitwarden",
-            "nix": "bitwarden",
+            "nix": "bitwarden-desktop",
             "flatpak": "com.bitwarden.desktop",
             "snap": "bitwarden",
             "homebrew": "--cask bitwarden"

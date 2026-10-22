@@ -82,7 +82,7 @@
     "category": "Dev: Editors",
     "targets": {
       "arch": "intellij-idea-ultimate-edition",
-      "nix": "jetbrains.idea",
+      "nix": "intellij-idea",
       "flatpak": "com.jetbrains.IntelliJ-IDEA-Ultimate",
       "homebrew": "--cask intellij-idea",
       "snap": "intellij-idea --classic"
@@ -104,7 +104,7 @@
       "flatpak": "com.jetbrains.PyCharm-Professional",
       "homebrew": "--cask pycharm",
       "snap": "pycharm --classic",
-      "nix": "jetbrains.pycharm"
+      "nix": "pycharm"
     },
     "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/pycharm/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.PyCharm-Professional) / [Snap](https://snapcraft.io/pycharm).",
     "icon": {
@@ -123,7 +123,7 @@
       "flatpak": "com.jetbrains.CLion",
       "homebrew": "--cask clion",
       "snap": "clion --classic",
-      "nix": "jetbrains.clion"
+      "nix": "clion"
     },
     "unavailableReason": "Not in official repos, download from [JetBrains](https://www.jetbrains.com/clion/download/?section=linux) or use [Flatpak](https://flathub.org/en/apps/com.jetbrains.CLion) / [Snap](https://snapcraft.io/clion).",
     "icon": {
@@ -162,12 +162,12 @@
     "category": "Dev: Editors",
     "targets": {
       "arch": "sublime-text-4",
-      "nix": "sublime",
-      "flatpak": "com.sublimetext.three",
+      "nix": "sublime4",
+      "flatpak": "com.sublimehq.SublimeText",
       "snap": "sublime-text --classic",
       "homebrew": "--cask sublime-text"
     },
-    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.sublimetext.three)/[Snap](https://snapcraft.io/sublime-text) or follow instructions at [sublimetext.com/docs/linux_repositories](https://www.sublimetext.com/docs/linux_repositories.html).",
+    "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/en/apps/com.sublimehq.SublimeText)/[Snap](https://snapcraft.io/sublime-text) or follow instructions at [sublimetext.com/docs/linux_repositories](https://www.sublimetext.com/docs/linux_repositories.html).",
     "icon": {
       "type": "iconify",
       "set": "simple-icons",
@@ -231,7 +231,7 @@
       "fedora": "neovim",
       "opensuse": "neovim",
       "nix": "neovim",
-      "flatpak": "com.neovim.Neovim",
+      "flatpak": "io.neovim.nvim",
       "snap": "nvim --classic",
       "homebrew": "neovim"
     },
@@ -275,7 +275,7 @@
       "fedora": "helix",
       "opensuse": "helix",
       "nix": "helix",
-      "flatpak": "com.helix-editor.Helix",
+      "flatpak": "com.helix_editor.Helix",
       "snap": "helix --classic",
       "homebrew": "helix"
     },
@@ -298,7 +298,7 @@
       "debian": "micro",
       "fedora": "micro",
       "opensuse": "micro-editor",
-      "nix": "micro-editor",
+      "nix": "micro",
       "flatpak": "io.github.zyedidia.micro",
       "snap": "micro --classic",
       "homebrew": "micro"

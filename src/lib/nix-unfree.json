@@ -23,9 +23,9 @@
         "davinci-resolve",
         "code-cursor",
         "vagrant",
-        "jetbrains.idea",
-        "jetbrains.pycharm",
-        "jetbrains.clion",
+        "intellij-idea",
+        "pycharm",
+        "clion",
         "microsoft-edge",
         "claude-code"
     ]

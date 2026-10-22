@@ -165,7 +165,7 @@
             "arch": "cura",
             "fedora": "cura",
             "opensuse": "cura",
-            "nix": "cura",
+            "nix": "cura-appimage",
             "flatpak": "com.ultimaker.cura",
             "snap": "cura-slicer",
             "homebrew": "--cask ultimaker-cura"

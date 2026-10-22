@@ -140,9 +140,9 @@
         "category": "Dev: Languages",
         "targets": {
             "ubuntu": "openjdk-21-jdk",
-            "debian": "openjdk-17-jdk",
+            "debian": "openjdk-21-jdk",
             "arch": "jdk-openjdk",
-            "fedora": "java-21-openjdk",
+            "fedora": "java-25-openjdk",
             "opensuse": "java-21-openjdk",
             "nix": "openjdk",
             "homebrew": "openjdk"

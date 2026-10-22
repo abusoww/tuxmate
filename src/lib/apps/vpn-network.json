@@ -23,7 +23,7 @@
     "category": "VPN & Network",
     "targets": {
       "arch": "proton-vpn-gtk-app",
-      "nix": "protonvpn-gui",
+      "nix": "proton-vpn",
       "flatpak": "com.protonvpn.www",
       "homebrew": "--cask protonvpn"
     },

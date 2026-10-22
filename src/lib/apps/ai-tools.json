@@ -25,7 +25,7 @@
     "category": "AI Tools",
     "targets": {
       "npm": "@openai/codex",
-      "homebrew": "codex",
+      "homebrew": "--cask codex",
       "nix": "codex"
     },
     "note": "Requires Node.js runtime. Installed globally via npm where native packages are unavailable.",

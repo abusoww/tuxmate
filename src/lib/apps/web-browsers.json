@@ -318,7 +318,7 @@
       "arch": "floorp-bin",
       "flatpak": "one.ablaze.floorp",
       "homebrew": "--cask floorp",
-      "nix": "floorp"
+      "nix": "floorp-bin"
     },
     "unavailableReason": "Not in most official repos. Use [Flatpak](https://flathub.org/en/apps/one.ablaze.floorp) or see [floorp.app](https://floorp.app/download) for installation instructions",
     "icon": {

@@ -29,7 +29,7 @@
         "category": "Office",
         "targets": {
             "arch": "onlyoffice-bin",
-            "nix": "onlyoffice-bin",
+            "nix": "onlyoffice-desktopeditors",
             "flatpak": "org.onlyoffice.desktopeditors",
             "snap": "onlyoffice-desktopeditors",
             "homebrew": "--cask onlyoffice"
@@ -113,7 +113,7 @@
             "arch": "okular",
             "fedora": "okular",
             "opensuse": "okular",
-            "nix": "okular",
+            "nix": "kdePackages.okular",
             "flatpak": "org.kde.okular",
             "snap": "okular"
         },
@@ -215,12 +215,12 @@
         "description": "Hierarchical note-taking app with powerful features",
         "category": "Office",
         "targets": {
-            "arch": "trilium-bin",
+            "arch": "triliumnext-bin",
             "nix": "trilium-desktop",
-            "flatpak": "com.github.zadam.trilium",
+            "flatpak": "org.triliumnotes.Trilium",
             "homebrew": "--cask trilium-notes"
         },
-        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/com.github.zadam.trilium) or download from [github.com/zadam/trilium](https://github.com/zadam/trilium/releases).",
+        "unavailableReason": "Not in official repos. Use [Flatpak](https://flathub.org/apps/org.triliumnotes.Trilium) or download from [github.com/TriliumNext/Trilium](https://github.com/TriliumNext/Trilium/releases).",
         "icon": {
             "type": "iconify",
             "set": "simple-icons",
