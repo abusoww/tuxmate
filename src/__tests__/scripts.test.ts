@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { generateArchScript } from '@/lib/scripts/arch';
 import { generateUbuntuScript } from '@/lib/scripts/ubuntu';
 import { generateFlatpakScript } from '@/lib/scripts/flatpak';
+import { generateHomebrewScript } from '@/lib/scripts/homebrew';
 import type { PackageInfo } from '@/lib/scripts/shared';
 import type { AppData } from '@/lib/data';
 
@@ -78,6 +79,19 @@ describe('Script Generators', () => {
             const script = generateFlatpakScript([pkg]);
             expect(script).toContain('flatpak remote-add --if-not-exists flathub');
             expect(script).toContain('install_pkg "Mock Official App" "org.mock.App"');
+        });
+    });
+
+    describe('Homebrew Generator', () => {
+        const pkg: PackageInfo = { app: mockAppOfficial, pkg: 'mock-pkg' };
+
+        it('should load brew from its default prefixes before checking for it', () => {
+            const script = generateHomebrewScript([pkg]);
+            for (const prefix of ['/opt/homebrew', '/usr/local', '/home/linuxbrew/.linuxbrew']) {
+                expect(script).toContain(`${prefix}/bin/brew`);
+            }
+            expect(script).toContain('eval "$("$brew_bin" shellenv)"');
+            expect(script.indexOf('shellenv')).toBeLessThan(script.indexOf('command -v brew'));
         });
     });
 });
