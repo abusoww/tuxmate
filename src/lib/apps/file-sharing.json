@@ -101,7 +101,7 @@
             "nix": "filezilla",
             "flatpak": "org.filezillaproject.Filezilla"
         },
-        "unavailableReason": "FileZilla is not available as a Snap package.",
+        "unavailableReason": "FileZilla is not available as a Snap or Homebrew package.",
         "icon": {
             "type": "iconify",
             "set": "simple-icons",

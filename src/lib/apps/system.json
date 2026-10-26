@@ -34,7 +34,7 @@
             "nix": "partitionmanager",
             "flatpak": "org.kde.partitionmanager"
         },
-        "unavailableReason": "Not available as a Snap package.",
+        "unavailableReason": "Not available as a Snap or Homebrew package.",
         "icon": {
             "type": "iconify",
             "set": "simple-icons",
@@ -98,7 +98,7 @@
             "nix": "bleachbit",
             "flatpak": "org.bleachbit.BleachBit"
         },
-        "unavailableReason": "BleachBit is not available as a Snap package.",
+        "unavailableReason": "BleachBit is not available as a Snap or Homebrew package.",
         "icon": {
             "type": "url",
             "url": "https://raw.githubusercontent.com/chocolatey-community/chocolatey-packages/782707302851e7935c4a5a3e48e27140c774fa78/icons/bleachbit.svg"

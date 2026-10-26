@@ -222,9 +222,10 @@
             "fedora": "gnome-boxes",
             "opensuse": "gnome-boxes",
             "nix": "gnome-boxes",
-            "flatpak": "org.gnome.Boxes"
+            "flatpak": "org.gnome.Boxes",
+            "snap": "gnome-boxes"
         },
-        "unavailableReason": "GNOME Boxes is not available as a Snap package.",
+        "unavailableReason": "GNOME Boxes is not available as a Homebrew package.",
         "icon": {
             "type": "iconify",
             "set": "simple-icons",

@@ -59,7 +59,7 @@
             "nix": "celluloid",
             "flatpak": "io.github.celluloid_player.Celluloid"
         },
-        "unavailableReason": "Celluloid is not available as a Snap package.",
+        "unavailableReason": "Celluloid is not available as a Snap or Homebrew package.",
         "icon": {
             "type": "iconify",
             "set": "simple-icons",
@@ -81,7 +81,7 @@
             "nix": "strawberry",
             "flatpak": "org.strawberrymusicplayer.strawberry"
         },
-        "unavailableReason": "Strawberry is not available as a Snap package.",
+        "unavailableReason": "Strawberry is not available as a Snap or Homebrew package.",
         "icon": {
             "type": "url",
             "url": "https://www.strawberrymusicplayer.org/pictures/strawberry64.png"

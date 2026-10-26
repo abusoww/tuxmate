@@ -34,7 +34,7 @@
             "nix": "lutris",
             "flatpak": "net.lutris.Lutris"
         },
-        "unavailableReason": "Debian requires editing /etc/apt/sources.list adding \"contrib\" to the end of the line that starts with \"deb\" or \"deb-src\" and `sudo apt update` before installing `sudo apt install -y lutris`. Lutris is not available as a Snap package.",
+        "unavailableReason": "Debian requires editing /etc/apt/sources.list adding \"contrib\" to the end of the line that starts with \"deb\" or \"deb-src\" and `sudo apt update` before installing `sudo apt install -y lutris`. Lutris is not available as a Snap or Homebrew package.",
         "icon": {
             "type": "iconify",
             "set": "simple-icons",
@@ -173,7 +173,7 @@
             "nix": "antimicrox",
             "flatpak": "io.github.antimicrox.antimicrox"
         },
-        "unavailableReason": "Not available as a Snap package.",
+        "unavailableReason": "Not available as a Snap or Homebrew package.",
         "icon": {
             "type": "iconify",
             "set": "mdi",
@@ -195,7 +195,7 @@
             "nix": "goverlay",
             "flatpak": "io.github.benjamimgois.goverlay"
         },
-        "unavailableReason": "Not available as a Snap package.",
+        "unavailableReason": "Not available as a Snap or Homebrew package.",
         "icon": {
             "type": "iconify",
             "set": "mdi",

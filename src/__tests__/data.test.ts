@@ -58,6 +58,14 @@ describe('Data Module', () => {
                 expect(categories).toContain(app.category);
             });
         });
+
+        it('should mention Homebrew in Snap unavailability reasons when Homebrew is unavailable', () => {
+            const snapOnlyReasons = apps.filter(app =>
+                !app.targets.homebrew && /Snap package/i.test(app.unavailableReason || '')
+            );
+
+            expect(snapOnlyReasons).toEqual([]);
+        });
     });
 
     describe('categories', () => {
@@ -103,6 +111,12 @@ describe('Data Module', () => {
             const discord = apps.find(a => a.id === 'discord');
             expect(discord).toBeDefined();
             expect(isAppAvailable(discord!, 'ubuntu')).toBe(false);
+        });
+
+        it('should return true for GNOME Boxes on Snap', () => {
+            const gnomeBoxes = apps.find(a => a.id === 'gnomeboxes');
+            expect(gnomeBoxes).toBeDefined();
+            expect(isAppAvailable(gnomeBoxes!, 'snap')).toBe(true);
         });
     });
 });
