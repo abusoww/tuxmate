@@ -8,6 +8,7 @@ import { useTooltip } from '@/hooks/useTooltip';
 import { useKeyboardNavigation, type NavItem } from '@/hooks/useKeyboardNavigation';
 import { useVerification } from '@/hooks/useVerification';
 import { categories, getAppsByCategory } from '@/lib/data';
+import { getAppGridColumnCount } from '@/lib/responsiveLayout';
 
 import { ThemeToggle } from '@/components/ui/theme-toggle';
 import { HowItWorks, GitHubLink, ContributeLink } from '@/components/header';
@@ -151,11 +152,20 @@ export default function Home() {
             .filter(c => c.apps.length > 0);
     }, [searchQuery]);
 
-    const COLUMN_COUNT = 4;
+    const [appGridColumnCount, setAppGridColumnCount] = useState<2 | 3 | 4>(2);
+
+    useEffect(() => {
+        const updateColumnCount = () => {
+            setAppGridColumnCount(getAppGridColumnCount(window.innerWidth));
+        };
+        updateColumnCount();
+        window.addEventListener('resize', updateColumnCount);
+        return () => window.removeEventListener('resize', updateColumnCount);
+    }, []);
 
     const columns = useMemo(() => {
-        const cols: Array<typeof allCategoriesWithApps> = Array.from({ length: COLUMN_COUNT }, () => []);
-        const heights = Array(COLUMN_COUNT).fill(0);
+        const cols: Array<typeof allCategoriesWithApps> = Array.from({ length: appGridColumnCount }, () => []);
+        const heights = Array(appGridColumnCount).fill(0);
 
         allCategoriesWithApps.forEach(catData => {
             const minIdx = heights.indexOf(Math.min(...heights));
@@ -164,7 +174,7 @@ export default function Home() {
         });
 
         return cols;
-    }, [allCategoriesWithApps]);
+    }, [allCategoriesWithApps, appGridColumnCount]);
 
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => new Set(categories));
 
@@ -200,6 +210,10 @@ export default function Home() {
         toggleCategoryExpanded,
         toggleApp
     );
+
+    useEffect(() => {
+        clearFocus();
+    }, [appGridColumnCount, clearFocus]);
 
     const headerRef = useRef<HTMLElement>(null);
 
@@ -354,7 +368,8 @@ export default function Home() {
                         })()}
                     </div>
 
-                    <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-x-8 items-start">
+                    {/* Keep these CSS breakpoints aligned with getAppGridColumnCount. */}
+                    <div className="hidden grid-cols-2 lg:grid min-[1372px]:grid-cols-3 min-[1684px]:grid-cols-4 gap-x-8 items-start">
                         {columns.map((columnCategories, colIdx) => {
                             let globalIdx = 0;
                             for (let c = 0; c < colIdx; c++) {
