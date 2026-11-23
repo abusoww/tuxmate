@@ -31,6 +31,11 @@
     --accent: #a4937d;
 }
 
+/* The sidebar layout starts at lg. Below 1200px the sidebar leaves the app columns too narrow. */
+@theme {
+    --breakpoint-lg: 75rem;
+}
+
 @theme inline {
     --color-background: var(--bg-primary);
     --color-foreground: var(--text-primary);
@@ -802,7 +807,7 @@ body.theme-flash::after {
     filter: brightness(1.08);
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1200px) {
     .main-with-sidebar {
         margin-left: 380px;
     }
