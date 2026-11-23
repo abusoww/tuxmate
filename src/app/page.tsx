@@ -151,11 +151,20 @@ export default function Home() {
             .filter(c => c.apps.length > 0);
     }, [searchQuery]);
 
-    const COLUMN_COUNT = 4;
+    // Beside the sidebar, four columns only stay readable from 1500px.
+    const [columnCount, setColumnCount] = useState(4);
+
+    useEffect(() => {
+        const wide = window.matchMedia('(min-width: 1500px)');
+        const update = () => setColumnCount(wide.matches ? 4 : 3);
+        update();
+        wide.addEventListener('change', update);
+        return () => wide.removeEventListener('change', update);
+    }, []);
 
     const columns = useMemo(() => {
-        const cols: Array<typeof allCategoriesWithApps> = Array.from({ length: COLUMN_COUNT }, () => []);
-        const heights = Array(COLUMN_COUNT).fill(0);
+        const cols: Array<typeof allCategoriesWithApps> = Array.from({ length: columnCount }, () => []);
+        const heights = Array(columnCount).fill(0);
 
         allCategoriesWithApps.forEach(catData => {
             const minIdx = heights.indexOf(Math.min(...heights));
@@ -164,7 +173,7 @@ export default function Home() {
         });
 
         return cols;
-    }, [allCategoriesWithApps]);
+    }, [allCategoriesWithApps, columnCount]);
 
     const [expandedCategories, setExpandedCategories] = useState<Set<string>>(() => new Set(categories));
 
@@ -200,6 +209,9 @@ export default function Home() {
         toggleCategoryExpanded,
         toggleApp
     );
+
+    // Focus is kept as a column/row position, which points at another item once categories move between columns.
+    useEffect(() => clearFocus(), [columnCount, clearFocus]);
 
     const headerRef = useRef<HTMLElement>(null);
 
@@ -354,7 +366,7 @@ export default function Home() {
                         })()}
                     </div>
 
-                    <div className="hidden lg:grid lg:grid-cols-3 xl:grid-cols-4 gap-x-8 items-start">
+                    <div className="hidden lg:grid gap-x-8 items-start" style={{ gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` }}>
                         {columns.map((columnCategories, colIdx) => {
                             let globalIdx = 0;
                             for (let c = 0; c < colIdx; c++) {
